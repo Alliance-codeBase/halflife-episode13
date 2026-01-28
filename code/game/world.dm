@@ -391,7 +391,7 @@ GLOBAL_PROTECT(tracy_init_reason)
 
 	features += "Immersive HL2 themed server, MRP/HRP Action/Survival/City RP, playtesting, semi-persistence, RP & TDM gamemodes"
 
-	features += "https://discord.gg/DtuwX7jxku"
+	//features += "https://discord.gg/mJFCcwbPMD"
 
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
