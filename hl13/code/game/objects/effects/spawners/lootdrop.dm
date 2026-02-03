@@ -99,6 +99,9 @@
 /obj/effect/spawner/random/halflife/loot/scrap/three
 	spawn_loot_count = 3
 
+/obj/effect/spawner/random/halflife/loot/scrap/five
+	spawn_loot_count = 5
+
 //actual garbage, low level loot, and scraps
 /obj/effect/spawner/random/halflife/loot/trash
 	name = "trash loot"
@@ -447,6 +450,8 @@
 
 /obj/effect/spawner/random/halflife/pet_spawner
 	name = "pet spawner"
+	icon = 'hl13/icons/effects/random_spawners.dmi'
+	icon_state = "random_pet"
 	spawn_loot_count = 1
 	spawn_loot_chance = 5 //5% chance to get either a chumtoad or grub
 

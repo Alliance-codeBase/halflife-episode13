@@ -4,7 +4,7 @@
 
 // Shifted to glob so they are generated at world start instead of risking players doing preference stuff before the subsystem inits
 GLOBAL_LIST_INIT_TYPED(quirk_blacklist, /list/datum/quirk, list(
-	list(/datum/quirk/item_quirk/blindness, /datum/quirk/item_quirk/nearsighted, /datum/quirk/item_quirk/scarred_eye, /datum/quirk/eagle_eyed),
+	list(/datum/quirk/item_quirk/blindness, /datum/quirk/item_quirk/nearsighted, /datum/quirk/item_quirk/scarred_eye, /datum/quirk/eagle_eyed, /datum/quirk/tunnelvision),
 	list(/datum/quirk/item_quirk/blindness, /datum/quirk/touchy),
 	list(/datum/quirk/jolly, /datum/quirk/depression, /datum/quirk/apathetic, /datum/quirk/hypersensitive),
 	list(/datum/quirk/no_taste, /datum/quirk/vegetarian, /datum/quirk/cannibal),
@@ -21,11 +21,12 @@ GLOBAL_LIST_INIT_TYPED(quirk_blacklist, /list/datum/quirk, list(
 	list(/datum/quirk/poor_aim, /datum/quirk/bighands),
 	list(/datum/quirk/photophobia, /datum/quirk/nyctophobia),
 	list(/datum/quirk/numb, /datum/quirk/selfaware),
-	list(/datum/quirk/numb, /datum/quirk/masochist, /datum/quirk/badback), //hl13 edit
+	list(/datum/quirk/numb, /datum/quirk/masochist, /datum/quirk/badback, /datum/quirk/frail), //hl13 edit
 	list(/datum/quirk/overweight, /datum/quirk/underweight), //hl13 edit
 	list(/datum/quirk/item_quirk/smuggler, /datum/quirk/item_quirk/suitcase), //hl13 edit
 	list(/datum/quirk/spartan, /datum/quirk/all_nighter), //hl13 edit
 	list(/datum/quirk/filthborn, /datum/quirk/highborn), //hl13 edit
+	list(/datum/quirk/frail, /datum/quirk/stalwart), //hl13 edit
 	list(/datum/quirk/strong, /datum/quirk/weak), //hl13 edit
 	list(/datum/quirk/intelligent, /datum/quirk/unintelligent, /datum/quirk/brainproblems, /datum/quirk/genius), //hl13 edit
 	list(/datum/quirk/dextrous, /datum/quirk/undextrous, /datum/quirk/clumsy), //hl13 edit

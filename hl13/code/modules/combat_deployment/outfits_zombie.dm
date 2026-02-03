@@ -168,6 +168,7 @@
 	)
 
 	extra_str = -2 //emaciated
+	extra_end = -2
 	extra_dex = -2
 	mob_to_be = null
 
@@ -183,12 +184,12 @@
 
 	mob_to_be = /mob/living/basic/halflife/zombie/gonome/deployment
 
-/datum/outfit/deployment_loadout/xen/tier4/antlion_worker
-	name = "Deployment: Upgraded Antlion Worker"
-	display_name = "Upgraded Antlion Worker (Support)"
-	desc = "Despite your very low durability, you have powerful acid spray attacks for putting pressure on enemies from afar, which also deal triple damage against structures. You specialize in wearing down enemies and buildings from afar."
+/datum/outfit/deployment_loadout/xen/tier4/bullsquid
+	name = "Deployment: Bullsquid"
+	display_name = "Bullsquid (Support)"
+	desc = "Utilize your tanky build and high power acid to skirmish with foes from close to medium range."
 
-	mob_to_be = /mob/living/basic/halflife/antlion_worker/zombie_faction/upgraded
+	mob_to_be = /mob/living/basic/halflife/bullsquid/zombie_faction
 
 /datum/outfit/deployment_loadout/xen/tier4/antlion_grub
 	name = "Deployment: Upgraded Antlion Grub"
@@ -239,6 +240,7 @@
 	)
 
 	extra_str = 6
+	extra_end = 4
 	mob_to_be = null
 
 /datum/outfit/deployment_loadout/xen/tier5/heavy_crab_walker/pre_equip(mob/living/carbon/human/H)

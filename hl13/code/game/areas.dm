@@ -158,6 +158,15 @@
 /area/halflife/indoors/outlands
 	name = "\improper Outlands Indoors"
 
+/area/halflife/indoors/outlands/shop
+	first_time_text = "Refugee Shop - The Lost Haven"
+
+	mood_bonus = 2
+	mood_message = "I finally feel a moment of peace here, no matter how small that moment is."
+
+	ambient_music = 'hl13/sound/ambience/bgm/losthaven.ogg'
+	ambient_music_vol = 40
+
 /area/halflife/indoors/townhall
 	name = "\improper Town Hall"
 	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
@@ -573,6 +582,9 @@
 
 	first_time_text = "Engineering Area"
 
+	ambient_buzz = 'hl13/sound/ambience/industrial4.ogg'
+	ambient_buzz_vol = 70
+
 /area/halflife/indoors/prison/infirmary
 	name = "\improper Prison Infirmary"
 
@@ -582,6 +594,9 @@
 	name = "\improper Prison Cafeteria"
 
 	first_time_text = "Cafeteria"
+
+	ambient_buzz = 'hl13/sound/ambience/trainstation_ambient_loop1.ogg'
+	ambient_buzz_vol = 20
 
 /area/halflife/indoors/prison/factory
 	name = "\improper Prison Factory"
@@ -624,35 +639,35 @@
 
 	first_time_text = "Security Area"
 	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
+	ambient_buzz_vol = 12
 
-/area/halflife/indoors/prison/rehabilitation
+	ambient_music = 'hl13/sound/ambience/bgm/dark_interval_bgm_13.ogg'
+	ambient_music_vol = 17
+
+/area/halflife/indoors/prison/security/rehabilitation
 	name = "\improper Prison Rehabilitation Room"
 
 	first_time_text = "Rehabilitation Room"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
 
-/area/halflife/indoors/prison/solitary
+/area/halflife/indoors/prison/security/solitary
 	name = "\improper Solitary Confinement"
 
 	first_time_text = "Solitary Confinement"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
 
-/area/halflife/indoors/prison/armory
+/area/halflife/indoors/prison/security/armory
 	name = "\improper Prison Armory"
 
 	first_time_text = "Armory"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
 
-/area/halflife/indoors/prison/warden
+/area/halflife/indoors/prison/security/warden
 	name = "\improper Warden's Office"
 
 	first_time_text = "Warden's Office"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
+
+/area/halflife/indoors/prison/security/divisional
+	name = "\improper Divisional Lead's Office"
+
+	first_time_text = "Divisional Lead's Office"
 
 /area/halflife/indoors/prison/entrance
 	name = "\improper Prison Entrance"
