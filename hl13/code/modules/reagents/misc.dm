@@ -56,8 +56,8 @@
 	affected_mob.adjust_dizzy(-10 SECONDS * REM * seconds_per_tick)
 	affected_mob.adjust_drowsiness(-6 SECONDS * REM * seconds_per_tick)
 	affected_mob.AdjustSleeping(-4 SECONDS * REM * seconds_per_tick)
-	affected_mob.adjust_tiredness(-15 * REM * seconds_per_tick) //makes you feel awake
-	affected_mob.adjust_hydration(-5 * REM * seconds_per_tick) //diuretic
+	affected_mob.adjust_tiredness(-16 * REM * seconds_per_tick) //makes you feel awake
+	affected_mob.adjust_hydration(-4 * REM * seconds_per_tick) //diuretic
 
 /datum/reagent/consumable/greenflavor
 	name = "Green Flavoring"
@@ -125,6 +125,7 @@
 	affected_mob.change_stat(STATKEY_INT, 3)
 	affected_mob.change_stat(STATKEY_END, 3)
 	affected_mob.change_stat(STATKEY_DEX, 3)
+	affected_mob.throw_alert_text(/atom/movable/screen/alert/text/joke, "You feel funny.", override = FALSE)
 
 /datum/reagent/drug/chumtoad/on_mob_delete(mob/living/affected_mob)
 	. = ..()

@@ -26,7 +26,7 @@
 	name = "Deployment Refugee Captain"
 	jobtype = /datum/job/deployment_refugee_captain
 
-	suit = /obj/item/clothing/suit/armor/halflife/reinforced_brown_jacket
+	suit = /obj/item/clothing/suit/armor/halflife/reinforced_brown_jacket/speedy
 	mask = /obj/item/cigarette/halflife
 	suit_store = /obj/item/gun/ballistic/revolver/coltpython
 	belt = /obj/item/melee/baton
@@ -39,7 +39,7 @@
 	glasses = /obj/item/clothing/glasses/eyepatch
 	id = null
 
-	back = /obj/item/storage/backpack/halflife/satchel/radio
+	back = /obj/item/storage/backpack/halflife/satchel/radio/large
 
 	backpack_contents = list(
 		/obj/item/megaphone = 1,
@@ -64,6 +64,8 @@
 		info += "You are playing for the Rebel Side in the Payload gamemode! Move the cart to the combine base to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "the_hidden")
 		info += "You are part of a team hunting down an anomalous test subject known as The Hidden. Stick together with your squad, and try to put this invisible, merciless beast down. Alternatively, try to active all five combine distress terminals to win."
+	if(SSmapping.current_map.combat_deployment_gamemode == "ctf")
+		info += "You are playing for the Rebel Side in the Capture the Flag gamemode! Capture the enemy's flag and bring it back to your own flag enough times to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "xen_defense")
 		info += "You are playing for the Rebel Side in the Xen Defense gamemode! Protect your comms tower, gather cash, and keep incoming zombies and antlions at bay long enough for reinforcements to arrive."
 
@@ -75,14 +77,15 @@
 
 	ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, JOB_TRAIT)
 	ADD_TRAIT(H, TRAIT_TDMCAPTAIN, JOB_TRAIT)
+	ADD_TRAIT(H, TRAIT_SUPPLYRADIO_USER, JOB_TRAIT)
 	ADD_TRAIT(H, TRAIT_TDMPLAYER, JOB_TRAIT)
 
 	H.fire_stack_decay_rate = -2 //So their corpses don't stay perma on fire, and can be rediscovered. Max stack size is 12, and this removes 4 stacks every 2 seconds
 
-	H.change_stat(STATKEY_DEX, 4)
-	H.change_stat(STATKEY_STR, 4)
-	H.change_stat(STATKEY_END, 4)
-	H.change_stat(STATKEY_PER, 4)
+	H.change_stat(STATKEY_DEX, 5)
+	H.change_stat(STATKEY_STR, 5)
+	H.change_stat(STATKEY_END, 5)
+	H.change_stat(STATKEY_PER, 5)
 
 	H.reagents.add_reagent(/datum/reagent/medicine/adminordrazine, 3) //Gives you a few seconds of invincibility to prevent spawn camping
 

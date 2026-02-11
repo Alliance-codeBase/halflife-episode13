@@ -4,8 +4,8 @@ GLOBAL_VAR_INIT(deployment_rebels_cash, 0)
 	title = JOB_DEPLOYMENT_REFUGEE
 	description = "You are part of the resistance! You are able to get access to higher loadout tiers earlier than the combine, but have slightly weaker tier 3 and 4 loadouts."
 	department_head = list("Nobody")
-	total_positions = 65
-	spawn_positions = 65
+	total_positions = 70
+	spawn_positions = 70
 	supervisors = "nobody"
 	exp_granted_type = EXP_TYPE_CREW
 	paycheck = PAYCHECK_ZERO
@@ -32,6 +32,8 @@ GLOBAL_VAR_INIT(deployment_rebels_cash, 0)
 		info += "You are playing for the Rebel Side in the King of The Hill TDM game mode! Capture the central flag and keep it under your faction's control for a total of five minutes to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "payload")
 		info += "You are playing for the Rebel Side in the Payload gamemode! Move the cart to the combine base to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
+	if(SSmapping.current_map.combat_deployment_gamemode == "ctf")
+		info += "You are playing for the Rebel Side in the Capture the Flag gamemode! Capture the enemy's flag and bring it back to your own flag enough times to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "the_hidden")
 		info += "You are part of a team hunting down an anomalous test subject known as The Hidden. Stick together with your squad, and try to put this invisible, merciless beast down. Alternatively, try to active all five combine distress terminals to win."
 	if(SSmapping.current_map.combat_deployment_gamemode == "xen_defense")

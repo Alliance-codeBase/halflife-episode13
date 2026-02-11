@@ -31,6 +31,8 @@
 		info += "You are playing for the Combine Side in the King of The Hill TDM game mode! Capture the central flag and keep it under your faction's control for a total of five minutes to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "payload")
 		info += "You are playing for the Combine Side in the Payload gamemode! Defend the cart to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
+	if(SSmapping.current_map.combat_deployment_gamemode == "ctf")
+		info += "You are playing for the Combine Side in the Capture the Flag gamemode! Capture the enemy's flag and bring it back to your own flag enough times to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "the_hidden")
 		info += "You are part of a team hunting down an anomalous test subject known as The Hidden. Stick together with your squad, and try to put this invisible, merciless beast down. Alternatively, try to active all five combine distress terminals to win."
 
@@ -72,18 +74,20 @@
 	user.reagents.add_reagent(/datum/reagent/medicine/adminordrazine, 3) //Gives you a few seconds of invincibility to prevent spawn camping
 	ADD_TRAIT(user, TRAIT_VIRUSIMMUNE, JOB_TRAIT)
 	ADD_TRAIT(user, TRAIT_TDMCAPTAIN, JOB_TRAIT)
+	ADD_TRAIT(user, TRAIT_SUPPLYRADIO_USER, JOB_TRAIT)
 	ADD_TRAIT(user, TRAIT_TDMPLAYER, JOB_TRAIT)
 	ADD_TRAIT(user, TRAIT_NOHUNGER, JOB_TRAIT)
+	ADD_TRAIT(user, TRAIT_NOSOFTCRIT, JOB_TRAIT)
 
 	user.faction += "combine"
 	user.faction -= "neutral"
 
 	user.fire_stack_decay_rate = -2 //So their corpses don't stay perma on fire, and can be rediscovered. Max stack size is 12, and this removes 4 stacks every 2 seconds
 
-	user.change_stat(STATKEY_DEX, 4)
-	user.change_stat(STATKEY_STR, 4)
-	user.change_stat(STATKEY_END, 4)
-	user.change_stat(STATKEY_PER, 4)
+	user.change_stat(STATKEY_DEX, 2)
+	user.change_stat(STATKEY_STR, 5)
+	user.change_stat(STATKEY_END, 7)
+	user.change_stat(STATKEY_PER, 5)
 
 	var/obj/item/card/id/outfit_id = user.wear_id
 	if(outfit_id)
