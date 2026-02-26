@@ -11,8 +11,8 @@
 	maxHealth = 325
 	health = 325
 	harm_intent_damage = 25
-	melee_damage_lower = 18
-	melee_damage_upper = 24
+	melee_damage_lower = 20
+	melee_damage_upper = 25
 	sharpness = SHARP_EDGED
 	wound_bonus = 0
 	attack_vis_effect = ATTACK_EFFECT_CLAW
@@ -49,9 +49,15 @@
 	cmode_music = 'hl13/sound/music/combat/huntingparty.ogg' //practically a requirement
 
 /mob/living/simple_animal/hostile/halflife/hunter/deployment
-	maxHealth = 300
-	health = 300
-	speed = -0.5
+	maxHealth = 180
+	health = 180
+	speed = -0.66
+
+/mob/living/simple_animal/hostile/halflife/hunter/deployment/Life(seconds_per_tick = SSMOBS_DT, times_fired)
+	..()
+	if(stat)
+		return
+	adjustHealth(-maxHealth*0.01) //1.8 health every 2 seconds
 
 /mob/living/simple_animal/hostile/halflife/hunter/Aggro()
 	. = ..()

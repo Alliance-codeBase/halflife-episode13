@@ -231,6 +231,7 @@
 	icon_state = "combine_sniper"
 	inhand_icon_state = "combine_sniper"
 	fire_sound = 'hl13/sound/weapons/sniper.ogg'
+	dry_fire_sound = 'hl13/sound/weapons/empty_alyx.ogg'
 
 	var/charge_sound = 'hl13/sound/weapons/sniper_charge.ogg'
 
@@ -244,7 +245,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slowdown = 0.25
 
-	var/after_shot_delay = 1 SECONDS
+	var/after_shot_delay = 0.8 SECONDS
 
 	accepted_magazine_type = /obj/item/ammo_box/magazine/combine_sniper
 	pin = /obj/item/firing_pin/implant/mindshield
@@ -254,7 +255,7 @@
 	righthand_file = 'hl13/icons/mob/inhands/guns_righthand.dmi'
 
 /obj/item/gun/ballistic/combine_sniper/slow
-	after_shot_delay = 1.25 SECONDS
+	after_shot_delay = 1.15 SECONDS
 	fire_delay = 24
 
 /obj/item/gun/ballistic/combine_sniper/Initialize(mapload)
@@ -360,6 +361,11 @@
 
 /obj/item/gun/ballistic/revolver/coltpython/deathmatch_ranger
 	fire_delay = 12 //geared towards sniping, not mag dumping
+
+/obj/item/gun/ballistic/revolver/coltpython/well_crafted
+	name = "\improper well-crafted colt python"
+	desc = "A well maintained looking colt python. Just as accurate and powerful as any other colt, but the parts are better taken care of, allowing a faster firing rate."
+	fire_delay = 6
 
 // about 2.5 seconds TTK
 /obj/item/gun/ballistic/revolver/snubnose
@@ -535,7 +541,7 @@
 //Super freaking powerful shotgun, will pointblank 2 shot most people, even if they're wearing decent armor
 /obj/item/gun/ballistic/shotgun/pulse
 	name = "Pulse Shotgun"
-	desc = "A high power pulse shotgun that fires incredibly devestating rounds."
+	desc = "A high power pulse shotgun that fires incredibly devestating, but inaccurate rounds. Worst comes to worse, it is decent bludgeon as well."
 	icon = 'hl13/icons/obj/guns/projectile.dmi'
 	icon_state = "antixenshotgun"
 	slot_flags = ITEM_SLOT_SUITSTORE
@@ -543,9 +549,9 @@
 	rack_sound = "hl13/sound/weapons/antixen_pump.ogg"
 	load_sound = "hl13/sound/weapons/antixen_reload.ogg"
 	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/shot/pulse
-	force = 20
+	force = 15
 	recoil = 1.7
-	fire_delay = 20
+	fire_delay = 18
 	vary_fire_sound = FALSE
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
@@ -702,7 +708,8 @@
 	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/ballistic/rifle/boltaction/mosin_nagant/well_maintained
-	jamming_chance = 5
+	jamming_chance = 8
+	projectile_damage_multiplier = 1.45 //approx 40 damage a shot
 
 /obj/item/gun/ballistic/rifle/boltaction/mosin_nagant/start_empty
 	magazine = /obj/item/ammo_box/magazine/internal/boltaction/mosin/start_empty
@@ -740,7 +747,7 @@
 	vary_fire_sound = FALSE
 	accepted_magazine_type = /obj/item/ammo_box/magazine/pulselmg
 	force = 12
-	spread = 20
+	spread = 8
 	recoil = 0.1
 	fire_delay = 2
 	burst_size = 1
@@ -751,8 +758,8 @@
 	item_flags = SLOWS_WHILE_IN_HAND | NEEDS_PERMIT
 	pin = /obj/item/firing_pin/implant/mindshield
 
-	slowdown = 0.5
-	drag_slowdown = 0.5
+	slowdown = 0.75
+	drag_slowdown = 0.75
 
 	load_sound = 'hl13/sound/weapons/ar2_reload_rotate.ogg'
 	load_empty_sound = 'hl13/sound/weapons/ar2_reload_rotate.ogg'
@@ -817,7 +824,7 @@
 
 /obj/item/gun/ballistic/automatic/svd/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.55 SECONDS)
+	AddComponent(/datum/component/automatic_fire, 0.6 SECONDS)
 
 /obj/item/gun/ballistic/automatic/svd/Initialize(mapload)
 	. = ..()
@@ -885,22 +892,19 @@
 	name = "\improper Rocket Launcher"
 	desc = "A reusable rocket propelled grenade launcher. An arrow pointing toward the front of the launcher \
 		alongside the words \"Front Toward Enemy\" are printed on the tube. A sticker near the back of the launcher warns \
-		to \"CHECK BACKBLAST CLEAR BEFORE FIRING\", whatever that means. It's weight and heft prevent you from stowing it, and significantly slows you down."
+		to \"CHECK BACKBLAST CLEAR BEFORE FIRING\", whatever that means. It's weight and heft prevent you from stowing it, and significantly slows you down. Supposedly, the armor piercing rockets this thing fires excel at taking down Hunter synths."
 	icon = 'hl13/icons/obj/guns/projectile.dmi'
 	SET_BASE_PIXEL(0, 0)
 	accepted_magazine_type = /obj/item/ammo_box/magazine/internal/rocketlauncher_halflife
 	fire_sound = "hl13/sound/weapons/rocketfire1.ogg"
-	slot_flags = 0
 	vary_fire_sound = FALSE
 	pin = /obj/item/firing_pin
 	empty_indicator = TRUE
 
 	item_flags = SLOWS_WHILE_IN_HAND | NEEDS_PERMIT
 
-	w_class = WEIGHT_CLASS_GIGANTIC
-
-	slowdown = 1
-	drag_slowdown = 1
+	slowdown = 0.5
+	drag_slowdown = 0.5
 
 	spread = 0
 	recoil = 0

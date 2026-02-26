@@ -51,9 +51,9 @@
 
 /obj/item/reagent_containers/cup/soda_cans/breenwater/fuel
 	name = "breen-fuel can"
-	desc = "A special can of Breen's private reserve energy drinks. It has a strange after taste and makes you feel queezy, but you do at least feel more awake."
+	desc = "A discontinued can of Breen-Fuel. It was designed as a cheap energy drink which gave citizens extra energy to complete work for their benefactors, but production stopped after studies showed it had adverse health effects and the short term gains were not worth the longterm costs of lost labor."
 	icon_state = "breen_can_red"
-	list_reagents = list(/datum/reagent/consumable/breenfuel = 25)
+	list_reagents = list(/datum/reagent/consumable/breenfuel = 30)
 	custom_price = PAYCHECK_CREW * 2
 
 /obj/item/reagent_containers/cup/glass/mouthwash
@@ -66,7 +66,7 @@
 
 /obj/item/reagent_containers/cup/soda_cans/halflife/coffee
 	name = "Combine Coffee"
-	desc = "A dark beverage inside an equally dark metal can. It tastes like day-old burnt coffee. It's good at delaying the onset of tiredness, but isn't very useful if you're already very tired."
+	desc = "A dark beverage inside an equally dark metal can. It tastes like day-old burnt coffee. It's good at delaying the onset of tiredness, but is often not enough if you're already exhausted."
 	icon = 'hl13/icons/obj/drinks.dmi'
 	icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)

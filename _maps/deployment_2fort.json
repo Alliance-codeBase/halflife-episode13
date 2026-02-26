@@ -1,8 +1,8 @@
 {
 	"version": 1,
-	"map_name": "City 13 City at War (King of the Hill)",
-	"map_path": "map_files/deployment_city_koth",
-	"map_file": "deployment_city_koth.dmm",
+	"map_name": "City 13 2Fort",
+	"map_path": "map_files/deployment_2fort",
+	"map_file": "deployment_2fort.dmm",
 	"space_ruin_levels": 0,
 	"space_empty_levels": 0,
 	"planetary": 1,
@@ -19,8 +19,20 @@
 			"No Parallax": true,
 			"Linkage": null
 
+		},
+		{
+			"Baseturf": "/turf/open/openspace",
+			"Gravity": true,
+			"No Parallax": true,
+			"Linkage": null
+		},
+		{
+			"Baseturf": "/turf/open/openspace",
+			"Gravity": true,
+			"No Parallax": true,
+			"Linkage": null
 		}
 	],
 	"minetype": "combat_deployment",
-	"combat_deployment_gamemode": "koth"
+	"combat_deployment_gamemode": "ctf"
 }

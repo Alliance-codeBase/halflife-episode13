@@ -6,26 +6,22 @@ GLOBAL_LIST_INIT(availablecells, list(
 	"L4",
 	"L5",
 	"L6",
-	"L7",
 	"R1",
 	"R2",
 	"R3",
 	"R5", //R4 is for vorts, not R5, whoops
 	"R6",
-	"R7",
 	"L1",
 	"L2",
 	"L3",
 	"L4",
 	"L5",
 	"L6",
-	"L7",
 	"R1",
 	"R2",
 	"R3",
 	"R5", //if i dont do it this way it deletes two at once
 	"R6",
-	"R7",
 ))
 
 /*
@@ -43,7 +39,7 @@ Assistant
 	plasmaman_outfit = /datum/outfit/plasmaman
 	paycheck = PAYCHECK_CITIZEN // Get a job. Job reassignment changes your paycheck now. Get over it.
 
-	skills = list(/datum/skill/factorywork = SKILL_EXP_JOURNEYMAN) //HL13 edit, so long as they're prisoners who will do factory work a lot
+	skills = list(/datum/skill/factorywork = SKILL_EXP_JOURNEYMAN, /datum/skill/mining = SKILL_EXP_NOVICE) //HL13 edit, so long as they're prisoners who will do factory work a lot
 
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
@@ -87,6 +83,8 @@ Assistant
 	. = ..()
 
 	var/cell = "NULL"
+
+	ADD_TRAIT(user, TRAIT_PRISONER, JOB_TRAIT)
 
 	if(length(GLOB.availablecells) > 0)
 		if(user.mind)

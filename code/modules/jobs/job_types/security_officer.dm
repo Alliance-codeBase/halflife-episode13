@@ -4,8 +4,8 @@
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_HEAD_OF_SECURITY)
 	faction = FACTION_STATION
-	total_positions = 4 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
-	spawn_positions = 4 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
+	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
+	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
 	supervisors = "the Divisional Lead"
 	minimal_player_age = 7
 	exp_requirements = 120
@@ -238,6 +238,8 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 	user.change_stat(STATKEY_DEX, 2)
 	user.change_stat(STATKEY_STR, 1)
+	user.change_stat(STATKEY_END, 1)
+	user.change_stat(STATKEY_PER, 1)
 
 	var/currentrankpoints = 0
 
@@ -264,15 +266,15 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 		if(department == SEC_DEPT_DEFENDER)
 			name_source = list ("Defender")
 			user.change_stat(STATKEY_DEX, -1)
-			user.change_stat(STATKEY_STR, 1)
+			user.change_stat(STATKEY_END, 1)
 		if(department == SEC_DEPT_JURY)
 			name_source = list ("Jury")
 			user.change_stat(STATKEY_DEX, -1)
 			user.change_stat(STATKEY_STR, 1)
 		if(department == SEC_DEPT_RANGER)
 			name_source = list ("Ranger")
-			user.change_stat(STATKEY_DEX, 1)
 			user.change_stat(STATKEY_STR, -1)
+			user.change_stat(STATKEY_PER, 2)
 		if(department == SEC_DEPT_QUICK)
 			name_source = list ("Quick")
 			user.change_stat(STATKEY_DEX, 1)

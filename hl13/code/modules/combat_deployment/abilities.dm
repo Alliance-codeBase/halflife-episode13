@@ -7,7 +7,7 @@
 
 	spell_requirements = NONE
 	antimagic_flags = NONE
-	cooldown_time = 25 SECONDS
+	cooldown_time = 22 SECONDS
 	item_type = /obj/item/reagent_containers/pill/patch/medkit
 	requires_hands = TRUE
 	delete_old = FALSE
@@ -46,13 +46,13 @@
 
 	spell_requirements = NONE
 	antimagic_flags = NONE
-	cooldown_time = 60 SECONDS
+	cooldown_time = 50 SECONDS
 	item_type = /obj/item/stack/razorwire/small_stack
 	requires_hands = TRUE
 	delete_old = FALSE
 
 /datum/action/cooldown/spell/conjure_item/razor_wire/slow
-	cooldown_time = 90 SECONDS
+	cooldown_time = 80 SECONDS
 
 /datum/action/cooldown/spell/conjure_item/tinbomb
 	name = "Procure Tinbomb"
@@ -63,10 +63,52 @@
 
 	spell_requirements = NONE
 	antimagic_flags = NONE
-	cooldown_time = 25 SECONDS
+	cooldown_time = 20 SECONDS
 	item_type = /obj/item/grenade/halflife/tinbomb
 	requires_hands = TRUE
 	delete_old = TRUE
+
+/datum/action/cooldown/spell/conjure_item/rocket
+	name = "Procure RPG Rocket"
+	desc = "Procures a rocket for you to use in rocket launchers."
+	button_icon = 'hl13/icons/mob/actions/actions_misc.dmi'
+	button_icon_state = "rocket"
+	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	cooldown_time = 25 SECONDS
+	item_type = /obj/item/ammo_casing/rocket/hl13
+	requires_hands = TRUE
+	delete_old = FALSE
+
+/datum/action/cooldown/spell/conjure_item/svd_ammo
+	name = "Procure SVD Dragunov Magazine"
+	desc = "Procures a magazine for you to use in your sniper rifle."
+	button_icon = 'hl13/icons/obj/guns/ammo.dmi'
+	button_icon_state = "m308small"
+	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	cooldown_time = 30 SECONDS
+	item_type = /obj/item/ammo_box/magazine/svd
+	requires_hands = TRUE
+	delete_old = FALSE
+
+/datum/action/cooldown/spell/conjure_item/overseer_viscerator
+	name = "Procure Shielded Viscerator"
+	desc = "Procures a deployable, shielded viscerator."
+	button_icon = 'hl13/icons/mob/actions/actions_misc.dmi'
+	button_icon_state = "viscerator"
+	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	cooldown_time = 25 SECONDS
+	item_type = /obj/item/grenade/spawnergrenade/manhacks/shielded
+	requires_hands = TRUE
+	delete_old = FALSE
 
 /datum/action/cooldown/spell/conjure_item/grenade
 	name = "Procure Grenade"
@@ -123,8 +165,8 @@
 
 	victim.add_mood_event("rally", /datum/mood_event/rallied)
 	victim.adjustStaminaLoss(-60)
-	victim.adjustBruteLoss(-20)
-	victim.adjustFireLoss(-20)
+	victim.adjustBruteLoss(-25)
+	victim.adjustFireLoss(-25)
 
 	if(victim != caster)
 		to_chat(victim, span_boldnicegreen("You feel inspired to fight!"))

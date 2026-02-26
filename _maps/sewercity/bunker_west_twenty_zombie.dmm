@@ -216,6 +216,14 @@
 /area/halflife/indoors/bunker)
 "nr" = (
 /obj/structure/table/halflife/metal/grate,
+/obj/item/ammo_box/magazine/m4a1/service{
+	pixel_x = 7;
+	pixel_y = 1
+	},
+/obj/item/ammo_box/magazine/m4a1/service{
+	pixel_x = -10;
+	pixel_y = 10
+	},
 /turf/open/floor/plating/indoor/concrete/bricks,
 /area/halflife/indoors/bunker)
 "pR" = (
@@ -408,7 +416,7 @@
 /turf/open/floor/plating/indoor/concrete/small,
 /area/halflife/indoors/bunker)
 "DB" = (
-/turf/closed/wall/halflife/concrete,
+/turf/closed/wall/halflife/concrete/bunker,
 /area/halflife/indoors/bunker)
 "En" = (
 /obj/item/ammo_casing/spent,
@@ -720,7 +728,7 @@
 /area/halflife/indoors/bunker)
 "SR" = (
 /obj/effect/baseturf_helper/halflife/underground,
-/turf/closed/wall/halflife/concrete,
+/turf/closed/wall/halflife/concrete/bunker,
 /area/halflife/indoors/bunker)
 "Tc" = (
 /obj/item/reagent_containers/cup/glass/waterbottle/large/empty{
@@ -835,7 +843,9 @@
 	dir = 4
 	},
 /obj/structure/closet/halflife/wall/firstaid,
-/obj/effect/spawner/random/halflife/loot/heal,
+/obj/item/stack/medical/suture,
+/obj/item/reagent_containers/hypospray/medipen/oxycodone,
+/obj/item/stack/medical/gauze,
 /turf/open/floor/plating/indoor/concrete/bricks,
 /area/halflife/indoors/bunker)
 "ZW" = (

@@ -214,6 +214,46 @@
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/cigarette/halflife
 
+/// plf recruiter /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/mob/living/basic/trader/halflife/plf_recruiter
+	name = "Polish Liberation Front Recruiter"
+	desc = "A represenative of the local PLF cell. They are looking to recruit local prisoners and escaped vortigaunts who wish to fight back against the combine."
+
+	maxHealth = 200
+	health = 200
+	blood_volume = BLOOD_VOLUME_NORMAL
+
+	spawner_path = /obj/effect/mob_spawn/corpse/human/plf_recruiter
+	loot = list(/obj/effect/mob_spawn/corpse/human/plf_recruiter)
+
+	ranged_attack_casing = /obj/item/ammo_casing/a357
+	ranged_attack_sound = 'hl13/sound/weapons/revolverfire.ogg'
+	held_weapon_visual = /obj/item/gun/ballistic/revolver/coltpython
+
+	trader_data_path = /datum/trader_data/halflife/plf_recruiter
+
+	ai_controller = /datum/ai_controller/basic_controller/trader/halflife
+
+	faction = list(FACTION_REFUGEE)
+
+/obj/effect/mob_spawn/corpse/human/plf_recruiter
+	name = "Polish Liberation Front Recruiter"
+	hairstyle = "Short Hair 2"
+	haircolor = COLOR_BLACK
+	facial_hairstyle = "Beard (Full)"
+	skin_tone = "caucasian2"
+	outfit = /datum/outfit/plf_recruiter
+
+/datum/outfit/plf_recruiter
+	name = "Polish Liberation Front Recruiter"
+
+	uniform = /obj/item/clothing/under/citizen/refugee
+	suit = /obj/item/clothing/suit/armor/halflife/reinforced_brown_jacket
+	head = /obj/item/clothing/head/beret/sec/poland
+	shoes = /obj/item/clothing/shoes/boots
+	gloves = /obj/item/clothing/gloves/combat
+	mask = /obj/item/cigarette/halflife
+
 ///////////////// AI STUFF & TRADER DATA ////////////////////////////////////
 
 /datum/trader_data/halflife/smuggler
@@ -225,17 +265,19 @@
 		/obj/item/ammo_box/magazine/makeshift9mm = list(PAYCHECK_CREW * 2, 3),
 		/obj/item/gun/ballistic/automatic/pistol/makeshift = list(PAYCHECK_CREW * 4.5, 3),
 		/obj/item/weaponcrafting/frame/usp = list(PAYCHECK_CREW * 5.5, 1),
-		/obj/item/reagent_containers/pill/patch/medkit/vial = list(PAYCHECK_CREW * 1.75, 3),
-		/obj/item/reagent_containers/hypospray/medipen/healthpen = list(PAYCHECK_CREW * 1.75, 3),
-		/obj/item/clothing/suit/armor/civilprotection = list(PAYCHECK_CREW * 6, 3),
+		/obj/item/reagent_containers/pill/patch/medkit/vial = list(PAYCHECK_CREW * 1.5, 3),
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = list(PAYCHECK_CREW * 1.5, 3),
+		/obj/item/clothing/suit/armor/civilprotection = list(PAYCHECK_CREW * 5, 3),
 		/obj/item/clothing/head/helmet/halflife/military/weak/crafted = list(PAYCHECK_CREW * 2.5, 3),
-		/obj/item/grenade/halflife/molotov = list(PAYCHECK_CREW * 3.5, 3),
-		/obj/item/reagent_containers/cup/glass/bottle/vodka = list(PAYCHECK_CREW * 3, 3),
+		/obj/item/grenade/halflife/molotov = list(PAYCHECK_CREW * 2.5, 3),
+		/obj/item/reagent_containers/cup/glass/bottle/vodka = list(PAYCHECK_CREW * 2, 3),
+		/obj/item/reagent_containers/cup/glass/bottle/whiskey = list(PAYCHECK_CREW * 2, 3),
+		/obj/item/reagent_containers/cup/glass/bottle/beer = list(PAYCHECK_CREW, 3),
 		/obj/item/stack/sticky_tape = list(PAYCHECK_CREW * 4, 2),
 		/obj/item/weaponcrafting/receiver = list(PAYCHECK_CREW * 3, 3),
 		/obj/item/stack/bulletcasings = list(PAYCHECK_CREW * 0.5, 5),
 		/obj/item/clothing/under/citizen/rebel = list(PAYCHECK_CREW * 4.5, 2),
-		/obj/item/storage/backpack/halflife/satchel = list(PAYCHECK_CREW * 5, 3),
+		/obj/item/storage/backpack/halflife/satchel = list(PAYCHECK_CREW * 4, 3),
 		/obj/item/switchblade = list(PAYCHECK_CREW * 5, 2),
 		/obj/item/toy/crayon/spraycan = list(PAYCHECK_CREW, 2),
 		/obj/item/cigarette/halflife = list(PAYCHECK_CREW * 0.75, 10),
@@ -244,7 +286,7 @@
 		/obj/item/lighter = list(PAYCHECK_CREW * 0.75, 3),
 		/obj/item/food/canned/halflife/beans = list(PAYCHECK_CREW * 2, 3),
 		/obj/item/reagent_containers/pill/antitox = list(PAYCHECK_CREW * 1.25, 3),
-		/obj/item/machinepiece/multifunctiontool = list(PAYCHECK_CREW * 6, 3),
+		/obj/item/card/emag/halflife = list(PAYCHECK_CREW * 8, 3),
 		/obj/item/halflife/antenna = list(PAYCHECK_CREW * 6, 3),
 		/obj/item/stack/kevlar = list(PAYCHECK_CREW, 5, 1),
 		/obj/item/crowbar/large = list(PAYCHECK_CREW * 5, 1),
@@ -280,6 +322,8 @@
 		/obj/item/food/xen/xenbranch = list(PAYCHECK_CREW * 0.25, 5, ""),
 		/obj/item/clothing/suit/armor/browncoat = list(PAYCHECK_CREW, 3, ""),
 		/obj/item/weaponcrafting/frame = list(PAYCHECK_CREW * 2.5, 3, ""),
+		/obj/item/stack/telecrystal = list(PAYCHECK_CREW, 10, ""),
+		/obj/item/weaponcrafting/receiver = list(PAYCHECK_CREW, 1.5, ""),
 	)
 
 	say_phrases = list(
@@ -413,10 +457,10 @@
 	sociostability_loss = -1
 
 	initial_products = list(
-		/obj/item/clothing/head/helmet/halflife/headcrab = list(PAYCHECK_CREW * 2.5, 5),
-		/obj/item/clothing/suit/armor/platearmor = list(PAYCHECK_CREW * 3.5, 5),
-		/obj/item/clothing/head/helmet/halflife/headcrab/gonome = list(PAYCHECK_CREW * 4.5, 1),
-		/obj/item/clothing/suit/armor/platearmor/heavy = list(PAYCHECK_CREW * 7.5, 1),
+		/obj/item/clothing/head/helmet/halflife/headcrab = list(PAYCHECK_CREW * 2.25, 5),
+		/obj/item/clothing/suit/armor/platearmor = list(PAYCHECK_CREW * 3.25, 5),
+		/obj/item/clothing/head/helmet/halflife/headcrab/gonome = list(PAYCHECK_CREW * 4.25, 1),
+		/obj/item/clothing/suit/armor/platearmor/heavy = list(PAYCHECK_CREW * 7.25, 1),
 		/obj/item/clothing/mask/bandana/sinew = list(PAYCHECK_CREW * 0.5, 2),
 		/obj/item/food/meat/steak/xen = list(PAYCHECK_CREW * 1.25, 1),
 		/obj/item/knife/combat = list(PAYCHECK_CREW * 6, 3),
@@ -513,26 +557,27 @@
 	sociostability_loss = -2
 
 	initial_products = list(
-		/obj/item/ammo_box/magazine/makeshift9mm = list(PAYCHECK_CREW * 2, 5),
-		/obj/item/ammo_box/magazine/usp9mm = list(PAYCHECK_CREW * 4, 5),
-		/obj/item/ammo_box/magazine/mp7 = list(PAYCHECK_CREW * 4, 5),
-		/obj/item/ammo_box/colta357 = list(PAYCHECK_CREW * 4, 5),
+		/obj/item/ammo_box/magazine/makeshift9mm = list(PAYCHECK_CREW, 5),
+		/obj/item/ammo_box/magazine/usp9mm = list(PAYCHECK_CREW * 2, 5),
+		/obj/item/ammo_box/magazine/mp7 = list(PAYCHECK_CREW * 3, 5),
+		/obj/item/ammo_box/colta357 = list(PAYCHECK_CREW * 3, 5),
+		/obj/item/ammo_box/strilka310/a762 = list(PAYCHECK_CREW * 2, 5),
 		/obj/item/gun/ballistic/automatic/pistol/makeshift = list(PAYCHECK_CREW * 4.5, 5),
-		/obj/item/gun/ballistic/automatic/pistol/usp = list(PAYCHECK_CREW * 9, 2),
-		/obj/item/gun/ballistic/rifle/boltaction/mosin_nagant = list(PAYCHECK_CREW * 11, 1),
-		/obj/item/gun/ballistic/automatic/mp7 = list(PAYCHECK_CREW * 13, 1),
-		/obj/item/gun/ballistic/revolver/coltpython = list(PAYCHECK_CREW * 14, 1),
+		/obj/item/gun/ballistic/automatic/pistol/usp = list(PAYCHECK_CREW * 8, 2),
+		/obj/item/gun/ballistic/rifle/boltaction/mosin_nagant = list(PAYCHECK_CREW * 10, 1),
+		/obj/item/gun/ballistic/automatic/mp7 = list(PAYCHECK_CREW * 12, 1),
+		/obj/item/gun/ballistic/revolver/coltpython = list(PAYCHECK_CREW * 13, 1),
 		/obj/item/gun/ballistic/rifle/rebarxbow = list(PAYCHECK_CREW * 7.5, 3),
-		/obj/item/clothing/suit/armor/civilprotection = list(PAYCHECK_CREW * 5, 3),
+		/obj/item/clothing/suit/armor/civilprotection = list(PAYCHECK_CREW * 4, 3),
 		/obj/item/clothing/head/helmet/halflife/military/weak/crafted = list(PAYCHECK_CREW * 2.5, 5),
-		/obj/item/clothing/head/helmet/halflife/military = list(PAYCHECK_CREW * 6, 5),
-		/obj/item/grenade/halflife/molotov = list(PAYCHECK_CREW * 3, 5),
-		/obj/item/weaponcrafting/receiver = list(PAYCHECK_CREW * 2.5, 5),
+		/obj/item/clothing/head/helmet/halflife/military = list(PAYCHECK_CREW * 4, 5),
+		/obj/item/grenade/halflife/molotov = list(PAYCHECK_CREW * 2, 5),
+		/obj/item/weaponcrafting/receiver = list(PAYCHECK_CREW * 2, 5),
 		/obj/item/stack/bulletcasings = list(PAYCHECK_CREW * 0.5, 5),
 		/obj/item/clothing/under/citizen/rebel = list(PAYCHECK_CREW * 4, 5),
-		/obj/item/clothing/suit/armor/rebel = list(PAYCHECK_CREW * 10, 1),
-		/obj/item/switchblade = list(PAYCHECK_CREW * 4, 2),
-		/obj/item/clothing/mask/gas/hl2/military = list(PAYCHECK_CREW * 3, 3),
+		/obj/item/clothing/suit/armor/rebel = list(PAYCHECK_CREW * 9, 1),
+		/obj/item/switchblade = list(PAYCHECK_CREW * 3, 2),
+		/obj/item/clothing/mask/gas/hl2/military = list(PAYCHECK_CREW * 2, 3),
 		/obj/item/stack/kevlar = list(PAYCHECK_CREW, 5),
 	)
 
@@ -544,10 +589,11 @@
 		/obj/item/clothing/suit/armor/civilprotection = list(PAYCHECK_CREW * 2.5, 5, ""),
 		/obj/item/gun/ballistic/automatic/pistol/makeshift = list(PAYCHECK_CREW * 2, 3, ""),
 		/obj/item/clothing/suit/armor/browncoat = list(PAYCHECK_CREW, 3, ""),
-		/obj/item/weaponcrafting/frame = list(PAYCHECK_CREW * 3, 3, ""),
+		/obj/item/weaponcrafting/frame = list(PAYCHECK_CREW * 4.5, 3, ""),
 		/obj/item/gun/ballistic/automatic/ar2 = list(PAYCHECK_CREW * 12, 3, ""),
 		/obj/item/gun/ballistic/automatic/pulsesmg = list(PAYCHECK_CREW * 10, 3, ""),
 		/obj/item/gun/ballistic/combine_sniper = list(PAYCHECK_CREW * 14, 3, ""),
+		/obj/item/weaponcrafting/receiver = list(PAYCHECK_CREW, 1.75, ""),
 	)
 
 	say_phrases = list(
@@ -644,30 +690,34 @@
 	sociostability_loss = -1
 
 	initial_products = list(
-		/obj/item/reagent_containers/pill/patch/medkit/vial = list(PAYCHECK_CREW * 1.5, 5),
-		/obj/item/reagent_containers/hypospray/medipen/healthpen = list(PAYCHECK_CREW * 1.5, 5),
-		/obj/item/reagent_containers/cup/glass/bottle/vodka = list(PAYCHECK_CREW * 3, 5),
-		/obj/item/stack/sticky_tape = list(PAYCHECK_CREW * 3.5, 5),
-		/obj/item/clothing/under/citizen/refugee = list(PAYCHECK_CREW * 0.75, 5),
-		/obj/item/storage/backpack/halflife/satchel = list(PAYCHECK_CREW * 3.5, 3),
-		/obj/item/toy/crayon/spraycan = list(PAYCHECK_CREW, 2),
+		/obj/item/reagent_containers/pill/patch/medkit/vial = list(PAYCHECK_CREW * 1.25, 5),
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = list(PAYCHECK_CREW * 1.25, 5),
+		/obj/item/reagent_containers/cup/glass/bottle/vodka = list(PAYCHECK_CREW * 1.5, 5),
+		/obj/item/reagent_containers/cup/glass/bottle/whiskey = list(PAYCHECK_CREW * 1.5, 5),
+		/obj/item/reagent_containers/cup/glass/bottle/beer = list(PAYCHECK_CREW * 0.75, 10),
+		/obj/item/stack/sticky_tape = list(PAYCHECK_CREW * 3, 5),
+		/obj/item/clothing/under/citizen/refugee = list(PAYCHECK_CREW * 0.5, 5),
+		/obj/item/storage/backpack/halflife/satchel = list(PAYCHECK_CREW * 3, 3),
+		/obj/item/toy/crayon/spraycan = list(PAYCHECK_CREW * 0.5, 2),
 		/obj/item/cigarette/halflife = list(PAYCHECK_CREW * 0.5, 10),
 		/obj/item/reagent_containers/cup/soup_pot = list(PAYCHECK_CREW, 3),
-		/obj/item/lighter = list(PAYCHECK_CREW * 0.75, 3),
+		/obj/item/lighter = list(PAYCHECK_CREW * 0.5, 3),
 		/obj/item/food/canned/halflife/beans = list(PAYCHECK_CREW * 2, 3),
-		/obj/item/reagent_containers/pill/antitox = list(PAYCHECK_CREW * 1.25, 3),
-		/obj/item/machinepiece/multifunctiontool = list(PAYCHECK_CREW * 4, 3),
-		/obj/item/halflife/antenna = list(PAYCHECK_CREW * 5, 3),
-		/obj/item/crowbar/large = list(PAYCHECK_CREW * 3.5, 1),
+		/obj/item/halflife/nutrient_bar_wrapping/water = list(PAYCHECK_CREW * 1, 3),
+		/obj/item/reagent_containers/pill/antitox = list(PAYCHECK_CREW, 3),
+		/obj/item/card/emag/halflife = list(PAYCHECK_CREW * 10, 3),
+		/obj/item/halflife/antenna = list(PAYCHECK_CREW * 4, 3),
+		/obj/item/crowbar/large = list(PAYCHECK_CREW * 3, 1),
 		/obj/item/weldingtool/halflife = list(PAYCHECK_CREW * 1.25, 2),
 		/obj/item/wrench/halflife = list(PAYCHECK_CREW * 1.25, 2),
 		/obj/item/screwdriver/halflife = list(PAYCHECK_CREW * 1.25, 2),
+		/obj/item/card/emag/halflife = list(PAYCHECK_CREW * 7, 3),
 		//obj/item/fuel_cell/full = list(PAYCHECK_CREW * 4, 2),
 	)
 
 	initial_wanteds = list(
-		/obj/item/factory_construction/full_container/standard = list(PAYCHECK_CREW, 15, ""),
-		/obj/item/factory_construction/full_container/advanced = list(PAYCHECK_CREW * 2, 15, ""),
+		/obj/item/factory_construction/full_container/standard = list(PAYCHECK_CREW * 1.5, 15, ""),
+		/obj/item/factory_construction/full_container/advanced = list(PAYCHECK_CREW * 2.5, 15, ""),
 		/obj/item/halflife/nutrient_bar_wrapping/water = list(PAYCHECK_CREW * 0.75, 10, ""),
 		/obj/item/food/meat/steak/xen = list(PAYCHECK_CREW * 0.75, 10, ""),
 		/obj/item/food/pierogi_ration = list(PAYCHECK_CREW * 2.5, 10, ""),
@@ -681,11 +731,12 @@
 		/obj/item/reagent_containers/pill/patch/grubnugget = list(PAYCHECK_CREW * 0.25, 15, ""),
 		/obj/item/reagent_containers/pill/patch/medkit = list(PAYCHECK_CREW, 15, ""),
 		/obj/item/circuitmaterial = list(PAYCHECK_CREW * 0.25, 10, ""),
-		/obj/item/water_canister = list(PAYCHECK_CREW * 0.25, 5, ""),
+		/obj/item/water_canister = list(PAYCHECK_CREW * 0.5, 5, ""),
 		/obj/item/halflife/antenna = list(PAYCHECK_CREW * 3, 5, ""),
 		/obj/item/ration_voucher = list(PAYCHECK_CREW * 2, 10, ""),
 		/obj/item/reagent_containers/pill/lsd = list(PAYCHECK_CREW * 0.5, 5, ""),
 		/obj/item/food/xen/xenbranch = list(PAYCHECK_CREW * 0.25, 5, ""),
+		/obj/item/stack/telecrystal = list(PAYCHECK_CREW, 10, ""),
 	)
 
 	say_phrases = list(
@@ -758,5 +809,93 @@
 		TRADER_SHOP_OPENING_PHRASE = list(
 			"Hey friend, need something?",
 			"Food, meds, clothes, and more.",
+		),
+	)
+
+/obj/item/storage/box/syndicate/plf_recruiter
+	name = "PLF Recruit Package"
+	icon_state = "syndiebox"
+	illustration = "writing_syndie"
+
+/obj/item/storage/box/syndicate/plf_recruiter/PopulateContents()
+	new /obj/item/clothing/head/helmet/halflife/military/weak/poland(src)
+	new /obj/item/clothing/suit/armor/civilprotection(src)
+	new /obj/item/clothing/under/citizen/refugee(src)
+	new /obj/item/gun/ballistic/automatic/pistol/makeshift(src)
+	new /obj/item/ammo_box/magazine/makeshift9mm(src)
+	new /obj/item/reagent_containers/pill/patch/medkit/vial(src)
+	new /obj/item/food/canned/halflife/beans(src)
+	new /obj/item/reagent_containers/cup/glass/waterbottle(src)
+
+/datum/trader_data/halflife/plf_recruiter
+	shop_spot_type = /obj/structure/chair/halflife/overlaypickup/plastic
+	sign_type = /obj/structure/halflife/sign/shop
+	sociostability_loss = -10
+	required_trait = TRAIT_PRISONER
+	delete_trait_on_buy = TRUE
+
+	initial_products = list(
+		/obj/item/storage/box/syndicate/plf_recruiter = list(PAYCHECK_CREW, 5),
+	)
+
+	say_phrases = list(
+		ITEM_REJECTED_PHRASE = list(
+			"Sorry, friend, but I don't need this.",
+			"Sorry, don't really need that right now.",
+			"Ehhh, no thanks.",
+		),
+		ITEM_SELLING_CANCELED_PHRASE = list(
+			"What a shame.",
+			"Hm, that's a no then, huh?"
+		),
+		ITEM_SELLING_ACCEPTED_PHRASE = list(
+			"Thanks, friend.",
+			"My pleasure.",
+		),
+		INTERESTED_PHRASE = list(
+			"Hm, I'd buy it.",
+			"Sure, why not.",
+		),
+		BUY_PHRASE = list(
+			"Welcome to the Polish Liberation Front, friend.",
+		),
+		NO_CASH_PHRASE = list(
+			"I do need a small donation in exchange for providing you equipment.",
+		),
+		NO_STOCK_PHRASE = list(
+			"Sorry, I don't have any more equipment for new recruits.",
+		),
+		NOT_WILLING_TO_BUY_PHRASE = list(
+			"Hm, no thanks.",
+		),
+		ITEM_IS_WORTHLESS_PHRASE = list(
+			"Sorry, but, this item looks pretty worthless to me.",
+		),
+		TRADER_HAS_ENOUGH_ITEM_PHRASE = list(
+			"I've already got too much of that unfortunately.",
+		),
+		TRADER_LORE_PHRASE = list(
+			"One day, Poland will be free again.",
+			"The combine will fall one day. One day...",
+		),
+		TRADER_NOT_BUYING_ANYTHING = list(
+			"I'm all out of cash, can't buy anything more.",
+		),
+		TRADER_NOT_SELLING_ANYTHING = list(
+			"Ran out of stock, see me another time.",
+		),
+		TRADER_BATTLE_START_PHRASE = list(
+			"For the Liberation Front!",
+			"Some people just are too stupid to understand things around here!",
+			"Fuck you!",
+			"I've killed plenty of traitors like you before.",
+		),
+		TRADER_BATTLE_END_PHRASE = list(
+			"Good riddance.",
+			"Another traitor gone.",
+			"Don't let the door hit you on the way out.",
+		),
+		TRADER_SHOP_OPENING_PHRASE = list(
+			"The PLF stands strong.",
 		),
 	)

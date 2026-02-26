@@ -196,8 +196,10 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.adjust_hygiene(-20) //gross, rummaging through garbage
-				if(HAS_TRAIT(C, TRAIT_ABOVE_LABOR))
-					C.add_mood_event("labor_search", /datum/mood_event/searched_garbage)
+				if(HAS_TRAIT(C, TRAIT_ABOVE_LABOR) || HAS_TRAIT(C, TRAIT_HIGHBORN))
+					C.add_mood_event("labor_search", /datum/mood_event/searched_garbage_major)
+				else if(!HAS_TRAIT(C, TRAIT_PRISONER) && !HAS_TRAIT(C, TRAIT_FILTHBORN) && !HAS_TRAIT(C, TRAIT_SCAVENGER)) //unless you're a prisoner, are filthborn, or a scavenger, you dont like to look through garbage still
+					C.add_mood_event("labor_search", /datum/mood_event/searched_garbage_minor)
 
 
 /obj/structure/halflife/trash/garbage/dumpster
@@ -218,7 +220,7 @@
 	icon = 'hl13/icons/obj/storage/crates.dmi'
 	unsanitary = FALSE
 	loot_type = /obj/effect/spawner/random/halflife/loot/scrap/three
-	good_loot_type = /obj/effect/spawner/random/halflife/loot/two
+	good_loot_type = /obj/effect/spawner/random/halflife/loot/scrap/five
 	hl13hit_sounds = SFX_WOODIMPACT
 
 /obj/structure/halflife/trash/garbage/dumpster/crate/deconstruct(disassembled = TRUE)
@@ -757,6 +759,21 @@
 	density = TRUE
 	anchored = TRUE
 
+	var/reagent_container = FALSE
+	///The reagent that is dispensed from this source, by default it is nothing
+	var/reagent_id = null
+	var/fill_amount = 250
+
+/obj/structure/halflife/tank/Initialize(mapload)
+	. = ..()
+	create_reagents(1000, DRAINABLE | AMOUNT_VISIBLE)
+	if(reagent_id)
+		reagents.add_reagent(reagent_id, fill_amount)
+
+/obj/structure/halflife/tank/dirty_water
+	desc = "A large storage tank. It looks rusty and old, and the contents inside are presumably just as old."
+	reagent_id = /datum/reagent/water/dirty
+
 /obj/structure/halflife/tank/pipe
 	name = "piped storage tank"
 	desc = "A large chemical storage tank with pipes running from it. They don't seem to be attached."
@@ -767,17 +784,28 @@
 	desc = "A large chemical storage tank. It's covered in forboding symbols."
 	icon_state = "largetank_chemical"
 
+/obj/structure/halflife/tank/chemical/chemical_water
+	reagent_id = /datum/reagent/water/treated
+
 /obj/structure/halflife/tank/chemical/huge
 	name = "huge chemical storage tank"
 	desc = "A huge chemical storage tank with pipes running from it. It's covered in forboding symbols."
 	icon_state = "largetank_chemical_huge"
 	pixel_x = -9
 
+/obj/structure/halflife/tank/chemical/huge/chemical_water
+	reagent_id = /datum/reagent/water/treated
+
 /obj/structure/halflife/tank/chemical/container
 	name = "chemical container tank"
 	desc = "A wide chemical container tank. It has one giant forboding symbol in the middle."
 	icon_state = "chemical_container"
 	bound_width = 64
+
+/obj/structure/halflife/tank/chemical/container/fuel
+	name = "fuel container tank"
+	desc = "A wide fuel container tank. It has one giant forboding symbol in the middle."
+	reagent_id = /datum/reagent/fuel
 
 /obj/structure/halflife/tank/chemical/container/broken
 	name = "chemical container tank"
@@ -1038,4 +1066,4 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/halflife/pole, 16)
 	icon_state = "woodenbarricade"
 	opacity = TRUE
 	max_integrity = 150
-	proj_pass_rate = 0
+	projectile_passchance = 0

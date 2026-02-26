@@ -50,12 +50,12 @@
 		/obj/item/grenade/halflife/molotov,
 		/obj/item/grenade/halflife/molotov,
 		/obj/item/lighter,
-		/obj/item/grenade/halflife/tinbomb,
-		/obj/item/grenade/halflife/tinbomb,
 		/obj/item/reagent_containers/pill/patch/medkit/vial = 1,
 	)
 
 	ears = /obj/item/radio/headset/rebel_deployment
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/tinbomb)
 
 /datum/outfit/deployment_loadout/rebel/tier1/engineer
 	name = "Deployment: Refugee Engineer"
@@ -78,6 +78,9 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 
 	extra_str = 3
+	extra_end = 3
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /datum/outfit/deployment_loadout/rebel/tier1/smuggler
 	name = "Deployment: Refugee Smuggler"
@@ -186,6 +189,9 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 
 	extra_str = 3
+	extra_end = 3
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /datum/outfit/deployment_loadout/rebel/tier2/smuggler
 	name = "Deployment: Upgraded Smuggler"
@@ -290,6 +296,7 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 
 	extra_str = 2
+	extra_end = 4
 
 /datum/outfit/deployment_loadout/rebel/tier3/vortigaunt
 	name = "Deployment: Vortigaunt"
@@ -328,6 +335,9 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
+	extra_per = 5
+	extra_dex = 2
+
 /datum/outfit/deployment_loadout/rebel/tier3/engineer
 	name = "Deployment: Upgraded Refugee Engineer+"
 	display_name = "Upgraded Refugee Engineer+ (Support)"
@@ -348,6 +358,7 @@
 		/obj/item/sbeacondrop/rebel_turret = 1,
 		/obj/item/wirecutters/halflife = 1,
 		/obj/item/ammo_box/magazine/usp9mm = 1,
+		/obj/item/wrench/halflife = 1,
 	)
 
 	suit = /obj/item/clothing/suit/armor/civilprotection
@@ -357,11 +368,14 @@
 	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire/slow)
 
 	extra_str = 4
+	extra_end = 4
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /datum/outfit/deployment_loadout/rebel/tier3/scout
 	name = "Deployment: Rebel Scout"
 	display_name = "Rebel Scout (Offense)"
-	desc = "You are a speedy glass cannon that uses a shotgun for high upclose damage, but lack armor completely. You specialize best in taking out more vulnerable backliners who can't effectively fight back."
+	desc = "You are a speedy glass cannon that uses a shotgun for high upclose damage, but dont have much armor. You specialize best in taking out more vulnerable backliners who can't effectively fight back."
 	id_name = "Scout"
 
 	uniform = /obj/item/clothing/under/citizen/refugee
@@ -380,7 +394,8 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	extra_dex = 4
+	extra_dex = 8
+	extra_end = 3
 
 /datum/outfit/deployment_loadout/rebel/tier3/scout/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -500,6 +515,7 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 
 	extra_str = 4
+	extra_end = 6
 
 
 /datum/outfit/deployment_loadout/rebel/tier4/bomber_rebel
@@ -570,15 +586,20 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
+	extra_per = 5
+	extra_dex = 2
+
 /datum/outfit/deployment_loadout/rebel/tier4/engineer
 	name = "Deployment: Heavy Refugee Engineer"
 	display_name = "Heavy Refugee Engineer (Support)"
-	desc = "Equipped with a crowbar, satchel, a pistol, a sentry beacon, and sandbags, you can do melee combat and a bit of building."
+	desc = "Equipped with a crowbar, satchel, a revolver, a sentry beacon, and sandbags, you can do melee combat and a bit of building."
 	id_name = "Engineer"
 
 	uniform = /obj/item/clothing/under/citizen/refugee
-	l_pocket = /obj/item/gun/ballistic/automatic/pistol/usp
+
 	r_pocket = /obj/item/flashlight
+
+	belt = /obj/item/gun/ballistic/revolver/coltpython
 
 	back = /obj/item/storage/backpack/halflife/satchel
 	head = /obj/item/clothing/head/utility/hardhat/halflife/mining
@@ -588,8 +609,9 @@
 		/obj/item/stack/sheet/mineral/sandbags = 11,
 		/obj/item/sbeacondrop/rebel_turret = 1,
 		/obj/item/reagent_containers/pill/patch/medkit/vial = 1,
-		/obj/item/ammo_box/magazine/usp9mm = 2,
+		/obj/item/ammo_box/colta357 = 2,
 		/obj/item/wirecutters/halflife = 1,
+		/obj/item/wrench/halflife = 1,
 	)
 
 	suit = /obj/item/clothing/suit/armor/rebel/light
@@ -599,6 +621,9 @@
 	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire)
 
 	extra_str = 4
+	extra_end = 4
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /obj/item/sbeacondrop/rebel_turret
 	desc = "A label on it reads: <i>Warning: Activating this device will send a rebel turret to your location</i>."
@@ -648,7 +673,7 @@
 /datum/outfit/deployment_loadout/rebel/tier4/scout
 	name = "Deployment: Upgraded Rebel Scout"
 	display_name = "Upgraded Rebel Scout (Offense)"
-	desc = "You are a speedy glass cannon that uses a shotgun for high upclose damage, but lack armor completely. You specialize best in taking out more vulnerable backliners who can't effectively fight back. As an upgraded variant, you move faster and get an extra healthpen."
+	desc = "You are a speedy glass cannon that uses a shotgun for high upclose damage, but dont have much armor. You specialize best in taking out more vulnerable backliners who can't effectively fight back. As an upgraded variant, you move faster and get an extra healthpen."
 	id_name = "Scout"
 
 	uniform = /obj/item/clothing/under/citizen/refugee
@@ -667,7 +692,8 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	extra_dex = 4
+	extra_dex = 8
+	extra_end = 3
 
 /datum/outfit/deployment_loadout/rebel/tier4/scout/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -737,12 +763,34 @@
 
 	backpack_contents = list(
 		/obj/item/grenade/syndieminibomb/bouncer = 2,
-		/obj/item/reagent_containers/hypospray/medipen/healthpen = 1,
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
 		/obj/item/storage/box/lethalshot/halflife = 3,
 	)
 
 	extra_dex = 2
 	extra_str = 2
+
+/datum/outfit/deployment_loadout/rebel/tier5/rpg
+	name = "Deployment: RPG Rebel"
+	display_name = "RPG Rebel (Offense)"
+	desc = "You are armed with a rocket launcher, and can procure an infinite amount of rockets on cooldown, but are unremarkable elsewise. Use your rockets to tear through combine defences with ease!"
+	id_name = "Demolitions Expert"
+
+	head = /obj/item/clothing/head/helmet/halflife/military/plf_veteran
+	mask = /obj/item/clothing/mask/gas/hl2/military
+	suit = /obj/item/clothing/suit/armor/rebel
+	uniform = /obj/item/clothing/under/syndicate/camo/halflife/armored
+	belt = /obj/item/storage/belt/civilprotection/rpg_rebel
+	gloves = /obj/item/clothing/gloves/combat
+	suit_store = /obj/item/gun/ballistic/revolver/coltpython
+	back = /obj/item/gun/ballistic/rocketlauncher/halflife
+	r_pocket = /obj/item/flashlight/seclite
+	shoes = /obj/item/clothing/shoes/boots
+
+	ears = /obj/item/radio/headset/rebel_deployment
+	combat_music = 'hl13/sound/music/combat/secretsteersus.ogg'
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/rocket)
 
 /datum/outfit/deployment_loadout/rebel/tier5/veteran
 	name = "Deployment: PLF Veteran"
@@ -771,10 +819,12 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 	combat_music = 'hl13/sound/music/combat/secretsteersus.ogg'
 
+	extra_end = 4
+
 /datum/outfit/deployment_loadout/rebel/tier5/extract_vortigaunt
 	name = "Deployment: Extract Empowered Vortigaunt"
 	display_name = "Extract Empowered Vortigaunt (Support)"
-	desc = "You have all the powers of an elder vortigaunt, but with drastically increased damage resistance and a mending ability which is twice as powerful, making you very good at healing people."
+	desc = "You have all the powers of an elder vortigaunt, but with double the damage resistance and a mending ability which is twice as powerful, making you very good at healing people. You can also summon friendly antlions on a long cooldown."
 
 	uniform = null
 	shoes = null
@@ -787,13 +837,47 @@
 	H.set_species(/datum/species/vortigaunt/extract)
 	H.cmode_music = combat_music
 
+/datum/outfit/deployment_loadout/rebel/tier5/lieutenant
+	name = "Deployment: PLF Lieutenant"
+	display_name = "PLF Lieutenant (Support)"
+	desc = "You have decent armor on and a reliable colt python, but your most powerful ability is being able to rally your fellow troops, and use a basic supply radio that is similar to your team captain's."
+	id_name = "Lieutenant"
+
+	suit = /obj/item/clothing/suit/armor/halflife/milvest
+	mask = /obj/item/clothing/mask/gas/hl2/swat/hardened
+	suit_store = /obj/item/gun/ballistic/revolver/coltpython/well_crafted
+	gloves = /obj/item/clothing/gloves/fingerless
+	l_pocket = /obj/item/hl2/supply_radio/rebel/lieutenant
+	r_pocket = /obj/item/flashlight/seclite
+	head = /obj/item/clothing/head/beret/sec/poland
+	uniform = /obj/item/clothing/under/syndicate/camo/halflife/armored
+	shoes = /obj/item/clothing/shoes/boots
+
+	back = /obj/item/storage/backpack/halflife/satchel
+
+	backpack_contents = list(
+		/obj/item/hl13_small_flag/poland/telescopic = 1,
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
+		/obj/item/ammo_box/colta357 = 1,
+		/obj/item/reagent_containers/pill/patch/medkit = 1,
+	)
+
+	ears = /obj/item/radio/headset/rebel_deployment
+	combat_music = 'hl13/sound/music/combat/whatkindofhospital.ogg'
+
+	spells_to_add = list(/datum/action/cooldown/spell/aoe/rally/rebel)
+
+/datum/outfit/deployment_loadout/rebel/tier5/lieutenant/post_equip(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H, TRAIT_SUPPLYRADIO_USER, JOB_TRAIT)
+
 /datum/outfit/deployment_loadout/rebel/tier5/sniper
 	name = "Deployment: PLF Sniper"
 	display_name = "PLF Sniper (Pick)"
 	desc = "While not too well armored, you have access to one of the few surviving dragunovs around. Use it well to snipe your opponents with devestating accuracy and power."
 	id_name = "Sniper"
 
-	suit = /obj/item/clothing/suit/armor/rebel/light/speedy
+	suit = /obj/item/clothing/suit/armor/rebel/light/speedy/extra
 	mask = /obj/item/clothing/mask/gas/hl2/swat/hardened
 	belt = /obj/item/storage/belt/civilprotection/polish_resistance/svd
 	suit_store = /obj/item/gun/ballistic/automatic/svd
@@ -811,11 +895,13 @@
 		/obj/item/gun/ballistic/revolver/coltpython = 1,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
 		/obj/item/ammo_box/colta357 = 1,
-		/obj/item/ammo_box/magazine/svd = 1,
 		/obj/item/reagent_containers/pill/patch/medkit = 1,
 	)
 
 	ears = /obj/item/radio/headset/rebel_deployment
 	combat_music = 'hl13/sound/music/combat/whatkindofhospital.ogg'
 
-	extra_dex = 2
+	extra_dex = 4
+	extra_per = 6
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/svd_ammo)

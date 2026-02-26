@@ -231,11 +231,21 @@
 	name = "overwatch wallhammer chestpiece"
 	desc = "A reinforced version of the standard overwatch chestpiece with heavy pauldrons and thighpads."
 	icon_state = "wallhammer"
-	armor_type = /datum/armor/eliteoverwatcharmor
+	armor_type = /datum/armor/wallhammerarmor
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
 	slowdown = 1.25
 	actions_types = list(/datum/action/item_action/deploy_shield)
 	var/shield_charge = TRUE
+
+/datum/armor/wallhammerarmor
+	melee = 60
+	bullet = 60
+	laser = 40
+	energy = 40
+	bomb = 60
+	fire = 50
+	acid = 50
+	wound = 20
 
 /datum/action/item_action/deploy_shield
 	name = "Deploy Shield"
@@ -292,7 +302,7 @@
 /obj/item/clothing/suit/armor/overwatch/suppressor
 	name = "overwatch suppressor chestpiece"
 	icon_state = "suppressor"
-	slowdown = 0.75
+	slowdown = 0.5
 	armor_type = /datum/armor/eliteoverwatcharmor
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
 
@@ -455,6 +465,8 @@
 /datum/armor/scout_armor
 	fire = 75
 	laser = 40
+	melee = 10
+	bullet = 10
 
 /obj/item/clothing/suit/armor/browncoat/scout/upgraded
 	slowdown = -0.6
@@ -557,6 +569,17 @@
 		/obj/item/gun/syringe,
 		)
 
+/obj/item/clothing/suit/utility/radiation/cleanup/slow
+	slowdown = 0.5
+	armor_type = /datum/armor/utility_radiation/weak
+
+/datum/armor/utility_radiation/weak
+	melee = 25
+	bio = 100
+	fire = 30
+	acid = 30
+	wound = 10
+
 /obj/item/clothing/suit/utility/radiation/cleanup/scientist
 	name = "scientist suit"
 	desc = "A suit which provides protection against radiation and hostile xenian fauna attacks."
@@ -644,6 +667,9 @@
 
 /obj/item/clothing/suit/armor/rebel/light/speedy
 	slowdown = -0.25
+
+/obj/item/clothing/suit/armor/rebel/light/speedy/extra
+	slowdown = -0.33
 
 /datum/armor/rebellight
 	melee = 40
@@ -750,6 +776,9 @@
 	armor_type = /datum/armor/reinforced_brown_jacket
 
 	limb_integrity = 250
+
+/obj/item/clothing/suit/armor/halflife/reinforced_brown_jacket/speedy
+	slowdown = -0.1
 
 /datum/armor/reinforced_brown_jacket
 	melee = 25

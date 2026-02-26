@@ -1,8 +1,8 @@
 {
 	"version": 1,
-	"map_name": "City 13 Payload Delivery",
-	"map_path": "map_files/deployment_payload",
-	"map_file": "deployment_payload.dmm",
+	"map_name": "City 13 Payload Delivery Raven District",
+	"map_path": "map_files/deployment_payload_raven",
+	"map_file": "deployment_payload_raven.dmm",
 	"space_ruin_levels": 0,
 	"space_empty_levels": 0,
 	"planetary": 1,
@@ -19,6 +19,12 @@
 			"No Parallax": true,
 			"Linkage": null
 
+		},
+		{
+			"Baseturf": "/turf/open/openspace",
+			"Gravity": true,
+			"No Parallax": true,
+			"Linkage": null
 		}
 	],
 	"minetype": "combat_deployment",

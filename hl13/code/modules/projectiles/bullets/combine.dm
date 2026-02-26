@@ -39,10 +39,15 @@
 		return TRUE
 	return FALSE
 
+/obj/projectile/bullet/pulse/energyball/on_hit(atom/target, blocked = 0, pierce_hit)
+	if(istype(target, /mob/living/simple_animal/hostile/halflife/hunter)) //bonus direct damage vs hunters
+		damage = 90
+	. = ..()
+
 /obj/projectile/bullet/pulse/lmg
-	damage = 22
+	damage = 24
 	wound_bonus = -10
-	armour_penetration = 20
+	armour_penetration = 25
 
 /obj/projectile/bullet/pulse/weak
 	damage = 12
@@ -60,7 +65,7 @@
 	armour_penetration = 20
 
 /obj/projectile/bullet/pulse/turret/weak
-	damage = 6
+	damage = 8
 
 /obj/projectile/bullet/pulse/weak/fast
 	speed = 4
@@ -70,21 +75,27 @@
 	wound_bonus = -10
 	armour_penetration = 0
 
+//this increases in effectiveness as the bullet travels
 /obj/projectile/bullet/pulse/heavy
 	name = "heavy pulse round"
 	damage = 32
 	wound_bonus = -10
-	armour_penetration = 80 //will get you through practically anything
+	armour_penetration = 32
 	speed = 6
 	accurate_range = 150
 
-	var/max_distance_damage = 50
+	var/max_distance_damage = 50 //reached after 9 tiles of travel
 	var/damage_increase_per_tile = 2
+
+	var/max_distance_armor_piercing = 80 //will get you through practically anything. Reached after 8 tiles of travel
+	var/ap_increase_per_tile = 6
 
 /obj/projectile/bullet/pulse/heavy/reduce_range()
 	..()
 	if(damage < max_distance_damage)
 		damage += damage_increase_per_tile
+	if(armour_penetration < max_distance_armor_piercing)
+		armour_penetration += ap_increase_per_tile
 
 /obj/projectile/bullet/flechette
 	name = "flechette"
@@ -98,8 +109,8 @@
 /obj/projectile/bullet/pellet/shotgun_buckshot/pulse
 	name = "pulseshot pellet"
 	icon_state = "pulsepellet"
-	damage = 19 //114 total damage
-	armour_penetration = 20
+	damage = 20 //120 total damage
+	armour_penetration = 30
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/antixen
 	name = "anti-xen pellet"

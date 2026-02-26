@@ -31,6 +31,8 @@
 									/obj/item/stack/sheet/scrap_metal,
 									/obj/item/stack/rods)
 
+	var/stashed_item = FALSE
+
 ///basic form, dont use this please
 /obj/item/factory_construction/container/advanced
 	name = "advanced factory goods container"
@@ -84,6 +86,8 @@
 		. += span_notice("The container requires [required_item_2.name] to be put inside it.")
 	if(required_item_3 && !item_3_fulfilled)
 		. += span_notice("The container requires [required_item_3.name] to be put inside it.")
+	if(stashed_item)
+		. += span_notice("Something strange looks to be inside, something that isn't supposed to be there... Perhaps you could shake it inhand and dump it out on the floor?")
 
 /obj/item/factory_construction/container/Initialize(mapload)
 	. = ..()
@@ -94,9 +98,15 @@
 	required_item_2 = pick_n_take(remaining_items)
 	required_item_3 = pick_n_take(remaining_items)
 
+	if(prob(5))
+		stashed_item = TRUE
+
 /obj/item/factory_construction/container/attackby(obj/item/I, mob/user, params)
+	var/put_in_time = 2.2 SECONDS //at journeyman level, delay is 1.5 seconds. Legendary is 0.9, no skill is 2.2 seconds
+	put_in_time -= user.mind?.get_skill_modifier(/datum/skill/factorywork, SKILL_SPEED_MODIFIER)
+
 	if(istype(I, required_item_1) && !item_1_fulfilled)
-		if(do_after(user, 1.5 SECONDS, src))
+		if(do_after(user, put_in_time, src))
 			if(istype(I, /obj/item/stack))
 				I.use(1)
 			else
@@ -110,7 +120,7 @@
 			return
 
 	if(istype(I, required_item_2) && !item_2_fulfilled)
-		if(do_after(user, 1.5 SECONDS, src))
+		if(do_after(user, put_in_time, src))
 			if(istype(I, /obj/item/stack))
 				I.use(1)
 			else
@@ -124,7 +134,7 @@
 			return
 
 	if(istype(I, required_item_3) && !item_3_fulfilled)
-		if(do_after(user, 1.5 SECONDS, src))
+		if(do_after(user, put_in_time, src))
 			if(istype(I, /obj/item/stack))
 				I.use(1)
 			else
@@ -162,8 +172,19 @@
 			to_chat(usr, span_notice("Container succesfully sealed. Reward dispensed."))
 			seal(user)
 	else
-		to_chat(usr, span_notice("The box isn't yet fully filled, and can not be sealed."))
-		return
+		if(!stashed_item)
+			to_chat(usr, span_notice("The box isn't yet fully filled, and can not be sealed."))
+			return
+		else
+			to_chat(usr, span_notice("You start to dump out the mysterious item from within."))
+			if(do_after(user, 5 SECONDS, src))
+				to_chat(usr, span_notice("You dump out the item from within."))
+				stashed_item = FALSE
+				if(prob(2))
+					new /obj/effect/spawner/random/halflife/loot/rare(user.loc)
+				else
+					new /obj/effect/spawner/random/halflife/loot/uncommon(user.loc)
+			return
 
 /obj/item/factory_construction/container/proc/seal(mob/user, reward = 1)
 	playsound(src, 'hl13/sound/halflifeeffects/crafting/ducttape1.ogg', 50, TRUE, extrarange = -3)

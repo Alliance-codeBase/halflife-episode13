@@ -17,7 +17,7 @@
 	paycheck = PAYCHECK_HIGH
 	paycheck_department = ACCOUNT_ENG
 
-	skills = list(/datum/skill/factorywork = SKILL_EXP_JOURNEYMAN) //HL13 edit, they know how machines work
+	skills = list(/datum/skill/factorywork = SKILL_EXP_JOURNEYMAN, /datum/skill/mining = SKILL_EXP_NOVICE) //HL13 edit, they know how machines work
 
 	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
 
@@ -54,7 +54,7 @@
 	mask = /obj/item/clothing/mask/gas/cwuengi
 	shoes = /obj/item/clothing/shoes/halflife/engineer
 	gloves = /obj/item/clothing/gloves/halflife/engineer
-	r_pocket = /obj/item/hl2key/factory
+	r_pocket = /obj/item/storage/halflife/keyring/engineer
 	l_pocket = /obj/item/flashlight
 	skillchips = list(/obj/item/skillchip/engineer)
 

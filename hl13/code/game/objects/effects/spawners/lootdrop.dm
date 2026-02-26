@@ -99,6 +99,9 @@
 /obj/effect/spawner/random/halflife/loot/scrap/three
 	spawn_loot_count = 3
 
+/obj/effect/spawner/random/halflife/loot/scrap/five
+	spawn_loot_count = 5
+
 //actual garbage, low level loot, and scraps
 /obj/effect/spawner/random/halflife/loot/trash
 	name = "trash loot"
@@ -347,6 +350,7 @@
 				/obj/structure/flora/bush/pointy/style_random = 6,
 				/obj/structure/flora/bush/lavendergrass/style_random = 6,
 				/obj/structure/flora/bush/style_random = 6,
+				/obj/structure/flora/bush/shrub = 6,
 				)
 
 //meds, grenades, ammo
@@ -407,6 +411,8 @@
 
 /obj/effect/spawner/random/halflife/random_headcrab
 	name = "random headcrab"
+	icon = 'hl13/icons/effects/random_spawners.dmi'
+	icon_state = "random_crab"
 	spawn_loot_count = 1
 
 	loot = list(
@@ -427,12 +433,16 @@
 
 /obj/effect/spawner/random/halflife/random_zombie
 	name = "random zombie"
+	icon = 'hl13/icons/effects/random_spawners.dmi'
+	icon_state = "random_zombie"
 	spawn_loot_count = 1
 
 	loot = list(
 				/mob/living/basic/halflife/zombie = 1,
+				/mob/living/basic/halflife/zombie/engineer = 1,
 				/mob/living/basic/halflife/zombie/fast = 1,
 				/mob/living/basic/halflife/zombie/poison = 1,
+				/mob/living/basic/halflife/zombie/zombie_grunt = 1,
 				/mob/living/basic/halflife/zombie/zombine = 1,
 				)
 
@@ -447,6 +457,8 @@
 
 /obj/effect/spawner/random/halflife/pet_spawner
 	name = "pet spawner"
+	icon = 'hl13/icons/effects/random_spawners.dmi'
+	icon_state = "random_pet"
 	spawn_loot_count = 1
 	spawn_loot_chance = 5 //5% chance to get either a chumtoad or grub
 
@@ -454,3 +466,26 @@
 				/mob/living/basic/halflife/chumtoad = 1,
 				/mob/living/basic/halflife/grub = 1,
 				)
+
+/obj/effect/spawner/random/halflife/barnacle_spawner
+	name = "barnacle spawner"
+	icon = 'hl13/icons/effects/random_spawners.dmi'
+	icon_state = "random_barnacle"
+	spawn_loot_count = 1
+	spawn_loot_chance = 50
+
+	loot = list(
+				/mob/living/basic/halflife/barnacle = 1,
+				)
+
+/obj/effect/spawner/random/halflife/barnacle_spawner/high
+	name = "high chance barnacle spawner"
+	spawn_loot_chance = 75
+
+/obj/effect/spawner/random/halflife/barnacle_spawner/low
+	name = "low chance barnacle spawner"
+	spawn_loot_chance = 25
+
+/obj/effect/spawner/random/halflife/barnacle_spawner/rare
+	name = "rare chance barnacle spawner"
+	spawn_loot_chance = 10

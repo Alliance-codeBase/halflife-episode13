@@ -16,7 +16,7 @@
 	exp_granted_type = EXP_TYPE_CREW
 	config_tag = "HEAD_OF_PERSONNEL"
 
-	skills = list(/datum/skill/factorywork = SKILL_EXP_EXPERT) //HL13 edit, they need to know a lot about factorywork, even if they now find themselves above it
+	skills = list(/datum/skill/factorywork = SKILL_EXP_EXPERT, /datum/skill/mining = SKILL_EXP_NOVICE) //HL13 edit, they need to know a lot about factorywork, even if they now find themselves above it
 
 	outfit = /datum/outfit/job/hop
 	plasmaman_outfit = /datum/outfit/plasmaman/head_of_personnel
@@ -85,6 +85,7 @@
 
 	user.change_stat(STATKEY_INT, 2)
 	user.change_stat(STATKEY_DEX, 1)
+	user.change_stat(STATKEY_PER, 1)
 	user.change_stat(STATKEY_STR, -1)
 
 /obj/item/paper/fluff/ids_for_dummies

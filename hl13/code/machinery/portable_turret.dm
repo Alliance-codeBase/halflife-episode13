@@ -55,9 +55,32 @@ DEFINE_BITFIELD(turret_flags, list(
 	anchored = 0
 	raised = 1
 	alwaysmovable = TRUE
-	max_integrity = 160
+	max_integrity = 100 //80 effective health, since it breaks at 20 integrity
+	integrity_failure = 0.2
 	uses_stored = FALSE
 	armor_type = /datum/armor/combine_porta_turret
+
+/obj/machinery/porta_turret/combine/wrench_act(mob/living/user, obj/item/tool)
+	if(atom_integrity == max_integrity)
+		balloon_alert(user, "no repairs needed")
+		return ITEM_INTERACT_BLOCKING
+
+	if(machine_stat & (BROKEN|NOPOWER))
+		balloon_alert(user, "too damaged for repair")
+		return ITEM_INTERACT_BLOCKING
+
+	tool.play_tool_sound(src)
+	balloon_alert(user, "repairing turret...")
+	if(!do_after(user, (5 SECONDS), target = src))
+		return ITEM_INTERACT_BLOCKING
+
+	if(machine_stat & (BROKEN|NOPOWER)) //sanity check
+		balloon_alert(user, "too damaged for repair")
+		return ITEM_INTERACT_BLOCKING
+
+	balloon_alert(user, "repaired")
+	atom_integrity = max_integrity
+	return ITEM_INTERACT_SUCCESS
 
 /datum/armor/combine_porta_turret
 	melee = 30

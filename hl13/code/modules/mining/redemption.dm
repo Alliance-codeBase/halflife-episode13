@@ -3,6 +3,7 @@
 	desc = "An automated combine machine which takes in ores and flash-fire melts them into usable sheets with dark energy. Loyal workers can then accept generated mining points onto their card from the machine, and redeem them for credits."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
+	requires_silo = FALSE
 
 /obj/machinery/mining_terminal
 	name = "union mining terminal"
@@ -17,11 +18,11 @@
 
 		var/obj/item/card/id/card = living.get_idcard()
 		if(card)
-			if(card.registered_account.mining_points >= 100)
-				to_chat(user, span_notice("100 points has been converted into eight credits on your account."))
-				card.registered_account.mining_points -= 100
-				card.registered_account.account_balance += 8
+			if(card.registered_account.mining_points >= 50)
+				to_chat(user, span_notice("50 points has been converted into five credits on your account."))
+				card.registered_account.mining_points -= 50
+				card.registered_account.account_balance += 5
 				playsound(loc, 'hl13/sound/machines/atm/cardreader_insert.ogg', 30)
 			else
-				to_chat(user, span_notice("This terminal works in increments of 100 mining points, and you do not have enough yet."))
+				to_chat(user, span_notice("This terminal works in increments of 50 mining points, and you do not have enough yet."))
 				return

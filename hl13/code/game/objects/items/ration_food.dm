@@ -97,7 +97,7 @@
 	foodtypes = MEAT
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 3,
 	)
 	tastes = list("Beef"=1)
 	mood_penalty = null
@@ -192,7 +192,7 @@
 	icon_state = "chicken_paste"
 	foodtypes = MEAT
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 	)
 	tastes = list("Chicken" = 1)
@@ -314,7 +314,7 @@
 	bite_consumption = 2
 	tastes = list("rancid water" = 3, "depression" = 3)
 	foodtypes = null //Don't ask what went into them. You're better off not knowing.
-	food_reagents = list(/datum/reagent/consumable/nutriment = 10) //Very nutritious at least...
+	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2) //It is nutritious at least...
 
 	preserved_food = TRUE
 
@@ -353,6 +353,19 @@
 	preserved_food = TRUE
 	crafting_complexity = FOOD_COMPLEXITY_1
 
+/obj/item/food/leechstew
+	name = "leech stew can"
+	desc = "A can filled with bubbling water thickened by crushed up nutriment bar pieces, with chunks of leech flesh inside."
+	icon = 'hl13/icons/obj/food.dmi'
+	icon_state = "xenstew"
+	bite_consumption = 5
+	tastes = list("leech flesh" = 3, "still water" = 3)
+	foodtypes = MEAT
+	food_reagents = list(/datum/reagent/consumable/nutriment = 14, /datum/reagent/water = 6)
+
+	preserved_food = TRUE
+	crafting_complexity = FOOD_COMPLEXITY_1
+
 /obj/item/food/chumtoadstew
 	name = "chumtoad stew can"
 	desc = "A can filled with bubbling water thickened by crushed up nutriment bar pieces, with chunks of chumtoad flesh inside. It smells... surpisingly good."
@@ -361,7 +374,7 @@
 	bite_consumption = 5
 	tastes = list("alien flesh" = 3, "still water" = 3)
 	foodtypes = MEAT
-	food_reagents = list(/datum/reagent/consumable/nutriment = 14, /datum/reagent/water = 6, /datum/reagent/drug/happiness = 6, /datum/reagent/medicine/regen_jelly = 10)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 14, /datum/reagent/water = 6, /datum/reagent/drug/happiness = 6, /datum/reagent/drug/chumtoad = 10)
 
 	preserved_food = TRUE
 	crafting_complexity = FOOD_COMPLEXITY_3

@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(daylight)
 	var/current_day_time = 0
 
 	/// Coefficient for setting area lights
-	var/light_coefficient = 0
+	var/light_coefficient = 0.25
 
 	/// Which part of the day cycle is currently active?
 	var/day_cycle_active = DAY_CYCLE_NIGHT
@@ -67,6 +67,11 @@ SUBSYSTEM_DEF(daylight)
 	if(current_day_time >= NIGHT_START || current_day_time <= MORNING_START)
 		if(day_cycle_active != DAY_CYCLE_NIGHT)
 			day_cycle_active = DAY_CYCLE_NIGHT
+
+			//turn on curfew fields
+			for(var/obj/machinery/turnstile/brig/halflife/forcefield/curfew/curfew_field as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/turnstile/brig/halflife/forcefield/curfew))
+				if(curfew_field.on == FALSE)
+					curfew_field.toggle_onoff()
 
 			var/message = "Attention inmates, it is now night time. Inmates are to return to their cells for the nightly lockup."
 
@@ -111,16 +116,22 @@ SUBSYSTEM_DEF(daylight)
 					curfew_zombies()
 			*/
 
-		if(light_coefficient > 0)
+		if(light_coefficient > 0.25) //leave some moonlight
 			light_coefficient -= 0.025
 
 	if(current_day_time > MORNING_START && current_day_time <= AFTERNOON_START)
 		if(day_cycle_active != DAY_CYCLE_MORNING)
 			day_cycle_active = DAY_CYCLE_MORNING
+
+			//turn off curfew fields
+			for(var/obj/machinery/turnstile/brig/halflife/forcefield/curfew/curfew_field as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/turnstile/brig/halflife/forcefield/curfew))
+				if(curfew_field.on == TRUE)
+					curfew_field.toggle_onoff()
+
 			daily_tax = (get_factory_goal() * 30) //10 people would be 330 credits with standard multiplier
 			if(SSmapping.current_map.minetype != "combat_deployment")
 				priority_announce("Attention occupants, night has concluded, and Curfew is over. Your morning ration cycle will begin in thirty seconds. The daily tax is set at [daily_tax] credits.", "Curfew Notice.", sender_override = "Prison Automated Scheduler")
-		if(light_coefficient < 0.5)
+		if(light_coefficient < 0.6)
 			light_coefficient += 0.025
 
 	if(current_day_time > AFTERNOON_START && current_day_time <= DUSK_START )
@@ -136,7 +147,7 @@ SUBSYSTEM_DEF(daylight)
 			for(var/obj/machinery/box_vendor/vendor as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/box_vendor))
 				vendor.boxes_stored = factory_container_goal
 
-		if(light_coefficient < 1)
+		if(light_coefficient < 0.9)
 			light_coefficient += 0.025
 
 	if(current_day_time > DUSK_START  && current_day_time <= NIGHT_START)
@@ -144,7 +155,7 @@ SUBSYSTEM_DEF(daylight)
 			day_cycle_active = DAY_CYCLE_DUSK
 			if(SSmapping.current_map.minetype != "combat_deployment")
 				priority_announce("Attention occupants, night will be approaching shortly, and lockup will begin soon. Inmates are to get ready for lockup.", "Curfew Notice.", sender_override = "Prison Automated Scheduler")
-		if(light_coefficient > 0.5)
+		if(light_coefficient > 0.6)
 			light_coefficient -= 0.025
 
 	//							 	Converts into minutes	Converts into minutes

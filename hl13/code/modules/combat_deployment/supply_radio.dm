@@ -3,10 +3,13 @@
 	desc = "A specialized supply radio tuned to a logistics base, allowing you to call in specialty items. Only accepts calls from authorised individuals."
 	icon = 'hl13/icons/obj/misc_items.dmi'
 	icon_state = "loadout_picker"
+	w_class = WEIGHT_CLASS_SMALL
 	var/faction_belonging = NO_FACTION
+	var/final_allowed_cash = 999 //im sorry its poorly worded, but this is a hard limit on the amount of 'max_cash' that can be achieved
 	var/max_cash = 0
 	var/current_cash = 0
 	var/cash_regeneration = 0
+	var/max_cash_regeneration = 5
 
 /obj/item/hl2/supply_radio/Initialize(mapload)
 	. = ..()
@@ -17,8 +20,10 @@
 		max_cash = (GLOB.deployment_combine_cash + 25)
 		max_cash = ROUND_UP(max_cash)
 		cash_regeneration = ROUND_UP(GLOB.deployment_combine_cash / 50)
-		if(5 < cash_regeneration)
-			cash_regeneration = 5
+		if(final_allowed_cash < max_cash)
+			max_cash = final_allowed_cash
+		if(max_cash_regeneration < cash_regeneration)
+			cash_regeneration = max_cash_regeneration
 		if(current_cash < max_cash)
 			current_cash += cash_regeneration
 		if(max_cash < current_cash)
@@ -28,8 +33,10 @@
 		max_cash = (GLOB.deployment_rebels_cash + 25)
 		max_cash = ROUND_UP(max_cash)
 		cash_regeneration = ROUND_UP(GLOB.deployment_rebels_cash / 50)
-		if(5 < cash_regeneration)
-			cash_regeneration = 5
+		if(final_allowed_cash < max_cash)
+			max_cash = final_allowed_cash
+		if(max_cash_regeneration < cash_regeneration)
+			cash_regeneration = max_cash_regeneration
 		if(current_cash < max_cash)
 			current_cash += cash_regeneration
 		if(max_cash < current_cash)
@@ -40,8 +47,8 @@
 	if(!can_use_beacon(user))
 		return
 
-	if(!HAS_TRAIT(user, TRAIT_TDMCAPTAIN))
-		to_chat(user, span_warning("This supply radio is only accessible to faction captains."))
+	if(!HAS_TRAIT(user, TRAIT_SUPPLYRADIO_USER))
+		to_chat(user, span_warning("This supply radio is only accessible to certain, authorized individuals."))
 		return FALSE
 
 	if(isliving(user))
@@ -108,9 +115,19 @@
 	name = "Rebel Supply Radio"
 	faction_belonging = REBEL_DEPLOYMENT_FACTION
 
+/obj/item/hl2/supply_radio/rebel/lieutenant
+	name = "PLF Lieutenant Supply Radio"
+	max_cash_regeneration = 2
+	final_allowed_cash = 300
+
 /obj/item/hl2/supply_radio/combine
 	name = "Combine Supply Radio"
 	faction_belonging = COMBINE_DEPLOYMENT_FACTION
+
+/obj/item/hl2/supply_radio/combine/logistics
+	name = "Combine Logistics Supply Radio"
+	max_cash_regeneration = 6
+	final_allowed_cash = 450 //allows everything but more tier 5s
 
 /obj/item/hl2/supply_radio/combine/generate_display_names()
 	var/static/list/loadouts
@@ -126,6 +143,7 @@
 			/datum/supply_beacon_option/canister_targeter,
 			/datum/supply_beacon_option/emplacement_gun,
 			/datum/supply_beacon_option/combine_tier5,
+			/datum/supply_beacon_option/heavyammocrate_rechargable,
 		)
 		for(var/datum/supply_beacon_option/loadout as anything in possible_loadouts)
 			loadouts[initial(loadout.option_name)] = loadout
@@ -146,6 +164,7 @@
 			/datum/supply_beacon_option/missile_targeter,
 			/datum/supply_beacon_option/emplacement_gun,
 			/datum/supply_beacon_option/rebel_tier5,
+			/datum/supply_beacon_option/heavyammocrate_rechargable,
 		)
 		for(var/datum/supply_beacon_option/loadout as anything in possible_loadouts)
 			loadouts[initial(loadout.option_name)] = loadout
@@ -193,13 +212,13 @@
 	spawn_path = /obj/machinery/ammo_crate/heavy
 
 /datum/supply_beacon_option/rocket_launcher
-	option_name = "Rocket Launcher (325 Points)"
-	cost = 325
+	option_name = "Rocket Launcher (350 Points)"
+	cost = 350
 	spawn_path = /obj/item/gun/ballistic/rocketlauncher/halflife
 
 /datum/supply_beacon_option/missile_targeter
-	option_name = "One-use Missile Targeter (400 Points)"
-	cost = 400
+	option_name = "One-use Missile Targeter (375 Points)"
+	cost = 375
 	spawn_path = /obj/item/halflife/missile_targeter/one_use
 
 /datum/supply_beacon_option/canister_targeter
@@ -221,3 +240,8 @@
 	option_name = "Tier 5 Loadout Beacon (500 Points)"
 	cost = 500
 	spawn_path = /obj/item/hl2/loadout_picker/combine/tier5/nonstick
+
+/datum/supply_beacon_option/heavyammocrate_rechargable
+	option_name = "Self Recharging Heavy Ammo Crate (550 Points)"
+	cost = 550
+	spawn_path = /obj/machinery/ammo_crate/heavy/recharge

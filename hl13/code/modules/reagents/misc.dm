@@ -16,7 +16,7 @@
 	color = "#462b15" // rgb: 70, 43, 21
 	nutriment_factor = 0
 	overdose_threshold = 80
-	taste_description = "bitter coldness"
+	taste_description = "bitter chemicals"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	metabolized_traits = list(TRAIT_STIMULATED)
 	metabolization_rate = REAGENTS_METABOLISM * 2 //quick acting
@@ -32,7 +32,7 @@
 	affected_mob.adjust_drowsiness(-6 SECONDS * REM * seconds_per_tick)
 	affected_mob.AdjustSleeping(-4 SECONDS * REM * seconds_per_tick)
 	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_per_tick, affected_mob.get_body_temp_normal())
-	affected_mob.adjust_tiredness(-4 * REM * seconds_per_tick) //makes you feel awake
+	affected_mob.adjust_tiredness(-6 * REM * seconds_per_tick) //makes you feel awake
 	affected_mob.adjust_disgust(2 * REM * seconds_per_tick) //kind of gross tasting
 
 /datum/reagent/fuel/weak
@@ -56,8 +56,8 @@
 	affected_mob.adjust_dizzy(-10 SECONDS * REM * seconds_per_tick)
 	affected_mob.adjust_drowsiness(-6 SECONDS * REM * seconds_per_tick)
 	affected_mob.AdjustSleeping(-4 SECONDS * REM * seconds_per_tick)
-	affected_mob.adjust_tiredness(-15 * REM * seconds_per_tick) //makes you feel awake
-	affected_mob.adjust_hydration(-5 * REM * seconds_per_tick) //diuretic
+	affected_mob.adjust_tiredness(-16 * REM * seconds_per_tick) //makes you feel awake
+	affected_mob.adjust_hydration(-4 * REM * seconds_per_tick) //diuretic
 
 /datum/reagent/consumable/greenflavor
 	name = "Green Flavoring"
@@ -108,3 +108,29 @@
 /datum/reagent/consumable/ethanol/paper_alcohol/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
 	. = ..()
 	drinker.adjust_disgust(5 * REM * seconds_per_tick)
+
+/datum/reagent/drug/chumtoad
+	name = "Chumtoad Extract"
+	description = "This strange liquid extracted from chumtoads greatly empowers humans."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM //long lasting POWER
+	color = "#EE35FF"
+	overdose_threshold = 20
+	taste_description = "toadskin"
+
+/datum/reagent/drug/chumtoad/on_mob_metabolize(mob/living/affected_mob)
+	. = ..()
+	affected_mob.change_stat(STATKEY_STR, 3)
+	affected_mob.change_stat(STATKEY_PER, 3)
+	affected_mob.change_stat(STATKEY_INT, 3)
+	affected_mob.change_stat(STATKEY_END, 3)
+	affected_mob.change_stat(STATKEY_DEX, 3)
+	affected_mob.throw_alert_text(/atom/movable/screen/alert/text/joke, "You feel funny.", override = FALSE)
+
+/datum/reagent/drug/chumtoad/on_mob_delete(mob/living/affected_mob)
+	. = ..()
+	affected_mob.change_stat(STATKEY_STR, -3)
+	affected_mob.change_stat(STATKEY_PER, -3)
+	affected_mob.change_stat(STATKEY_INT, -3)
+	affected_mob.change_stat(STATKEY_END, -3)
+	affected_mob.change_stat(STATKEY_DEX, -3)

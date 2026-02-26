@@ -25,7 +25,7 @@
 #define BLOOD_VOLUME_SURVIVE (BLOOD_VOLUME_NORMAL * (1 - 0.80))
 
 /// How efficiently humans regenerate blood.
-#define BLOOD_REGEN_FACTOR 0.3
+#define BLOOD_REGEN_FACTOR 0.1
 /// Determines the rate at which humans lose blood when they have the blood deficiency quirk. The default is BLOOD_REGEN_FACTOR + BLOOD_DEFICIENCY_MODIFIER.
 #define BLOOD_DEFICIENCY_MODIFIER 0.02
 
@@ -319,8 +319,8 @@
 #define HYGIENE_FACTOR 0.1
 
 //Exhaustion levels for humans
-#define TIREDNESS_MAXIMUM_THRESHOLD 925 //~150 second grace period till movement slowdown sets in
-#define TIREDNESS_SLEEPY_THRESHOLD 850 //sleepy about every 28 minutes
+#define TIREDNESS_MAXIMUM_THRESHOLD 950 //~150 second grace period till movement slowdown sets in
+#define TIREDNESS_SLEEPY_THRESHOLD 875 //sleepy about every 29 minutes
 #define TIREDNESS_TIRED_THRESHOLD 700
 #define TIREDNESS_CLEAR_THRESHOLD 450
 #define TIREDNESS_ENERGIZED_THRESHOLD 100 //You feel nice and awake!

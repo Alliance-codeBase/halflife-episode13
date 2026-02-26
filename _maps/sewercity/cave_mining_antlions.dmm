@@ -10,6 +10,10 @@
 /obj/structure/spawner/halflife/antlion/small,
 /turf/open/floor/plating/ground/rockunder,
 /area/halflife/indoors/sewer/cave)
+"j" = (
+/obj/modular_map_connector,
+/turf/template_noop,
+/area/template_noop)
 "m" = (
 /obj/structure/spawner/halflife/antlion/small/worker,
 /turf/open/floor/plating/ground/rockunder,
@@ -73,7 +77,7 @@ V
 V
 V
 V
-V
+j
 "}
 (2,1,1) = {"
 V

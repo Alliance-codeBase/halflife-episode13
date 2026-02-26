@@ -1,6 +1,6 @@
 /obj/structure/razorwire
 	name = "razorwire obstacle"
-	desc = "A bundle of barbed wire supported by metal rods. Anyone who tries to cross it will get entangled temporarily, and cut by the mess of sharp wires."
+	desc = "A bundle of barbed wire supported by stakes placed in the ground. Anyone who tries to cross it will get entangled temporarily, and cut by the mess of sharp wires."
 	icon = 'hl13/icons/obj/barbedwire.dmi'
 	icon_state = "barbedwire_x"
 	base_icon_state = "barbedwire_x"
@@ -10,22 +10,16 @@
 	projectile_passchance = 95
 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
 	max_integrity = 100
-	///First drop item type
-	var/sheet_type = /obj/item/stack/barbed_wire
-	///Second drop item type
-	var/sheet_type2 = /obj/item/stack/rods
+	///drop item type
+	var/sheet_type = /obj/item/stack/sheet/scrap_metal
 
 /obj/structure/razorwire/deconstruct(disassembled = TRUE, mob/living/blame_mob)
 	if(disassembled)
-		if(atom_integrity > max_integrity * 0.5)
-			new sheet_type(loc)
-		var/obj/item/stack/rods/salvage = new sheet_type2(loc)
+		var/obj/item/stack/rods/salvage = new sheet_type(loc)
 		salvage.amount = max(1, round(4 * (atom_integrity / max_integrity) ) )
 	else
 		if(prob(50))
-			new sheet_type(loc)
-		if(prob(50))
-			var/obj/item/stack/rods/salvage = new sheet_type2(loc)
+			var/obj/item/stack/rods/salvage = new sheet_type(loc)
 			salvage.amount = rand(1,4)
 	return ..()
 
@@ -50,11 +44,14 @@
 		return
 	if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND || !M.has_gravity()) //you're flying over it.
 		return
-	if(M.throwing) // throw someone or jump to bypass safely
+	if(M.throwing && !isanimal_or_basicmob(M)) // throw someone or jump to bypass safely. Basic/simple mobs are exempt.
 		return
 	var/razor_damage = 15
-	if(isanimal_or_basicmob(M)) //these guys dont get tangled up, so instead they just take bonus damage from razor wire
-		razor_damage = 40
+	if(isanimal_or_basicmob(M))
+		if(M.throwing)
+			razor_damage = 80
+		else
+			razor_damage = 40
 	playsound(src, 'hl13/sound/effects/barbed_wire_movement.ogg', 25, 1)
 	var/def_zone = ran_zone()
 	M.apply_damage(razor_damage, BRUTE, def_zone, sharpness = SHARP_EDGED)
@@ -66,6 +63,8 @@
 	entangled.visible_message(span_danger("[entangled] gets entangled in the barbed wire!"),
 	span_danger("You got entangled in the barbed wire!"), null, null, 5)
 	entangled.Immobilize(rand(30,40))
+	if(isanimal_or_basicmob(entangled))
+		entangled.Stun(rand(30,40), ignore_canstun = TRUE)
 
 /obj/structure/razorwire/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -92,7 +91,12 @@
 	user.visible_message(span_notice("[user] starts disassembling [src]."),
 	span_notice("You start disassembling [src]."))
 
-	if(!do_after(user, 2 SECONDS, src))
+	var/disassembly_time = 2 SECONDS
+
+	if(HAS_TRAIT(user, TRAIT_ENGINEER))
+		disassembly_time = 1 SECONDS
+
+	if(!do_after(user, disassembly_time, src))
 		return TRUE
 
 	user.visible_message(span_notice("[user] disassembles [src]."),
@@ -123,64 +127,15 @@
 	return ..()
 */
 
+/*
 /obj/structure/razorwire/update_icon_state()
 	. = ..()
 	icon_state = "[base_icon_state]_[CEILING(ROUND_UP(atom_integrity/max_integrity * 100), 25)]"
-
-/obj/item/stack/barbed_wire
-	name = "barbed wire"
-	desc = "A spiky length of wire."
-	icon = 'hl13/icons/obj/stack_objects.dmi'
-	icon_state = "barbed_wire"
-	item_flags = NOBLUDGEON
-	singular_name = "length"
-	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 5
-	throw_speed = 5
-	throw_range = 20
-	attack_verb_continuous = list("hits", "whacks", "slices")
-	attack_verb_simple = list("hit", "whack", "slice")
-	max_amount = 20
-	merge_type = /obj/item/stack/barbed_wire
-
-//small stack
-/obj/item/stack/barbed_wire/small_stack
-	amount = 5
-
-//half stack
-/obj/item/stack/barbed_wire/half_stack
-	amount = 10
-
-//full stack
-/obj/item/stack/barbed_wire/full
-	amount = 20
-
-/obj/item/stack/barbed_wire/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(.)
-		return
-
-	if(!istype(I, /obj/item/stack/rods))
-		return
-
-	var/obj/item/stack/rods/R = I
-	if(R.amount < 8)
-		to_chat(user, span_warning("You need [8 - R.amount] more [R] to make a razor wire obstacle!"))
-		return
-	if(amount < 2)
-		to_chat(user, span_warning("You need at least [2 - amount] more [src] to make razorwire obstacles!"))
-		return
-
-	R.use(8)
-	use(2)
-
-	var/obj/structure/razorwire/M = new /obj/item/stack/razorwire(user.loc, 2)
-	to_chat(user, span_notice("You combine the rods and barbed wire into [M]!"))
+*/
 
 /obj/item/stack/razorwire
 	name = "razor wire assembly"
-	desc = "A bundle of barbed wire supported by metal rods. Used to deny access to areas under pain of entanglement and injury. A classic fortification since the 1900s."
+	desc = "A bundle of barbed wire supported by stakes. Used to deny access to areas under pain of entanglement and injury. A classic fortification since the 1900s."
 	icon = 'hl13/icons/obj/barbedwire.dmi'
 	icon_state = "barbedwire_assembly"
 	w_class = WEIGHT_CLASS_BULKY
@@ -207,7 +162,7 @@
 	amount = 20
 
 GLOBAL_LIST_INIT(razorwire_recipes, list ( \
-	new/datum/stack_recipe("razorwire", /obj/structure/razorwire, 1, time = 2 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, category = CAT_STRUCTURE), \
+	new/datum/stack_recipe("razorwire", /obj/structure/razorwire, 1, time = 2 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, category = CAT_STRUCTURE, trait_booster = TRAIT_ENGINEER, trait_modifier = 0.75), \
 	))
 
 /obj/item/stack/razorwire/get_main_recipes()

@@ -27,7 +27,7 @@
 	ambient_buzz_vol = 25
 
 	uses_daylight = TRUE
-	daylight_multiplier = 0.2
+	daylight_multiplier = 0.65
 
 	first_time_text = "City Streets"
 
@@ -35,20 +35,20 @@
 
 /area/halflife/outdoors/roofs
 	name = "\improper Rooftops"
-	daylight_multiplier = 0.25
+	daylight_multiplier = 0.75
 
 	first_time_text = "City Upper Levels"
 
 /area/halflife/outdoors/tracks
 	name = "\improper City Train Tracks"
-	daylight_multiplier = 0.25
+	daylight_multiplier = 0.75
 
 	first_time_text = "City Train Tracks"
 
 /area/halflife/outdoors/sewage_dump
 	name = "\improper Sewage Dump"
 	ambient_buzz = 'hl13/sound/ambience/toxic_ambience.ogg'
-	daylight_multiplier = 0.3
+	daylight_multiplier = 0.85
 
 /area/halflife/outdoors/plaza
 	name = "\improper Plaza"
@@ -85,11 +85,14 @@
 	min_ambience_cooldown = 10 SECONDS
 
 	first_time_text = "The Outlands"
+	first_time_sound = 'hl13/sound/ambience/hl2_song11.ogg'
+	first_time_sound_vol = 50
 
 /area/halflife/outdoors/forest/water
 	name = "\improper Outlands Waterways"
 	ambient_buzz = 'hl13/sound/ambience/lake_water.wav'
 	ambient_buzz_vol = 30
+	first_time_sound = null
 
 /area/halflife/outdoors/outlands_city
 	name = "\improper Condemned City"
@@ -102,7 +105,7 @@
 
 	//ambience_index = AMBIENCE_HLSEWERS
 
-	daylight_multiplier = 0.15
+	daylight_multiplier = 0.55
 
 /area/halflife/outdoors/deployment_city
 	name = "\improper City 13"
@@ -116,6 +119,8 @@
 
 	ambient_music_vol = 20
 
+	daylight_multiplier = 0.75
+
 /area/halflife/outdoors/deployment_city/zombies
 
 	ambient_buzz = 'hl13/sound/ambience/town_abandoned.ogg'
@@ -124,13 +129,13 @@
 	ambient_music = 'hl13/sound/ambience/bgm/dark_interval_bgm_03.ogg'
 
 	ambient_music_vol = 20
-	daylight_multiplier = 0.15
+	daylight_multiplier = 0.7
 
 /area/halflife/outdoors/deployment_city/zombies/xen_base
 	name = "\improper Infested Zone"
 
 /area/halflife/outdoors/deployment_city/forest
-	daylight_multiplier = 0.35
+	daylight_multiplier = 0.8
 
 /area/halflife/indoors/combat_deployment
 	ambient_music_vol = 20
@@ -157,6 +162,15 @@
 
 /area/halflife/indoors/outlands
 	name = "\improper Outlands Indoors"
+
+/area/halflife/indoors/outlands/shop
+	first_time_text = "Refugee Shop - The Lost Haven"
+
+	mood_bonus = 2
+	mood_message = "I finally feel a moment of peace here, no matter how small that moment is."
+
+	ambient_music = 'hl13/sound/ambience/bgm/losthaven.ogg'
+	ambient_music_vol = 40
 
 /area/halflife/indoors/townhall
 	name = "\improper Town Hall"
@@ -380,10 +394,15 @@
 
 	ambientrain = RAIN_SEWER
 
+	first_time_sound = 'hl13/sound/ambience/hl1_song5.ogg'
+	first_time_sound_vol = 50
+
 /area/halflife/indoors/sewer/hidden
 	ambient_music_vol = 1
 	ambient_buzz_vol = 80
 	ambientrain = RAIN_IN
+
+	first_time_sound = null
 
 	mood_message = "<span class='warning'>Something is not right here...</span>\n"
 
@@ -434,6 +453,7 @@
 	mood_message = "<span class='warning'>This place is unnerving...</span>\n"
 
 	first_time_text = null
+	first_time_sound = null
 
 /area/halflife/indoors/sewer/tunnel/outlands
 	name = "\improper Outlands Tunnels"
@@ -445,6 +465,8 @@
 	ambient_buzz_vol = 55
 
 	first_time_text = "The Mines"
+	first_time_sound = 'hl13/sound/ambience/suppressionfield.ogg'
+	first_time_sound_vol = 35
 
 	mood_message = "<span class='warning'>This place is unnerving...</span>\n"
 
@@ -460,6 +482,7 @@
 	mood_message = "<span class='warning'>I can hear the bugs all around me...</span>\n"
 
 	first_time_text = "The Antlion Caves"
+	first_time_sound = null
 
 /area/halflife/indoors/sewer/antlioncave
 	name = "\improper Infested Caves"
@@ -471,6 +494,8 @@
 	ambient_buzz_vol = 7
 
 	mood_message = "<span class='warning'>I can hear the bugs all around me...</span>\n"
+
+	first_time_sound = null
 
 
 // coastal district areas
@@ -560,6 +585,14 @@
 	ambient_buzz = 'hl13/sound/ambience/bunker3.ogg'
 	ambient_buzz_vol = 40
 
+/area/halflife/indoors/prison/maintenance
+	name = "\improper Prison Maintenance Tunnels"
+
+	first_time_text = "Maintenance Tunnels"
+
+	ambient_music = 'hl13/sound/ambience/bgm/dark_interval_bgm_03.ogg'
+	ambient_music_vol = 20
+
 /area/halflife/indoors/prison/cargo
 	name = "\improper Prison Cargo Bay"
 
@@ -573,6 +606,9 @@
 
 	first_time_text = "Engineering Area"
 
+	ambient_buzz = 'hl13/sound/ambience/industrial4.ogg'
+	ambient_buzz_vol = 70
+
 /area/halflife/indoors/prison/infirmary
 	name = "\improper Prison Infirmary"
 
@@ -582,6 +618,9 @@
 	name = "\improper Prison Cafeteria"
 
 	first_time_text = "Cafeteria"
+
+	ambient_buzz = 'hl13/sound/ambience/trainstation_ambient_loop1.ogg'
+	ambient_buzz_vol = 18
 
 /area/halflife/indoors/prison/factory
 	name = "\improper Prison Factory"
@@ -624,35 +663,35 @@
 
 	first_time_text = "Security Area"
 	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
+	ambient_buzz_vol = 12
 
-/area/halflife/indoors/prison/rehabilitation
+	ambient_music = 'hl13/sound/ambience/bgm/dark_interval_bgm_13.ogg'
+	ambient_music_vol = 17
+
+/area/halflife/indoors/prison/security/rehabilitation
 	name = "\improper Prison Rehabilitation Room"
 
 	first_time_text = "Rehabilitation Room"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
 
-/area/halflife/indoors/prison/solitary
+/area/halflife/indoors/prison/security/solitary
 	name = "\improper Solitary Confinement"
 
 	first_time_text = "Solitary Confinement"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
 
-/area/halflife/indoors/prison/armory
+/area/halflife/indoors/prison/security/armory
 	name = "\improper Prison Armory"
 
 	first_time_text = "Armory"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
 
-/area/halflife/indoors/prison/warden
+/area/halflife/indoors/prison/security/warden
 	name = "\improper Warden's Office"
 
 	first_time_text = "Warden's Office"
-	ambient_buzz = 'hl13/sound/ambience/citadel_ambience.ogg'
-	ambient_buzz_vol = 25
+
+/area/halflife/indoors/prison/security/divisional
+	name = "\improper Divisional Lead's Office"
+
+	first_time_text = "Divisional Lead's Office"
 
 /area/halflife/indoors/prison/entrance
 	name = "\improper Prison Entrance"
@@ -663,3 +702,4 @@
 	name = "\improper Prison Yard"
 
 	first_time_text = "Prison Yard"
+	first_time_sound = null

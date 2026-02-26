@@ -29,15 +29,16 @@
 	id_name = "ICU"
 
 	uniform = /obj/item/clothing/under/citizen
-	back = /obj/item/watertank/cleanup/weak
+	back = /obj/item/watertank/cleanup_weak
 
+	l_pocket = /obj/item/reagent_containers/pill/patch/medkit
 	r_pocket = /obj/item/flashlight
 
 	shoes = /obj/item/clothing/shoes/halflife/cleanup
 	gloves = /obj/item/clothing/gloves/halflife/cleanup
-	suit = /obj/item/clothing/suit/utility/radiation/cleanup
+	suit = /obj/item/clothing/suit/utility/radiation/cleanup/slow
 	mask = /obj/item/clothing/mask/gas/cwuengi
-	head = /obj/item/clothing/head/utility/radiation
+	head = /obj/item/clothing/head/utility/radiation/weak
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/crawlyard.ogg'
@@ -70,6 +71,9 @@
 	combat_music = 'hl13/sound/music/combat/crawlyard.ogg'
 
 	extra_str = 3
+	extra_end = 3
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /// TIER 2 ////////////////////////////////////////////////////////
 
@@ -95,6 +99,27 @@
 	r_pocket = /obj/item/grenade/spawnergrenade/manhacks
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
+
+/datum/outfit/deployment_loadout/combine/tier2/infestation_control
+	name = "Deployment: Upgraded Infestation Control"
+	display_name = "Upgraded Infestation Control (Offense)"
+	desc = "Your spraygun is amazing at taking out zombies, but your slow speed and lack of bullet resistance can leave you helpless against rebels."
+	id_name = "ICU"
+
+	uniform = /obj/item/clothing/under/citizen
+	back = /obj/item/watertank/cleanup
+
+	l_pocket = /obj/item/reagent_containers/pill/patch/medkit
+	r_pocket = /obj/item/flashlight
+
+	shoes = /obj/item/clothing/shoes/halflife/cleanup
+	gloves = /obj/item/clothing/gloves/halflife/cleanup
+	suit = /obj/item/clothing/suit/utility/radiation/cleanup
+	mask = /obj/item/clothing/mask/gas/cwuengi
+	head = /obj/item/clothing/head/utility/radiation
+
+	ears = /obj/item/radio/headset/civilprotection/deployment
+	combat_music = 'hl13/sound/music/combat/crawlyard.ogg'
 
 /datum/outfit/deployment_loadout/combine/tier2/pistol_cop
 	name = "Deployment: Pistol Cop"
@@ -169,6 +194,9 @@
 	combat_music = 'hl13/sound/music/combat/crawlyard.ogg'
 
 	extra_str = 4 // all combine engis get extra strength over rebel engis since rebel engis get some armor
+	extra_end = 4
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /// TIER 3 ////////////////////////////////////////////////////////
 /datum/outfit/deployment_loadout/combine/tier3
@@ -188,7 +216,7 @@
 
 	back = /obj/item/tank/internals/oxygen/grunt
 	mask = /obj/item/clothing/mask/gas/civilprotection/overwatch/grunt
-	uniform = /obj/item/clothing/under/combine/grunt/fused/deployment
+	uniform = /obj/item/clothing/under/combine/grunt/fused
 	shoes = /obj/item/clothing/shoes/jackboots/civilprotection
 	gloves = /obj/item/clothing/gloves/color/civilprotection/grunt
 	r_pocket = /obj/item/reagent_containers/pill/patch/medkit/vial
@@ -196,6 +224,8 @@
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/lgorbifold.ogg'
+
+	extra_dex = 2
 
 /datum/outfit/deployment_loadout/combine/tier3/ota
 	name = "Deployment: SMG OTA"
@@ -242,7 +272,8 @@
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 
-	extra_str = 4
+	extra_str = 6
+	extra_end = 6
 
 /datum/outfit/deployment_loadout/combine/tier3/divisional
 	name = "Deployment: Divisional Lead"
@@ -267,11 +298,13 @@
 
 	backpack_contents = list(
 		/obj/item/ammo_box/colta357 = 1,
-		/obj/item/reagent_containers/pill/patch/medkit/vial = 1,
+		/obj/item/reagent_containers/pill/patch/medkit/vial = 2,
 	)
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/branescan.ogg'
+
+	extra_per = 2
 
 /datum/outfit/deployment_loadout/combine/tier3/medic_cop
 	name = "Deployment: Upgraded Medical Cop"
@@ -331,6 +364,7 @@
 		/obj/item/sbeacondrop/combine_turret = 1,
 		/obj/item/wirecutters/halflife = 1,
 		/obj/item/ammo_box/magazine/usp9mm = 1,
+		/obj/item/wrench/halflife = 1,
 	)
 
 
@@ -340,6 +374,9 @@
 	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire/slow)
 
 	extra_str = 5
+	extra_end = 5
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /datum/outfit/deployment_loadout/combine/tier3/sniper
 	name = "Deployment: Sniper OTA"
@@ -359,6 +396,8 @@
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/guarddown.ogg'
+
+	extra_per = 5
 
 /// TIER 4 ////////////////////////////////////////////////////////
 /datum/outfit/deployment_loadout/combine/tier4
@@ -447,6 +486,8 @@
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/guarddown.ogg'
 
+	extra_per = 5
+
 /datum/outfit/deployment_loadout/combine/tier4/ordinal
 	name = "Deployment: Combine Ordinal"
 	display_name = "Combine Ordinal (Offense)"
@@ -520,7 +561,8 @@
 	gloves = /obj/item/clothing/gloves/halflife/foreman
 
 	r_pocket = /obj/item/flashlight
-	l_pocket = /obj/item/gun/ballistic/automatic/pistol/usp
+
+	belt = /obj/item/gun/ballistic/revolver/coltpython
 
 	back = /obj/item/storage/backpack/satchel
 
@@ -528,9 +570,10 @@
 		/obj/item/crowbar/large = 1,
 		/obj/item/stack/sheet/mineral/sandbags = 11,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
-		/obj/item/ammo_box/magazine/usp9mm = 2,
+		/obj/item/ammo_box/colta357 = 2,
 		/obj/item/sbeacondrop/combine_turret = 1,
 		/obj/item/wirecutters/halflife = 1,
+		/obj/item/wrench/halflife = 1,
 	)
 
 
@@ -540,6 +583,9 @@
 	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire)
 
 	extra_str = 5
+	extra_end = 5
+
+	skillchips = list(/obj/item/skillchip/engineer)
 
 /obj/item/sbeacondrop/combine_turret
 	desc = "A label on it reads: <i>Warning: Activating this device will send a combine turret to your location</i>."
@@ -562,7 +608,7 @@
 /datum/outfit/deployment_loadout/combine/tier4/overseer
 	name = "Deployment: Overseer"
 	display_name = "Viscerator Overseer Cop (Offense)"
-	desc = "You are a MP7 equipped cop that specializes in supporting allies with your large amount of viscerators, but aren't too powerful by yourself. Your viscerators are quick to deploy and have a shield which can take two shots for them, but have low health otherwise, making them best used against slow firing targets."
+	desc = "You are a MP7 equipped cop that specializes in supporting allies with your large amount of viscerators, but aren't too powerful by yourself. Your viscerators are quick to deploy and have a shield which can take three shots for them, but have low health otherwise, making them best used against slow firing targets."
 	id_name = "Overseer"
 
 	uniform = /obj/item/clothing/under/combine/civilprotection
@@ -582,9 +628,11 @@
 	back = /obj/item/storage/backpack/halflife/satchel/civilprotection
 
 	backpack_contents = list(
-		/obj/item/grenade/spawnergrenade/manhacks/shielded = 3,
+		/obj/item/grenade/spawnergrenade/manhacks/shielded = 2,
 		/obj/item/ammo_box/magazine/mp7 = 4,
 	)
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/overseer_viscerator)
 
 ////////////////////// TIER 5 /////////////////////////////////////
 /datum/outfit/deployment_loadout/combine/tier5
@@ -600,7 +648,7 @@
 
 /datum/outfit/deployment_loadout/combine/tier5/hunter/post_equip(mob/living/carbon/human/H)
 	var/datum/mind/player_mind = H.mind
-	var/mob/living/simple_animal/hostile/halflife/hunter/S = new (H.loc)
+	var/mob/living/simple_animal/hostile/halflife/hunter/deployment/S = new (H.loc)
 	player_mind.transfer_to(S)
 	qdel(H)
 
@@ -632,6 +680,9 @@
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/penultimatum.ogg'
 
+	extra_end = 3
+	extra_str = 4
+
 /datum/outfit/deployment_loadout/combine/tier5/assassin
 	name = "Deployment: Combine Assassin"
 	display_name = "Combine Assassin (Pick)"
@@ -653,8 +704,9 @@
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/infiltrate.ogg'
 
-	extra_dex = 4
+	extra_dex = 5
 	extra_str = 5
+	extra_per = 5
 
 /datum/outfit/deployment_loadout/combine/tier5/suppressor
 	name = "Deployment: Combine Suppressor"
@@ -684,6 +736,8 @@
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/penultimatum.ogg'
 
+	extra_end = 3
+
 /datum/outfit/deployment_loadout/combine/tier5/advisor
 	name = "Deployment: Advisor"
 	display_name = "Advisor (Support)"
@@ -697,3 +751,39 @@
 	var/mob/living/basic/halflife/advisor/S = new (H.loc)
 	player_mind.transfer_to(S)
 	qdel(H)
+
+/datum/outfit/deployment_loadout/combine/tier5/logistics_lead
+	name = "Deployment: Combine Logistics Lead"
+	display_name = "Combine Logistics Lead (Support)"
+	desc = "While not a very good combatant, you carry with you a supply radio just like your team captain, and can use it to call in a multitude of useful supplies!"
+	id_name = "Logistics Lead"
+
+	ears = /obj/item/radio/headset/heads/hop
+	uniform = /obj/item/clothing/under/halflife/labor_lead
+	head = /obj/item/clothing/head/halflife/blue_hardhat
+	mask = /obj/item/clothing/mask/gas/cwuengi //only really because i dont want them to be mistaken for a rebel
+	suit = /obj/item/clothing/suit/armor/civilprotection/speedy
+	suit_store = /obj/item/gun/ballistic/revolver/coltpython/well_crafted
+	l_pocket = /obj/item/hl2/supply_radio/combine/logistics
+	r_pocket = /obj/item/flashlight/seclite
+
+	shoes = /obj/item/clothing/shoes/jackboots/civilprotection
+	gloves = /obj/item/clothing/gloves/color/civilprotection
+
+	back = /obj/item/storage/backpack/halflife/satchel
+
+	backpack_contents = list(
+		/obj/item/ammo_box/colta357 = 3,
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = 3,
+		/obj/item/melee/baton/telescopic = 1,
+	)
+
+	ears = /obj/item/radio/headset/civilprotection/deployment
+	combat_music = 'hl13/sound/music/combat/branescan.ogg'
+
+	extra_int = 10
+	extra_per = 3
+
+/datum/outfit/deployment_loadout/combine/tier5/logistics_lead/post_equip(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H, TRAIT_SUPPLYRADIO_USER, JOB_TRAIT)

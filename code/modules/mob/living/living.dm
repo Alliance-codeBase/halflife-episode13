@@ -176,7 +176,8 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
 	SEND_SIGNAL(M, COMSIG_LIVING_MOB_BUMPED, src)
 	//Even if we don't push/swap places, we "touched" them, so spread fire
-	spreadFire(M)
+	if(prob(50)) //hl13 edit, not guaranteed to instantly set somewhere into an eruption of fire by touching them a little bit
+		spreadFire(M)
 
 	if(now_pushing)
 		return TRUE
@@ -638,6 +639,8 @@
 				SetSleeping(450 - (comfiness * 10)) //Short nap
 				if(4 < comfiness)
 					add_mood_event("comfiness", /datum/mood_event/comfy_sleep)
+				if(SSdaylight.day_cycle_active == "Night" && get_area(src) == /area/halflife/indoors/prison/cells && HAS_TRAIT(src, TRAIT_PRISONER))
+					SSsociostability.modifystability(1) //prisoners sleeping in their cells at night increases sociostability. Enforce curfew!
 			else
 				to_chat(src, span_notice("... but are disturbed from fully falling asleep."))
 
@@ -2475,6 +2478,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			if(. >= UNCONSCIOUS)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			throw_alert_text(/atom/movable/screen/alert/text/sad, "You are too hurt to fight back!", override = FALSE) // HL13 EDIT - text alert
 			log_combat(src, src, "entered soft crit")
 		if(UNCONSCIOUS)
 			if(. != HARD_CRIT)
@@ -2488,8 +2492,10 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			if(. != UNCONSCIOUS)
 				become_blind(UNCONSCIOUS_TRAIT)
 			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
+			throw_alert_text(/atom/movable/screen/alert/text/cry, "You feel your world starting to fade away!", override = FALSE) // HL13 EDIT - text alert
 			log_combat(src, src, "entered hard crit")
 		if(DEAD)
+			throw_alert_text(/atom/movable/screen/alert/text/dead, "Your lifesigns have ceased.", override = FALSE) // HL13 EDIT - text alert
 			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 			remove_from_alive_mob_list()
 			add_to_dead_mob_list()

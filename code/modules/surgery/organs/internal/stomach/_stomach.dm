@@ -132,6 +132,7 @@
 	else
 		if(human.overeatduration >= (200 SECONDS))
 			to_chat(human, span_danger("You suddenly feel blubbery!"))
+			human.throw_alert_text(/atom/movable/screen/alert/text/sad, "You feel very fat...", override = FALSE) // HL13 EDIT - text alert
 			human.add_traits(list(TRAIT_FAT, TRAIT_OFF_BALANCE_TACKLER), OBESITY)
 
 	// nutrition decrease and satiety
@@ -190,9 +191,11 @@
 	if(nutrition < NUTRITION_LEVEL_DYING) //Actively starving, body is failing
 		human.set_stat_modifier("hunger", STATKEY_DEX, -4)
 		human.set_stat_modifier("hunger", STATKEY_STR, -4)
+		human.set_stat_modifier("hunger", STATKEY_END, -4)
 
 		if(prob(3))
 			to_chat(human, span_warning("You feel your body wasting away from your hunger..."))
+			human.throw_alert_text(/atom/movable/screen/alert/text/sad, "The hunger is getting to you...", override = FALSE) // HL13 EDIT - text alert
 			playsound(get_turf(human), pick('hl13/sound/effects/hungry1.ogg','hl13/sound/effects/hungry2.ogg','hl13/sound/effects/hungry3.ogg'), 100, TRUE, -1)
 			human.adjust_dizzy(6 SECONDS)
 			human.adjust_confusion(6 SECONDS)
@@ -208,8 +211,8 @@
 				human.adjust_tiredness(25)
 				human.adjust_eye_blur(10 SECONDS)
 	else if(NUTRITION_LEVEL_FAT < nutrition)
-		human.set_stat_modifier("hunger", STATKEY_STR, 1) //fat people are still often strong
-		human.set_stat_modifier("hunger", STATKEY_DEX, -3) //just not very mobile
+		human.set_stat_modifier("hunger", STATKEY_END, 1) //lots of fat gives you resistance to attacks i suppose
+		human.set_stat_modifier("hunger", STATKEY_DEX, -4) //just not very mobile
 	else if(NUTRITION_LEVEL_WELL_FED < nutrition)
 		human.set_stat_modifier("hunger", STATKEY_STR, 1)
 		human.set_stat_modifier("hunger", STATKEY_DEX, 1)
@@ -222,12 +225,14 @@
 	if(hydration < HYDRATION_LEVEL_DYING) //So damn thirsty that you are dying
 		human.set_stat_modifier("thirst", STATKEY_DEX, -3)
 		human.set_stat_modifier("thirst", STATKEY_STR, -3)
+		human.set_stat_modifier("thirst", STATKEY_END, -3)
 
 		if(prob(4))
 			to_chat(human, span_warning("So thirsty, you feel so weak..."))
 			human.adjust_dizzy(6 SECONDS)
 			human.adjust_confusion(6 SECONDS)
 		if(prob(4))
+			human.throw_alert_text(/atom/movable/screen/alert/text/sad, "You are incredibly parched...", override = FALSE) // HL13 EDIT - text alert
 			to_chat(human, span_warning("So thirsty... just need to lie down..."))
 			human.adjustStaminaLoss(25)
 			human.adjustOxyLoss(10)

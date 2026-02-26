@@ -19,8 +19,8 @@
 	plane = FLOOR_PLANE
 	layer = TURF_LAYER_WATER_BASE
 	slowdown = 1
-	light_power = 0.25 //water is reflective, or has glowing contaminants inside of it...
-	light_range = 0.25
+	//light_power = 0.25 //water is reflective, or has glowing contaminants inside of it...
+	//light_range = 0.25
 	light_color = "#0486b9"
 	// What type of water it'll give you when you fill a container from it.
 	var/dispensedreagent = /datum/reagent/water/unpurified/river
@@ -104,6 +104,7 @@
 	watereffect = /obj/effect/overlay/halflife/water/deep
 	watertop = /obj/effect/overlay/halflife/water/top/deep
 	depth = 3
+	slowdown = 2
 
 /turf/open/halflife/water/medium
 	icon_state = "water_medium"
@@ -365,6 +366,7 @@
 	watereffect = /obj/effect/overlay/halflife/sewer/deep
 	watertop = /obj/effect/overlay/halflife/sewer/top/deep
 	depth = 3
+	slowdown = 3
 
 /turf/open/halflife/water/sewer/medium
 	icon_state = "sewer_medium"
@@ -432,6 +434,7 @@
 	watereffect = /obj/effect/overlay/halflife/sewer/deep
 	watertop = /obj/effect/overlay/halflife/sewer/top/deep
 	depth = 3
+	slowdown = 2.25
 
 /turf/open/halflife/water/sludge/medium
 	icon_state = "sludge_medium"
@@ -464,6 +467,7 @@
 	watertop = /obj/effect/overlay/halflife/water/top/deep
 	depth = 3
 	leeches = TRUE
+	slowdown = 2.25
 
 /turf/open/halflife/water/salt/medium
 	icon_state = "water_medium"

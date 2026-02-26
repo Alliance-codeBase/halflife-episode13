@@ -7,12 +7,14 @@
 	icon_dead = "advisor_dead"
 	faction = list(FACTION_COMBINE)
 	movement_type = FLOATING
-	maxHealth = 250
-	health = 250
+	maxHealth = 175
+	health = 175
 	obj_damage = 14
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	sharpness = SHARP_EDGED
+	melee_attack_cooldown = 1.25 SECONDS
+	sharpness = SHARP_POINTY
+	armour_penetration = 15
 	wound_bonus = -15
 	attack_vis_effect = ATTACK_EFFECT_CLAW
 	attack_verb_continuous = "claws"
@@ -20,10 +22,10 @@
 	attack_sound = 'hl13/sound/creatures/hunter/hunter_skewer1.ogg'
 	combat_mode = TRUE
 	status_flags = CANPUSH
-	speed = 0.25
+	speed = 0.3
 	death_sound = 'hl13/sound/creatures/advisor/advisor_scream.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/simple_hostile_obstacles
-	initial_language_holder = /datum/language_holder/advisor
+	speak_emote = list("telepathically utters")
 
 	deployment_faction = COMBINE_DEPLOYMENT_FACTION
 
@@ -46,6 +48,14 @@
 	sooth = new(src)
 	sooth.Grant(src)
 
+	ADD_TRAIT(src, TRAIT_MEDICAL_HUD, INNATE_TRAIT)
+
+/mob/living/basic/halflife/advisor/Life(seconds_per_tick = SSMOBS_DT, times_fired)
+	..()
+	if(stat)
+		return
+	adjust_health(-maxHealth*0.02) //3.5 hp every 2 seconds
+
 /datum/language_holder/advisor
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
 
@@ -62,7 +72,7 @@
 	button_icon_state = "repulse"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	invocation = null
-	cooldown_time = 30 SECONDS
+	cooldown_time = 25 SECONDS
 	aoe_radius = 3
 	max_throw = 4
 	cooldown_reduction_per_rank = 4 SECONDS
@@ -87,15 +97,17 @@
 	active_msg = "You prepare to punish a target..."
 
 	/// The amount of blurriness to apply
-	var/eye_blur_duration = 10 SECONDS
+	var/eye_blur_duration = 8 SECONDS
 	/// The amount of pain to apply
-	var/temp_pain_amount = 150
+	var/temp_pain_amount = 100
 	/// The amount of confusion to apply
-	var/confusion_duration = 10 SECONDS
+	var/confusion_duration = 8 SECONDS
 	/// The amount of stamina loss to apply
 	var/stamina_damage = 40
 	/// How long the stun duration should be
-	var/stun_duration = 1.5 SECONDS
+	var/stun_duration = 0.75 SECONDS
+	/// How long the immobilize duration should be
+	var/immobilize_duration = 2 SECONDS
 
 /datum/action/cooldown/spell/pointed/advisorial_punish/is_valid_target(atom/cast_on)
 	. = ..()
@@ -111,24 +123,26 @@
 	. = ..()
 
 	to_chat(cast_on, span_warning("Your mind cries out in pain as a psionic wave washes over it!"))
+	cast_on.throw_alert_text(/atom/movable/screen/alert/text/cry, "Your mind explodes in agony!", override = FALSE)
 	cast_on.emote("scream")
 	cast_on.set_eye_blur_if_lower(eye_blur_duration)
 	cast_on.adjust_temppain(temp_pain_amount)
 	cast_on.adjust_confusion(confusion_duration)
 	cast_on.adjustStaminaLoss(stamina_damage)
 	cast_on.Stun(stun_duration)
+	cast_on.Immobilize(immobilize_duration)
 	return TRUE
 
 /datum/action/cooldown/spell/pointed/advisor_sooth
 	name = "Advisorial Sooth"
-	desc = "Sooth a subjects mind through the power of psionic domination. Forces their brain and body to produce various chemicals to allow them to push through pain and injury, while also restoring a small amount of health."
+	desc = "Sooth a subjects mind through the power of psionic domination. Forces their brain and body to produce various chemicals to allow them to push through pain and injury, while also restoring a moderate amount of health."
 	button_icon = 'hl13/icons/mob/actions/actions_advisor.dmi'
 	button_icon_state = "sooth"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 
 	sound = 'hl13/sound/creatures/advisor/advisor_sooth.ogg'
 	school = SCHOOL_TRANSMUTATION
-	cooldown_time = 12 SECONDS
+	cooldown_time = 10 SECONDS
 	cooldown_reduction_per_rank = 6.25 SECONDS
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
@@ -148,6 +162,7 @@
 	. = ..()
 
 	to_chat(cast_on, span_boldnicegreen("An alien wave of psionic interference covers you, easing your pain!"))
+	cast_on.throw_alert_text(/atom/movable/screen/alert/text/smallhappy, "You feel your pain melting away.", override = FALSE)
 	if(ishuman(cast_on))
 		var/mob/living/carbon/human/H = cast_on
 		H.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, 5)

@@ -125,6 +125,14 @@
 	speed = 1.4
 	headcrab_delay = 2 SECONDS
 
+/mob/living/basic/halflife/zombie/gonome/complete/cash_gorged
+	name = "Cash-gorged Gonome"
+	armour_penetration = 25
+	move_intent = "run"
+	guaranteed_butcher_results = list(/obj/item/stack/spacecash/c10 = 3)
+	desc = "A massive, grotesque abomination of flesh and fungas. A horror, which should not be. This one has for some reason gorged itself on loads of cash. A butcher should be able to get out the cash."
+	speed = 0.33
+
 /mob/living/basic/halflife/zombie/gonome/complete/cultist
 	speed = 1.3
 	headcrab_delay = 2 SECONDS

@@ -76,6 +76,7 @@
 
 #define TRAIT_TDMCAPTAIN "tdmcaptain"
 #define TRAIT_TDMPLAYER "tdmplayer"
+#define TRAIT_SUPPLYRADIO_USER "supplyradio_user"
 
 #define TRAIT_BACKSTABBER "backstabber"
 
@@ -87,11 +88,9 @@
 
 #define TRAIT_HIGHBORN "highborn"
 
+#define TRAIT_SCAVENGER "scavenger"
+
 #define TRAIT_NOSLEEP "nosleep"
-
-#define TRAIT_EAGLE_EYED "eagle_eyed"
-
-#define TRAIT_BAD_AIM	"bad_aim"
 
 #define TRAIT_TERRIBLE_AIM	"terrible_aim"
 
