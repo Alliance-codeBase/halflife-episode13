@@ -31,7 +31,7 @@ STATIONNAME City 13 Local District
 HUB
 
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
-LOBBY_COUNTDOWN 180
+LOBBY_COUNTDOWN 60
 
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
@@ -104,10 +104,10 @@ ALLOW_ADMIN_ASAYCOLOR
 ID_CONSOLE_JOBSLOT_DELAY 30
 
 ## allow players to initiate a restart vote
-#ALLOW_VOTE_RESTART
+ALLOW_VOTE_RESTART
 
 ## allow players to initiate a map-change vote
-#ALLOW_VOTE_MAP
+ALLOW_VOTE_MAP
 
 ## allow players to rock the vote, or to vote on the map again if they didn't like the last results
 #ALLOW_ROCK_THE_VOTE
@@ -116,7 +116,7 @@ ID_CONSOLE_JOBSLOT_DELAY 30
 MAX_ROCKING_VOTES 1
 
 ## min delay (deciseconds) between voting sessions (default 10 minutes)
-VOTE_DELAY 6000
+VOTE_DELAY 3000
 
 ## time period (deciseconds) which voting session will last (default 1 minute)
 VOTE_PERIOD 600
@@ -134,7 +134,7 @@ VOTE_PERIOD 600
 ALLOW_RESPAWN 1
 
 ## Respawn delay (deciseconds), which doesn't allow to return to lobby
-RESPAWN_DELAY 9000
+RESPAWN_DELAY 3000
 
 ## set a hosted by name for unix platforms
 HOSTEDBY Unofficial Half Life Episode 13 Hoster
