@@ -1,10 +1,18 @@
 GLOBAL_VAR_INIT(deployment_rebels_flag_time_left, 5 MINUTES)
 GLOBAL_VAR_INIT(deployment_combine_flag_time_left, 5 MINUTES)
+GLOBAL_VAR_INIT(deployment_xen_flag_time_left, 6 MINUTES)
 GLOBAL_VAR_INIT(deployment_flag_grace_period, 0)
 GLOBAL_VAR_INIT(deployment_respawn_rate_rebels, 35 SECONDS)
 GLOBAL_VAR_INIT(deployment_respawn_rate_combine, 35 SECONDS)
 GLOBAL_VAR_INIT(deployment_respawn_rate_xen, 20 SECONDS)
 GLOBAL_VAR_INIT(deployment_win_team, null)
+
+//tier points keep track of how many higher tier units a faction has been receiving, so it can keep the sides roughly balanced
+//In order for someone to get a high tier unit, they have to subtract from their sides tier points. If their side cant afford it, they dont get to.
+//If their side has a shit ton of tier points, they get a guaranteed high tier.
+GLOBAL_VAR_INIT(rebel_tier_points, 3)
+GLOBAL_VAR_INIT(combine_tier_points, 3)
+GLOBAL_VAR_INIT(xen_tier_points, 4)
 
 /obj/machinery/deployment_koth_flag
 	name = "Central Flag"
@@ -28,6 +36,7 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 
 	var/rebel_time = 5 MINUTES
 	var/combine_time = 5 MINUTES
+	var/xen_time = 6 MINUTES
 	var/grace_time = 3 MINUTES
 
 	/// Should the current holder of the flag have a different respawn speed, as perhaps say a handicap of sorts?
@@ -40,15 +49,32 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 	var/grace_period_up_text = "<span class='greentext big'>The flag grace period is up, and it is now capturable!</span>"
 	var/grace_period_text = TRUE
 
+	var/projectile_passchance = 50
+
 /obj/machinery/deployment_koth_flag/Initialize(mapload)
 	.=..()
 	START_PROCESSING(SSprocessing, src)
 	GLOB.deployment_combine_flag_time_left = combine_time
 	GLOB.deployment_rebels_flag_time_left = rebel_time
+	GLOB.deployment_xen_flag_time_left = xen_time
 	GLOB.deployment_flag_grace_period = grace_time
 
+/obj/machinery/deployment_koth_flag/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(istype(mover, /obj/projectile))
+		if(!projectile_passchance)
+			return
+		if(!anchored)
+			return TRUE
+		var/obj/projectile/proj = mover
+		if(proj.firer && Adjacent(proj.firer))
+			return TRUE
+		if(prob((projectile_passchance)))
+			return TRUE
+		return FALSE
+
 /obj/machinery/deployment_koth_flag/process()
-	for(var/turf/closed/wall/W in RANGE_TURFS(3, get_turf(src))) //no walling off the flag
+	for(var/turf/closed/wall/W in RANGE_TURFS(2, get_turf(src))) //no walling off the flag
 		W.dismantle_wall()
 
 	if(GLOB.deployment_flag_grace_period < 1 SECONDS)
@@ -61,6 +87,10 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 					SEND_SOUND(H, 'hl13/sound/effects/siren.ogg')
 					to_chat(H, grace_period_up_text)
 				for(var/X in GLOB.deployment_combine_players)
+					var/mob/living/carbon/human/H = X
+					SEND_SOUND(H, 'hl13/sound/effects/siren.ogg')
+					to_chat(H, grace_period_up_text)
+				for(var/X in GLOB.deployment_xen_players)
 					var/mob/living/carbon/human/H = X
 					SEND_SOUND(H, 'hl13/sound/effects/siren.ogg')
 					to_chat(H, grace_period_up_text)
@@ -84,6 +114,10 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 				var/mob/living/carbon/human/H = X
 				SEND_SOUND(H, 'hl13/sound/effects/commstower_destroyed.ogg')
 				to_chat(H, "<span class='userdanger'>The combine have captured the flag...</span>")
+			for(var/X in GLOB.deployment_xen_players)
+				var/mob/living/L = X
+				SEND_SOUND(L, 'hl13/sound/effects/commstower_destroyed.ogg')
+				to_chat(L, "<span class='userdanger'>The combine have captured the flag...</span>")
 			for(var/X in GLOB.deployment_combine_players)
 				var/mob/living/carbon/human/H = X
 				SEND_SOUND(H, 'hl13/sound/effects/commstower_destroyed.ogg')
@@ -105,10 +139,36 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 				var/mob/living/carbon/human/H = X
 				SEND_SOUND(H, 'hl13/sound/effects/commstower_destroyed.ogg')
 				to_chat(H, "<span class='userdanger'>The rebels have captured the flag...</span>")
+			for(var/X in GLOB.deployment_xen_players)
+				var/mob/living/L = X
+				SEND_SOUND(L, 'hl13/sound/effects/commstower_destroyed.ogg')
+				to_chat(L, "<span class='userdanger'>The rebels have captured the flag...</span>")
 			for(var/X in GLOB.deployment_rebel_players)
 				var/mob/living/carbon/human/H = X
 				SEND_SOUND(H, 'hl13/sound/effects/commstower_destroyed.ogg')
 				to_chat(H, "<span class='greentext big'>We have captured and held the flag!</span>")
+			return PROCESS_KILL
+
+	if(current_faction_holder == XEN_DEPLOYMENT_FACTION)
+		icon_state = "xen"
+		GLOB.deployment_xen_flag_time_left -= 1 SECONDS
+
+		if(GLOB.deployment_xen_flag_time_left <= 0)
+			priority_announce("The flag is under control the Xenian hordes, time for the feast!", "Xen Priority Alert")
+			GLOB.deployment_win_team = XEN_DEPLOYMENT_FACTION
+			SSticker.force_ending = FORCE_END_ROUND
+			for(var/X in GLOB.deployment_combine_players)
+				var/mob/living/carbon/human/H = X
+				SEND_SOUND(H, 'hl13/sound/effects/commstower_destroyed.ogg')
+				to_chat(H, "<span class='userdanger'>The xenians have captured the flag...</span>")
+			for(var/X in GLOB.deployment_rebel_players)
+				var/mob/living/carbon/human/H = X
+				SEND_SOUND(H, 'hl13/sound/effects/commstower_destroyed.ogg')
+				to_chat(H, "<span class='userdanger'>The xenians have captured the flag...</span>")
+			for(var/X in GLOB.deployment_xen_players)
+				var/mob/living/L = X
+				SEND_SOUND(L, 'hl13/sound/effects/commstower_destroyed.ogg')
+				to_chat(L, "<span class='greentext big'>We have captured and held the flag!</span>")
 			return PROCESS_KILL
 
 /obj/machinery/deployment_koth_flag/attack_hand(mob/living/carbon/human/H, modifiers)
@@ -131,6 +191,10 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 					var/mob/living/carbon/human/player = X
 					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
 					to_chat(player, "<span class='userdanger'>The rebels are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_xen_players)
+					var/mob/living/L = X
+					SEND_SOUND(L,  'hl13/sound/effects/griffin_10.ogg')
+					to_chat(L, "<span class='userdanger'>The rebels are in control of the flag, take it down!</span>")
 				for(var/X in GLOB.deployment_rebel_players)
 					var/mob/living/carbon/human/player = X
 					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
@@ -140,27 +204,119 @@ GLOBAL_VAR_INIT(deployment_win_team, null)
 					var/mob/living/carbon/human/player = X
 					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
 					to_chat(player, "<span class='userdanger'>The combine are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_xen_players)
+					var/mob/living/L = X
+					SEND_SOUND(L, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(L, "<span class='userdanger'>The combine are in control of the flag, take it down!</span>")
 				for(var/X in GLOB.deployment_combine_players)
 					var/mob/living/carbon/human/player = X
 					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
 					to_chat(player, "<span class='greentext big'>We are in control of the flag!</span>")
+			if(current_faction_holder == XEN_DEPLOYMENT_FACTION)
+				for(var/X in GLOB.deployment_rebel_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='userdanger'>The xenians are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_combine_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='userdanger'>The xenians are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_xen_players)
+					var/mob/living/L = X
+					SEND_SOUND(L, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(L, "<span class='greentext big'>We are in control of the flag!</span>")
 		else
 			to_chat(H, span_notice("The flag was not succesfully raised."))
 	else
 		to_chat(H, span_notice("Your team's flag is already raised."))
 
+/obj/machinery/deployment_koth_flag/attack_basic_mob(mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	if(user.deployment_faction != current_faction_holder)
+		if(!capturable)
+			to_chat(user, span_userdanger("The flag grace period is still on for another [(GLOB.deployment_flag_grace_period)/10] seconds, and cant be captured!"))
+			return
+		to_chat(user, span_green("Raising your team's flag!"))
+		if(do_after(user, 5 SECONDS, src))
+			to_chat(user, span_green("Flag raised!"))
+			current_faction_holder = user.deployment_faction
+
+			if(current_faction_holder == REBEL_DEPLOYMENT_FACTION)
+				for(var/X in GLOB.deployment_combine_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='userdanger'>The rebels are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_xen_players)
+					var/mob/living/L = X
+					SEND_SOUND(L, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(L, "<span class='userdanger'>The rebels are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_rebel_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='greentext big'>We are in control of the flag!</span>")
+			if(current_faction_holder == COMBINE_DEPLOYMENT_FACTION)
+				for(var/X in GLOB.deployment_rebel_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='userdanger'>The combine are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_xen_players)
+					var/mob/living/L = X
+					SEND_SOUND(L, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(L, "<span class='userdanger'>The combine are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_combine_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='greentext big'>We are in control of the flag!</span>")
+			if(current_faction_holder == XEN_DEPLOYMENT_FACTION)
+				for(var/X in GLOB.deployment_rebel_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='userdanger'>The xenians are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_combine_players)
+					var/mob/living/carbon/human/player = X
+					SEND_SOUND(player, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(player, "<span class='userdanger'>The xenians are in control of the flag, take it down!</span>")
+				for(var/X in GLOB.deployment_xen_players)
+					var/mob/living/L = X
+					SEND_SOUND(L, 'hl13/sound/effects/griffin_10.ogg')
+					to_chat(L, "<span class='greentext big'>We are in control of the flag!</span>")
+		else
+			to_chat(user, span_notice("The flag was not succesfully raised."))
+	else
+		to_chat(user, span_notice("Your team's flag is already raised."))
+
 /obj/machinery/deployment_koth_flag/examine(mob/user)
 	. = ..()
 	. += span_notice("The rebels need to hold the flag for [(GLOB.deployment_rebels_flag_time_left)/10] seconds more in order to win.")
 	. += span_notice("The combine need to hold the flag for [(GLOB.deployment_combine_flag_time_left)/10] seconds more in order to win.")
+	if(SSmapping.current_map.combat_deployment_gamemode == "xen_chaos")
+		. += span_notice("The xenians need to hold the flag for [(GLOB.deployment_xen_flag_time_left)/10] seconds more in order to win.")
 
 /obj/machinery/deployment_koth_flag/rebel_defend
-	rebel_time = 7.5 MINUTES
+	rebel_time = 8 MINUTES
 	combine_time = 30 SECONDS
 	grace_time = 1 MINUTES
 	starting_faction = REBEL_DEPLOYMENT_FACTION
 	alter_holder_respawn = TRUE
 	grace_period_up_text = "<span class='reallybig'>The initial setup grace period is up, and the rebel flag is now capturable by the Combine.</span>"
+
+/obj/machinery/deployment_koth_flag/combine_defend
+	combine_time = 8 MINUTES
+	rebel_time = 30 SECONDS
+	grace_time = 1 MINUTES
+	starting_faction = COMBINE_DEPLOYMENT_FACTION
+	alter_holder_respawn = TRUE
+	grace_period_up_text = "<span class='reallybig'>The initial setup grace period is up, and the combine flag is now capturable by the Rebels.</span>"
+
+/obj/machinery/deployment_koth_flag/combine_defend/short
+	combine_time = 7 MINUTES
+	rebel_time = 30 SECONDS
+	grace_time = 45 SECONDS
+	altered_respawn_speed = 35 SECONDS
+	normal_respawn_speed = 20 SECONDS
 
 /obj/effect/koth_grace_field
 	name = "Grace Period Field"

@@ -38,6 +38,8 @@ GLOBAL_VAR_INIT(xen_boss_spawned, FALSE)
 	var/list/info = list()
 	if(SSmapping.current_map.combat_deployment_gamemode == "xen_defense")
 		info += "You are playing for the Xenian side! Destroy the enemy's comms tower before the time limit is up to win!"
+	if(SSmapping.current_map.combat_deployment_gamemode == "xen_chaos")
+		info += "You are playing for the Xenian side! Capture the central flag and hold it to win!"
 	return info
 
 /datum/outfit/job/xen_tdm/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
@@ -72,13 +74,23 @@ GLOBAL_VAR_INIT(xen_boss_spawned, FALSE)
 			if(prob(DEPLOYMENT_TIER4_HIGH_XEN_CHANCE))
 				chosen = /obj/item/hl2/loadout_picker/xen/tier4
 
-	if(DEPLOYMENT_TIER5_XEN <= GLOB.deployment_xen_cash)
-		if(DEPLOYMENT_TIER5_EXTRA_CHANCE_XEN <= GLOB.deployment_xen_cash)
-			if(prob(DEPLOYMENT_TIER5_XEN_CHANCE))
-				chosen = /obj/item/hl2/loadout_picker/xen/tier5
-		else
-			if(prob(DEPLOYMENT_TIER5_HIGH_XEN_CHANCE))
-				chosen = /obj/item/hl2/loadout_picker/xen/tier5
+	if(DEPLOYMENT_TIER5_XEN <= GLOB.deployment_xen_cash) //Your faction has enough cash that you could get a tier 5
+		var/tier5_chance = DEPLOYMENT_TIER5_XEN_CHANCE //It starts out at this chance
+		if(DEPLOYMENT_TIER5_XEN <= GLOB.deployment_xen_cash) //Does your faction have enough cash for the bonus chance at tier 5?
+			tier5_chance = DEPLOYMENT_TIER5_EXTRA_CHANCE_XEN //If so, you get this higher chance
+
+		if(GLOB.xen_tier_points < 2.25) //We are unable to afford our increased tier 5 cost of 2 points
+			tier5_chance = 0
+		else if(6 <= GLOB.xen_tier_points) //We have a high surplus of tier points, lets guarantee this guy gets a tier 5
+			tier5_chance = 100
+
+
+		if(prob(tier5_chance))
+			chosen = /obj/item/hl2/loadout_picker/xen/tier5
+			GLOB.xen_tier_points -= 2 // We got a tier 5 at the cost of two tier points
+			GLOB.rebel_tier_points += 1 // Rebels get a tier point to keep it fair
+			GLOB.combine_tier_points += 1 // Ditto
+
 
 	if(DEPLOYMENT_TIER6_XEN <= GLOB.deployment_xen_cash && GLOB.xen_boss_spawned == FALSE)
 		if(prob(50)) //not an guarantee, even if its available

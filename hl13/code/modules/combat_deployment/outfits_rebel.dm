@@ -8,6 +8,7 @@
 /datum/outfit/deployment_loadout/rebel
 	faction = REBEL_DEPLOYMENT_FACTION
 	id = /obj/item/card/id/rebel_tdm
+	accessory = /obj/item/clothing/accessory/rebel_dogtags
 
 /datum/outfit/deployment_loadout/rebel/tier1
 	loadout_tier = 1
@@ -72,7 +73,7 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 9,
+		/obj/item/hl2/engineer_radio/rebel = 1,
 	)
 
 	ears = /obj/item/radio/headset/rebel_deployment
@@ -81,6 +82,8 @@
 	extra_end = 3
 
 	skillchips = list(/obj/item/skillchip/engineer)
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher/slow)
 
 /datum/outfit/deployment_loadout/rebel/tier1/smuggler
 	name = "Deployment: Refugee Smuggler"
@@ -180,8 +183,8 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 11,
 		/obj/item/reagent_containers/pill/patch/medkit/vial = 1,
+		/obj/item/hl2/engineer_radio/rebel = 1,
 	)
 
 	suit = /obj/item/clothing/suit/armor/civilprotection
@@ -192,6 +195,8 @@
 	extra_end = 3
 
 	skillchips = list(/obj/item/skillchip/engineer)
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher/slow)
 
 /datum/outfit/deployment_loadout/rebel/tier2/smuggler
 	name = "Deployment: Upgraded Smuggler"
@@ -336,7 +341,7 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 
 	extra_per = 5
-	extra_dex = 2
+	extra_dex = 3
 
 /datum/outfit/deployment_loadout/rebel/tier3/engineer
 	name = "Deployment: Upgraded Refugee Engineer+"
@@ -353,19 +358,18 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 11,
 		/obj/item/reagent_containers/pill/patch/medkit/vial = 1,
-		/obj/item/sbeacondrop/rebel_turret = 1,
 		/obj/item/wirecutters/halflife = 1,
 		/obj/item/ammo_box/magazine/usp9mm = 1,
 		/obj/item/wrench/halflife = 1,
+		/obj/item/hl2/engineer_radio/rebel/filled = 1,
 	)
 
 	suit = /obj/item/clothing/suit/armor/civilprotection
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire/slow)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher)
 
 	extra_str = 4
 	extra_end = 4
@@ -429,9 +433,10 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit, /datum/action/cooldown/spell/conjure_item/bloodloss/slow)
 
 	extra_int = 4
+	extra_dex = 2
 
 /// TIER 4 ///////////////////////////////////////////////////////////
 /datum/outfit/deployment_loadout/rebel/tier4
@@ -514,7 +519,7 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	extra_str = 4
+	extra_str = 5
 	extra_end = 6
 
 
@@ -587,7 +592,7 @@
 	ears = /obj/item/radio/headset/rebel_deployment
 
 	extra_per = 5
-	extra_dex = 2
+	extra_dex = 3
 
 /datum/outfit/deployment_loadout/rebel/tier4/engineer
 	name = "Deployment: Heavy Refugee Engineer"
@@ -606,19 +611,18 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 11,
-		/obj/item/sbeacondrop/rebel_turret = 1,
 		/obj/item/reagent_containers/pill/patch/medkit/vial = 1,
 		/obj/item/ammo_box/colta357 = 2,
 		/obj/item/wirecutters/halflife = 1,
 		/obj/item/wrench/halflife = 1,
+		/obj/item/hl2/engineer_radio/rebel/filled = 1,
 	)
 
 	suit = /obj/item/clothing/suit/armor/rebel/light
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher)
 
 	extra_str = 4
 	extra_end = 4
@@ -628,7 +632,7 @@
 /obj/item/sbeacondrop/rebel_turret
 	desc = "A label on it reads: <i>Warning: Activating this device will send a rebel turret to your location</i>."
 	droptype = /obj/machinery/porta_turret/combine/rebel
-	call_period = 4 SECONDS
+	call_period = 5 SECONDS
 
 /datum/outfit/deployment_loadout/rebel/tier4/spy
 	name = "Deployment: Rebel Spy"
@@ -656,6 +660,7 @@
 		/obj/item/grenade/c4 = 2,
 		/obj/item/ammo_box/colta357 = 1,
 		/obj/item/grenade/smokebomb = 1,
+		/obj/item/climbing_hook/halflife/makeshift = 1,
 	)
 
 	ears = /obj/item/radio/headset/rebel_deployment
@@ -711,7 +716,7 @@
 	belt = /obj/item/storage/belt/civilprotection/polish_resistance/medic_plus
 	accessory = /obj/item/clothing/accessory/armband/medblue
 	l_pocket = /obj/item/reagent_containers/pill/patch/medkit
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/usp
+	suit_store = /obj/item/gun/ballistic/revolver/coltpython/poorly_maintained
 	r_pocket = /obj/item/flashlight/seclite
 	shoes = /obj/item/clothing/shoes/boots
 	head = /obj/item/clothing/head/helmet/halflife/military/weak/crafted
@@ -720,7 +725,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health
 
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/usp9mm = 2,
+		/obj/item/ammo_box/colta357 = 2,
 		/obj/item/storage/medkit/halflife = 1,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
 		/obj/item/healthanalyzer = 1,
@@ -729,9 +734,10 @@
 
 	ears = /obj/item/radio/headset/rebel_deployment
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit, /datum/action/cooldown/spell/conjure_item/bloodloss)
 
 	extra_int = 4
+	extra_dex = 2
 
 /datum/outfit/deployment_loadout/rebel/tier4/medic_rebel/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -762,12 +768,12 @@
 	back = /obj/item/storage/backpack/halflife/satchel/larger
 
 	backpack_contents = list(
-		/obj/item/grenade/syndieminibomb/bouncer = 2,
-		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
+		/obj/item/grenade/syndieminibomb/bouncer = 1,
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = 3,
 		/obj/item/storage/box/lethalshot/halflife = 3,
 	)
 
-	extra_dex = 2
+	extra_dex = 6
 	extra_str = 2
 
 /datum/outfit/deployment_loadout/rebel/tier5/rpg
@@ -792,6 +798,37 @@
 
 	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/rocket)
 
+	extra_end = 2
+
+/datum/outfit/deployment_loadout/rebel/tier5/firefighter
+	name = "Deployment: Rebel Fire Fighter"
+	display_name = "Rebel Fire Fighter (Defense)"
+	desc = "You are very slow, and while your armor is pretty good it still isn't remarkable against normal threats. Where you shine however, is being incredibly resistant to heat and flame based attacks, making you perfect for fighting cremators. In addition, you have incendiary grenades of your own to turn up the heat with."
+	id_name = "Firefighter"
+
+	uniform = /obj/item/clothing/under/citizen/rebel
+	suit = /obj/item/clothing/suit/utility/fire/firefighter/halflife
+	head = /obj/item/clothing/head/halflife/firesuit_hat
+	mask = /obj/item/clothing/mask/gas/hl2/swat
+	suit_store = /obj/item/gun/ballistic/automatic/ak47/cheap
+	l_pocket = /obj/item/reagent_containers/hypospray/medipen/healthpen
+	r_pocket = /obj/item/flashlight/seclite
+
+	ears = /obj/item/radio/headset/rebel_deployment
+	combat_music = 'hl13/sound/music/combat/secretsteersus.ogg'
+
+	back = /obj/item/storage/backpack/halflife/satchel/larger/fireproof
+
+	backpack_contents = list(
+		/obj/item/grenade/incendiary_grenade = 2,
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
+		/obj/item/reagent_containers/pill/patch/medkit = 2,
+		/obj/item/ammo_box/magazine/ak47 = 3,
+		/obj/item/extinguisher/mini = 1,
+	)
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/grenade/incendiary)
+
 /datum/outfit/deployment_loadout/rebel/tier5/veteran
 	name = "Deployment: PLF Veteran"
 	display_name = "PLF Veteran (Defense)"
@@ -809,8 +846,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	shoes = /obj/item/clothing/shoes/boots
 	backpack_contents = list(
-		/obj/item/grenade/syndieminibomb/bouncer = 2,
-		/obj/item/hl13_small_flag/poland/telescopic = 1,
+		/obj/item/grenade/syndieminibomb/bouncer = 1,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 3,
 		/obj/item/reagent_containers/pill/patch/medkit = 1,
 		/obj/item/ammo_box/magazine/ak47 = 2,
@@ -854,6 +890,8 @@
 	shoes = /obj/item/clothing/shoes/boots
 
 	back = /obj/item/storage/backpack/halflife/satchel
+
+	belt = /obj/item/storage/belt/civilprotection/polish_resistance/revolver
 
 	backpack_contents = list(
 		/obj/item/hl13_small_flag/poland/telescopic = 1,

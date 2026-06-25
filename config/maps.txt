@@ -32,7 +32,7 @@ map deployment_city_koth_tower
 	votable
 endmap
 
-map deployment_koth_plaza
+map deployment_koth_plaza_xen
 	minplayers 0
 	minplayers 0
 	votable
@@ -45,6 +45,12 @@ map deployment_city_ctf
 endmap
 
 map deployment_bunker
+	minplayers 0
+	minplayers 0
+	votable
+endmap
+
+map deployment_bridgepoint
 	minplayers 0
 	minplayers 0
 	votable

@@ -117,7 +117,7 @@
 
 /obj/item/hl2/supply_radio/rebel/lieutenant
 	name = "PLF Lieutenant Supply Radio"
-	max_cash_regeneration = 2
+	max_cash_regeneration = 3
 	final_allowed_cash = 300
 
 /obj/item/hl2/supply_radio/combine
@@ -126,7 +126,7 @@
 
 /obj/item/hl2/supply_radio/combine/logistics
 	name = "Combine Logistics Supply Radio"
-	max_cash_regeneration = 6
+	max_cash_regeneration = 7
 	final_allowed_cash = 450 //allows everything but more tier 5s
 
 /obj/item/hl2/supply_radio/combine/generate_display_names()
@@ -197,8 +197,8 @@
 	spawn_path = /obj/item/sbeacondrop/rebel_turret
 
 /datum/supply_beacon_option/fortifications_crate
-	option_name = "Fortifications Crate (275 Points)"
-	cost = 275
+	option_name = "Fortifications Crate (250 Points)"
+	cost = 250
 	spawn_path = /obj/structure/closet/crate/halflife/wooden/fortifications
 
 /datum/supply_beacon_option/grenade_crate
@@ -245,3 +245,183 @@
 	option_name = "Self Recharging Heavy Ammo Crate (550 Points)"
 	cost = 550
 	spawn_path = /obj/machinery/ammo_crate/heavy/recharge
+
+/obj/item/hl2/engineer_radio
+	name = "Engineering Radio"
+	desc = "A specialized engineering supply radio tuned to a logistics base. It uses up stored Construction Tokens in order to purchase supplies, which can be acquired by using a Construction Token Voucher on the radio. In addition, you can hit this radio with other radios to absorb them for extra tokens."
+	icon = 'hl13/icons/obj/misc_items.dmi'
+	icon_state = "perk_picker"
+	w_class = WEIGHT_CLASS_SMALL
+	var/current_cash = 120
+	var/faction_belonging = NO_FACTION
+
+/obj/item/hl2/engineer_radio/rebel
+	name = "Rebel Engineering Radio"
+	faction_belonging = REBEL_DEPLOYMENT_FACTION
+
+/obj/item/hl2/engineer_radio/rebel/filled
+	current_cash = 180
+
+/obj/item/hl2/engineer_radio/combine
+	name = "Combine Engineering Radio"
+	faction_belonging = COMBINE_DEPLOYMENT_FACTION
+
+/obj/item/hl2/engineer_radio/combine/filled
+	current_cash = 180
+
+/obj/item/hl2/engineer_radio/interact(mob/user)
+	. = ..()
+	if(!can_use_beacon(user))
+		return
+
+	if(!HAS_TRAIT(user, TRAIT_ENGINEER))
+		to_chat(user, span_warning("This radio is too complex for you to use, only an engineer can figure it out."))
+		return FALSE
+
+	if(isliving(user))
+		var/mob/living/livie = user
+		if(livie.deployment_faction != faction_belonging)
+			to_chat(user, span_warning("Your faction cannot use this."))
+			return
+
+	open_options_menu(user)
+
+/// Return the list that will be used in the choice selection.
+/// Entries should be in (type.name = type) fashion.
+/obj/item/hl2/engineer_radio/proc/generate_display_names()
+	return list()
+
+/// Checks if this mob can use the beacon, returns TRUE if so or FALSE otherwise.
+/obj/item/hl2/engineer_radio/proc/can_use_beacon(mob/living/user)
+	if(user.can_perform_action(src, FORBID_TELEKINESIS_REACH))
+		return TRUE
+
+	playsound(src, 'sound/machines/buzz/buzz-sigh.ogg', 40, TRUE)
+	return FALSE
+
+/// Opens a menu and allows the mob to pick an option from the list
+/obj/item/hl2/engineer_radio/proc/open_options_menu(mob/living/user)
+	var/list/display_names = generate_display_names()
+	if(!length(display_names))
+		return
+	var/choice = tgui_input_list(user, "TOKENS AVAILABLE: [current_cash]", "Select an item to purchase", display_names)
+	if(isnull(choice) || isnull(display_names[choice]))
+		return
+	if(!can_use_beacon(user))
+		return
+
+	var/datum/supply_beacon_option/new_option = display_names[choice]
+	if(current_cash < new_option.cost)
+		to_chat(user, span_warning("Not enough construction tokens."))
+		return
+
+	to_chat(user, span_green("Calling in item..."))
+	if(!do_after(user, 1.5 SECONDS))
+		to_chat(user, span_warning("Failed to call in item."))
+		return
+
+	consume_use(display_names[choice], user)
+
+/// Consumes a use of the beacon, sending the user a message and creating their item in the process
+/obj/item/hl2/engineer_radio/proc/consume_use(datum/supply_beacon_option/option_choice, mob/living/user)
+	var/datum/supply_beacon_option/new_option = option_choice
+	var/item_to_spawn = new_option.spawn_path
+	var/item_amount = new_option.amount
+
+	to_chat(user, span_hear("Item purchased."))
+
+	playsound(src, 'hl13/sound/effects/short_radio.ogg', 50, TRUE, extrarange = -3)
+
+	new item_to_spawn(user.loc, item_amount)
+
+	current_cash -= new_option.cost
+
+	do_sparks(3, source = src)
+
+/obj/item/hl2/engineer_radio/rebel/generate_display_names()
+	var/static/list/loadouts
+	if(!loadouts)
+		loadouts = list()
+		var/list/possible_loadouts = list(
+			/datum/supply_beacon_option/sandbags,
+			/datum/supply_beacon_option/razorwire,
+			/datum/supply_beacon_option/woodplanks,
+			/datum/supply_beacon_option/turret_rebel,
+		)
+		for(var/datum/supply_beacon_option/loadout as anything in possible_loadouts)
+			loadouts[initial(loadout.option_name)] = loadout
+	return loadouts
+
+/obj/item/hl2/engineer_radio/combine/generate_display_names()
+	var/static/list/loadouts
+	if(!loadouts)
+		loadouts = list()
+		var/list/possible_loadouts = list(
+			/datum/supply_beacon_option/sandbags,
+			/datum/supply_beacon_option/razorwire,
+			/datum/supply_beacon_option/woodplanks,
+			/datum/supply_beacon_option/turret_combine,
+		)
+		for(var/datum/supply_beacon_option/loadout as anything in possible_loadouts)
+			loadouts[initial(loadout.option_name)] = loadout
+	return loadouts
+
+/datum/supply_beacon_option/sandbags
+	option_name = "6x Sandbags (60 Tokens)"
+	cost = 60
+	amount = 6
+	spawn_path = /obj/item/stack/sheet/mineral/sandbags
+
+/datum/supply_beacon_option/razorwire
+	option_name = "10x Razorwire (60 Tokens)"
+	cost = 60
+	amount = 10
+	spawn_path = /obj/item/stack/razorwire
+
+/datum/supply_beacon_option/woodplanks
+	option_name = "25x Wood Planks (60 Tokens)"
+	cost = 60
+	amount = 25
+	spawn_path = /obj/item/stack/sheet/mineral/wood
+
+/datum/supply_beacon_option/turret_combine
+	option_name = "1x Combine Turret Beacon (180 Tokens)"
+	cost = 180
+	spawn_path = /obj/item/sbeacondrop/combine_turret
+
+/datum/supply_beacon_option/turret_rebel
+	option_name = "1x Rebel Turret Beacon (180 Tokens)"
+	cost = 180
+	spawn_path = /obj/item/sbeacondrop/rebel_turret
+
+/obj/item/hl2/engineer_radio/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/construction_token))
+		to_chat(usr, span_notice("Voucher accepted."))
+		current_cash += 120
+		qdel(I)
+		return
+
+	if(istype(I, /obj/item/hl2/engineer_radio))
+		var/obj/item/hl2/engineer_radio/absorbed_radio = I
+
+		if(isliving(user))
+			var/mob/living/livie = user
+			if(livie.deployment_faction != faction_belonging) //so you dont accidentally absorb your own radio into an enemy's radio.
+				to_chat(user, span_warning("Your faction cannot use this."))
+				return
+
+
+		to_chat(usr, span_notice("Voucher accepted."))
+		current_cash += 30
+		current_cash += absorbed_radio.current_cash //steal all the tokens on the radio you are absorbing
+		qdel(absorbed_radio)
+		return
+
+	..()
+
+/obj/item/construction_token
+	name = "Construction Token Voucher"
+	desc = "A voucher that is redeemable in an engineering radio for additional construction tokens. Good for 120 points."
+	icon = 'hl13/icons/obj/misc_items.dmi'
+	icon_state = "certificate"
+	w_class = WEIGHT_CLASS_SMALL

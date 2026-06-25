@@ -38,6 +38,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	glasses = /obj/item/clothing/glasses/eyepatch
 	id = null
+	accessory = /obj/item/clothing/accessory/rebel_dogtags/captain
 
 	back = /obj/item/storage/backpack/halflife/satchel/radio/large
 
@@ -68,6 +69,8 @@
 		info += "You are playing for the Rebel Side in the Capture the Flag gamemode! Capture the enemy's flag and bring it back to your own flag enough times to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "xen_defense")
 		info += "You are playing for the Rebel Side in the Xen Defense gamemode! Protect your comms tower, gather cash, and keep incoming zombies and antlions at bay long enough for reinforcements to arrive."
+	if(SSmapping.current_map.combat_deployment_gamemode == "xen_chaos")
+		info += "You are playing for the Rebel Side in the Xen Chaos King of The Hill gamemode! Capture the central flag and keep it under your faction's control for a total of five minutes to win!"
 
 	return info
 
@@ -110,6 +113,9 @@
 	// Apply TRAIT_NODROP to everything
 	for(var/obj/item/item_to_nodrop as anything in no_drops)
 		ADD_TRAIT(item_to_nodrop, TRAIT_NODROP, CAPTURE_THE_FLAG_TRAIT)
+
+	var/datum/atom_hud/team = GLOB.huds[DATA_TDM_HUD_REB]
+		team.show_to(H)
 
 
 /datum/job/deployment_refugee_captain/get_roundstart_spawn_point()

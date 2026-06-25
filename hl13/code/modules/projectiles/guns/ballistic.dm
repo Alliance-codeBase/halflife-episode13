@@ -142,7 +142,7 @@
 	eject_empty_sound = "sound/items/weapons/gun/rifle/rifleunload.ogg"
 	accepted_magazine_type = /obj/item/ammo_box/magazine/ak47
 	force = 12
-	fire_delay = 2
+	fire_delay = 3
 	burst_size = 1
 	spread = 7
 	recoil = 0.7
@@ -155,12 +155,21 @@
 	lefthand_file = 'hl13/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'hl13/icons/mob/inhands/guns_righthand.dmi'
 
+	var/fire_rate = 0.37 SECONDS
+
 /obj/item/gun/ballistic/automatic/ak47/no_mag
 	spawnwithmagazine = FALSE
 
 /obj/item/gun/ballistic/automatic/ak47/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.37 SECONDS)
+	AddComponent(/datum/component/automatic_fire, fire_rate)
+
+/obj/item/gun/ballistic/automatic/ak47/cheap
+	name = "\improper Cheap AK-47 Rifle"
+	icon_state = "cheapak47"
+	desc = "An old AK-47 without the stock. This thing is going to kick like a mule without that stock... but it should still hit just as hard. This one looks like it was made with less quality control, and may fire more slowly than most AK-47s."
+	fire_rate = 0.5 SECONDS
+	fire_delay = 5
 
 //cargo pack service rifle intended for 'conscripts'. Pretty much the m4a1, but uses smaller magazines with a 20 round capacity rather than 30.
 //about 1.96 seconds TTK, also has good AP
@@ -226,7 +235,7 @@
 
 /obj/item/gun/ballistic/combine_sniper
 	name = "combine sniper rifle"
-	desc = "A pulse based marksmen rifle which fires high velocity, devestating rounds. It's unique pulse rounds gain velocity and stopping power the further they travel, use at long distance for maximum effect."
+	desc = "A pulse based marksmen rifle which fires high velocity, devestating rounds. It's unique pulse rounds gain velocity and stopping power the further they travel, use at long distance for maximum effect. It has a smart avoidance system installed which adjusts projectile trajectory to automatically attempt to avoid hitting nearby teammates."
 	icon = 'hl13/icons/obj/guns/projectile.dmi'
 	icon_state = "combine_sniper"
 	inhand_icon_state = "combine_sniper"
@@ -361,6 +370,11 @@
 
 /obj/item/gun/ballistic/revolver/coltpython/deathmatch_ranger
 	fire_delay = 12 //geared towards sniping, not mag dumping
+
+/obj/item/gun/ballistic/revolver/coltpython/poorly_maintained
+	name = "\improper poorly-maintained colt python"
+	desc = "A poorly maintained looking colt python. Just as accurate and powerful as any other colt, but the parts aren't as well taken care of, leading to a slower firing rate."
+	fire_delay = 10
 
 /obj/item/gun/ballistic/revolver/coltpython/well_crafted
 	name = "\improper well-crafted colt python"
@@ -563,6 +577,7 @@
 /obj/item/ammo_box/magazine/internal/shot/pulse
 	name = "pulseshotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/pulse
+	caliber = CALIBER_ANTIXEN
 	max_ammo = 8
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/mp7launcher
@@ -708,8 +723,11 @@
 	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/ballistic/rifle/boltaction/mosin_nagant/well_maintained
-	jamming_chance = 8
+	desc = "A ratty old pre-war rifle that was developed over a century ago. While it kicks like a mule and is rather cheap, it's slow to fire and may jam on occasion. This one looks a little better than most, it should jam less often."
+	jamming_chance = 5
 	projectile_damage_multiplier = 1.45 //approx 40 damage a shot
+	can_parry = TRUE
+	wdefense = 3
 
 /obj/item/gun/ballistic/rifle/boltaction/mosin_nagant/start_empty
 	magazine = /obj/item/ammo_box/magazine/internal/boltaction/mosin/start_empty
@@ -787,7 +805,7 @@
 //(autofire_shot_delay, windup_autofire, windup_autofire_reduction_multiplier, windup_autofire_cap, windup_spindown, allow_akimbo = TRUE)
 
 //Small upgrade to the ak47. Has around the same DPS but has far better recoil and spread control and a scope, but runs through ammo pretty quickly with its 10 round mags.
-//about 2.2 seconds TTK, and good AP
+//about 2.4 seconds TTK, and good AP
 /obj/item/gun/ballistic/automatic/svd
 	name = "\improper SVD Rifle"
 	desc = "A rare beautiful thing, this semi-automatic designated marksman rifle will take the hat off an elite at two thousand yards, and they ain't cheap."
@@ -804,7 +822,7 @@
 	eject_empty_sound = "sound/items/weapons/gun/rifle/rifleunload.ogg"
 	accepted_magazine_type = /obj/item/ammo_box/magazine/svd
 	force = 12
-	fire_delay = 5
+	fire_delay = 5 //fires faster when used through the scope, since it doesnt use the slower automatic speed
 	burst_size = 1
 	spread = 2
 	recoil = 0.5
@@ -824,7 +842,7 @@
 
 /obj/item/gun/ballistic/automatic/svd/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.6 SECONDS)
+	AddComponent(/datum/component/automatic_fire, 0.7 SECONDS)
 
 /obj/item/gun/ballistic/automatic/svd/Initialize(mapload)
 	. = ..()
@@ -908,6 +926,7 @@
 
 	spread = 0
 	recoil = 0
+	randomspread = FALSE
 
 	lefthand_file = 'hl13/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'hl13/icons/mob/inhands/guns_righthand.dmi'

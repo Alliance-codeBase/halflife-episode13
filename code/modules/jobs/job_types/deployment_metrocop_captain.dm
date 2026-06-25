@@ -35,6 +35,8 @@
 		info += "You are playing for the Combine Side in the Capture the Flag gamemode! Capture the enemy's flag and bring it back to your own flag enough times to win! You can loot buildings for money, and sell enemy player corpses to your base's cash deposit in order to upgrade your team's starting loadouts."
 	if(SSmapping.current_map.combat_deployment_gamemode == "the_hidden")
 		info += "You are part of a team hunting down an anomalous test subject known as The Hidden. Stick together with your squad, and try to put this invisible, merciless beast down. Alternatively, try to active all five combine distress terminals to win."
+	if(SSmapping.current_map.combat_deployment_gamemode == "xen_chaos")
+		info += "You are playing for the Combine Side in the Xen Chaos King of The Hill gamemode! Capture the central flag and keep it under your faction's control for a total of five minutes to win!"
 
 	return info
 
@@ -56,6 +58,7 @@
 	id = /obj/item/card/id/advanced/halflife/combine/four/sectoral
 	l_pocket = /obj/item/knife/combat/survival
 	r_pocket = /obj/item/flashlight/seclite
+	accessory = /obj/item/clothing/accessory/combine_dogtags/captain
 
 	backpack_contents = list(
 		/obj/item/megaphone = 1,
@@ -111,6 +114,9 @@
 	// Apply TRAIT_NODROP to everything
 	for(var/obj/item/item_to_nodrop as anything in no_drops)
 		ADD_TRAIT(item_to_nodrop, TRAIT_NODROP, CAPTURE_THE_FLAG_TRAIT)
+
+	var/datum/atom_hud/team = GLOB.huds[DATA_TDM_HUD_COM]
+		team.show_to(user)
 
 
 /datum/job/deployment_metrocop_captain/get_roundstart_spawn_point()

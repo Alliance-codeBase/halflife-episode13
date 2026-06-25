@@ -1,6 +1,7 @@
 /datum/outfit/deployment_loadout/combine
 	faction = COMBINE_DEPLOYMENT_FACTION
 	id = /obj/item/card/id/combine_tdm
+	accessory = /obj/item/clothing/accessory/combine_dogtags
 
 /datum/outfit/deployment_loadout/combine/tier1
 	loadout_tier = 1
@@ -62,8 +63,7 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 8,
-		/obj/item/stack/razorwire/small_stack = 1,
+		/obj/item/hl2/engineer_radio/combine = 1,
 	)
 
 
@@ -74,6 +74,8 @@
 	extra_end = 3
 
 	skillchips = list(/obj/item/skillchip/engineer)
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher/slow)
 
 /// TIER 2 ////////////////////////////////////////////////////////
 
@@ -184,9 +186,8 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 10,
-		/obj/item/stack/razorwire/small_stack = 1,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 1,
+		/obj/item/hl2/engineer_radio/combine = 1,
 	)
 
 
@@ -197,6 +198,8 @@
 	extra_end = 4
 
 	skillchips = list(/obj/item/skillchip/engineer)
+
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher/slow)
 
 /// TIER 3 ////////////////////////////////////////////////////////
 /datum/outfit/deployment_loadout/combine/tier3
@@ -336,9 +339,10 @@
 		/obj/item/ammo_box/magazine/usp9mm = 2,
 	)
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit, /datum/action/cooldown/spell/conjure_item/bloodloss/slow)
 
 	extra_int = 4
+	extra_dex = 2
 
 /datum/outfit/deployment_loadout/combine/tier3/engineer
 	name = "Deployment: Upgraded Union Engineer+"
@@ -359,19 +363,18 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 10,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 1,
-		/obj/item/sbeacondrop/combine_turret = 1,
 		/obj/item/wirecutters/halflife = 1,
 		/obj/item/ammo_box/magazine/usp9mm = 1,
 		/obj/item/wrench/halflife = 1,
+		/obj/item/hl2/engineer_radio/combine/filled = 1,
 	)
 
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/crawlyard.ogg'
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire/slow)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher)
 
 	extra_str = 5
 	extra_end = 5
@@ -491,7 +494,7 @@
 /datum/outfit/deployment_loadout/combine/tier4/ordinal
 	name = "Deployment: Combine Ordinal"
 	display_name = "Combine Ordinal (Offense)"
-	desc = "You are an OTA soldier upgraded to have a pulse SMG and an improved manhack deployer."
+	desc = "You are an OTA soldier upgraded to have a pulse SMG and a powerful, improved manhack deployer."
 	id_name = "Ordinal"
 
 	glasses = /obj/item/clothing/glasses/hud/security/night/combine
@@ -539,9 +542,10 @@
 		/obj/item/extinguisher/mini = 1,
 	)
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/medkit, /datum/action/cooldown/spell/conjure_item/bloodloss)
 
 	extra_int = 4
+	extra_dex = 2
 
 /datum/outfit/deployment_loadout/combine/tier4/medic_cop/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -568,19 +572,18 @@
 
 	backpack_contents = list(
 		/obj/item/crowbar/large = 1,
-		/obj/item/stack/sheet/mineral/sandbags = 11,
 		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
 		/obj/item/ammo_box/colta357 = 2,
-		/obj/item/sbeacondrop/combine_turret = 1,
 		/obj/item/wirecutters/halflife = 1,
 		/obj/item/wrench/halflife = 1,
+		/obj/item/hl2/engineer_radio/combine/filled = 1,
 	)
 
 
 	ears = /obj/item/radio/headset/civilprotection/deployment
 	combat_music = 'hl13/sound/music/combat/crawlyard.ogg'
 
-	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/sandbag, /datum/action/cooldown/spell/conjure_item/razor_wire)
+	spells_to_add = list(/datum/action/cooldown/spell/conjure_item/construction_voucher)
 
 	extra_str = 5
 	extra_end = 5
@@ -590,7 +593,7 @@
 /obj/item/sbeacondrop/combine_turret
 	desc = "A label on it reads: <i>Warning: Activating this device will send a combine turret to your location</i>."
 	droptype = /obj/machinery/porta_turret/combine
-	call_period = 4 SECONDS
+	call_period = 5 SECONDS
 
 /datum/outfit/deployment_loadout/combine/tier4/scanner
 	name = "Deployment: Cannister Targeter City Scanner"
@@ -608,12 +611,12 @@
 /datum/outfit/deployment_loadout/combine/tier4/overseer
 	name = "Deployment: Overseer"
 	display_name = "Viscerator Overseer Cop (Offense)"
-	desc = "You are a MP7 equipped cop that specializes in supporting allies with your large amount of viscerators, but aren't too powerful by yourself. Your viscerators are quick to deploy and have a shield which can take three shots for them, but have low health otherwise, making them best used against slow firing targets."
+	desc = "You are a MP7 equipped cop that specializes in hunting down vulnerable, alone targets with your increased speed. Your viscerators have special shields that absorb a number of shots irregardless of damage, making them best against slow firing targets like enemy snipers and vortigaunts."
 	id_name = "Overseer"
 
 	uniform = /obj/item/clothing/under/combine/civilprotection
 	gloves = /obj/item/clothing/gloves/color/civilprotection
-	suit = /obj/item/clothing/suit/armor/civilprotection/trenchcoat/overseer
+	suit = /obj/item/clothing/suit/armor/civilprotection/trenchcoat/overseer/fast
 	shoes = /obj/item/clothing/shoes/jackboots/civilprotection
 
 	mask = /obj/item/clothing/mask/gas/civilprotection/overseer
@@ -730,7 +733,7 @@
 	backpack_contents = list(
 		/obj/item/grenade/syndieminibomb/bouncer = 1,
 		/obj/item/ammo_box/magazine/pulselmg = 3,
-		/obj/item/reagent_containers/hypospray/medipen/healthpen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/healthpen = 3,
 	)
 
 	ears = /obj/item/radio/headset/civilprotection/deployment

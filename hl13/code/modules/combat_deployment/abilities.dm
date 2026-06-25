@@ -23,6 +23,23 @@
 /datum/action/cooldown/spell/conjure_item/medkit/the_hidden/faster
 	cooldown_time = 15 SECONDS
 
+/datum/action/cooldown/spell/conjure_item/bloodloss
+	name = "Procure Bloodloss Shot"
+	desc = "Procures a anti-bloodloss shot to heal someone or yourself with."
+	button_icon = 'hl13/icons/mob/actions/actions_misc.dmi'
+	button_icon_state = "bloodloss"
+	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	cooldown_time = 45 SECONDS
+	item_type = /obj/item/reagent_containers/hypospray/medipen/blood
+	requires_hands = TRUE
+	delete_old = FALSE
+
+/datum/action/cooldown/spell/conjure_item/bloodloss/slow
+	cooldown_time = 80 SECONDS
+
 /datum/action/cooldown/spell/conjure_item/sandbag
 	name = "Procure Sandbag"
 	desc = "Procures some sandbags to use for building defenses."
@@ -36,6 +53,23 @@
 	item_type = /obj/item/stack/sheet/mineral/sandbags/three
 	requires_hands = TRUE
 	delete_old = FALSE
+
+/datum/action/cooldown/spell/conjure_item/construction_voucher
+	name = "Procure Construction Token Voucher"
+	desc = "Procures a voucher that can be redeemed in your engineering radio in order to purchase engineering supplies."
+	button_icon = 'hl13/icons/obj/misc_items.dmi'
+	button_icon_state = "certificate"
+	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
+	spell_requirements = NONE
+	antimagic_flags = NONE
+	cooldown_time = 100 SECONDS
+	item_type = /obj/item/construction_token
+	requires_hands = TRUE
+	delete_old = FALSE
+
+/datum/action/cooldown/spell/conjure_item/construction_voucher/slow
+	cooldown_time = 125 SECONDS
 
 /datum/action/cooldown/spell/conjure_item/razor_wire
 	name = "Procure Razor Wire"
@@ -133,6 +167,13 @@
 /datum/action/cooldown/spell/conjure_item/grenade/New(Target, original = TRUE) //starts on cooldown
 	. = ..()
 	StartCooldown()
+
+/datum/action/cooldown/spell/conjure_item/grenade/incendiary
+	name = "Procure Incendiary Grenade"
+	desc = "Procures a incendiary grenade for tossing. Deletes the old one if it is not used."
+	item_type = /obj/item/grenade/incendiary_grenade
+	cooldown_time = 50 SECONDS
+
 
 /datum/action/cooldown/spell/aoe/rally
 	name = "Rally the Troops"

@@ -227,6 +227,7 @@
 		var/list/possible_loadouts = list(
 			/datum/outfit/deployment_loadout/rebel/tier5/freeman,
 			/datum/outfit/deployment_loadout/rebel/tier5/rpg,
+			/datum/outfit/deployment_loadout/rebel/tier5/firefighter,
 			/datum/outfit/deployment_loadout/rebel/tier5/veteran,
 			/datum/outfit/deployment_loadout/rebel/tier5/extract_vortigaunt,
 			/datum/outfit/deployment_loadout/rebel/tier5/lieutenant,
@@ -444,11 +445,11 @@
 	for(var/X in GLOB.deployment_rebel_players)
 		var/mob/living/carbon/human/H = X
 		SEND_SOUND(H, 'hl13/sound/effects/siren.ogg')
-		to_chat(H, "<span class='userdanger'>A terrifying presence has been spotted in the district... Three Tier 5 Loadout spawners have been made available in your team's cash deposit for anyone to upgrade from.</span>")
+		to_chat(H, "<span class='userdanger'>A terrifying presence has been spotted in the district... Two Tier 5 Loadout spawners have been made available in your team's cash deposit for anyone to upgrade from.</span>")
 	for(var/X in GLOB.deployment_combine_players)
 		var/mob/living/carbon/human/H = X
 		SEND_SOUND(H, 'hl13/sound/effects/siren.ogg')
-		to_chat(H, "<span class='userdangert big'>A terrifying presence has been spotted in the district... Three Tier 5 Loadout spawners have been made available in your team's cash deposit for anyone to upgrade from.</span>")
+		to_chat(H, "<span class='userdangert big'>A terrifying presence has been spotted in the district... Two Tier 5 Loadout spawners have been made available in your team's cash deposit for anyone to upgrade from.</span>")
 	for(var/X in GLOB.deployment_xen_players)
 		var/mob/living/carbon/human/H = X
 		SEND_SOUND(H, 'hl13/sound/effects/siren.ogg')

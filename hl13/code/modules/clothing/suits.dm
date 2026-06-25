@@ -134,6 +134,9 @@
 	desc = "A variant of the modified trenchcoat vest dyed with green highlights to broadcast the authority of its wearer."
 	icon_state = "cp_trenchcoatoverseer"
 
+/obj/item/clothing/suit/armor/civilprotection/trenchcoat/overseer/fast
+	slowdown = -0.1
+
 /obj/item/clothing/suit/armor/civilprotection/trenchcoat/sectorial
 	name = "sectoral trenchcoat"
 	desc = "A variant of the modified trenchcoat vest dyed with blue highlights to broadcast the authority of its wearer."
@@ -186,6 +189,7 @@
 	actions_types = list(/datum/action/item_action/assassin_invis)
 	clothing_traits = list(TRAIT_BACKSTABBER)
 	var/invis_ready = TRUE
+	var/cloaked = FALSE
 
 /datum/armor/overwatch_assassin_armor
 	melee = 35
@@ -202,13 +206,13 @@
 
 /datum/action/item_action/assassin_invis
 	name = "Cloak Self"
-	desc = "Partially cloak yourself for a short duration."
+	desc = "Toggle on/off a partial cloak over yourself. While cloaked you cannot directly attack people."
 	button_icon = 'hl13/icons/mob/actions/actions_misc.dmi'
 	button_icon_state = "cloak"
 
 /obj/item/clothing/suit/armor/overwatch/assassin/verb/assassin_invis()
 	set category = "Object"
-	set name = "Cloak Self"
+	set name = "Toggle Cloak"
 	if(!iscarbon(usr))
 		return
 	if(!invis_ready)
@@ -216,16 +220,23 @@
 		return
 
 	var/mob/living/carbon/human/H = usr
-	to_chat(H, "<span class='notice'Cloak deployed.</span>")
+
+	if(!cloaked)
+		to_chat(H, "<span class='notice'Cloak deployed.</span>")
+		H.alpha = 40
+		ADD_TRAIT(H, TRAIT_PACIFISM, CLOTHING_TRAIT) //cant attack while cloaked
+		cloaked = TRUE
+	else
+		to_chat(H, "<span class='notice'Cloak removed.</span>")
+		H.alpha = 255
+		REMOVE_TRAIT(H, TRAIT_PACIFISM, CLOTHING_TRAIT)
+		cloaked = FALSE
 
 	playsound(loc, 'hl13/sound/effects/zap1.ogg', 50, TRUE, TRUE)
 	invis_ready = FALSE
-	H.alpha = 35
-	sleep(15 SECONDS)
-	H.alpha = 255
-	sleep(20 SECONDS)
+
+	sleep(1 SECONDS)
 	invis_ready = TRUE
-	to_chat(usr, span_notice("The suit hums, its cloak is ready to deploy once more."))
 
 /obj/item/clothing/suit/armor/overwatch/wallhammer
 	name = "overwatch wallhammer chestpiece"
@@ -266,7 +277,7 @@
 	inhand_icon_state = "wallhammer"
 	block_chance = 90
 	slot_flags = 0
-	max_integrity = 135
+	max_integrity = 125
 	shield_break_leftover = null
 	item_flags = DROPDEL
 
@@ -746,8 +757,8 @@
 /datum/armor/plf_veteran
 	melee = 60 //bulky EOD suit
 	bullet = 70 //enough kevlar to kill god
-	laser = 50
-	energy = 100
+	laser = 60
+	energy = 90
 	bomb = 90 //gutted EOD suit. missing some of the original plating though.
 	fire = 70 //pretty well-insulated
 	acid = 50
@@ -790,3 +801,29 @@
 	fire = 40
 	acid = 20
 	wound = 5
+
+/obj/item/clothing/suit/utility/fire/firefighter/halflife
+	name = "reinforced firesuit"
+	desc = "An old world firesuit with a resistance modified overwatch plate carrier above it. Provides amazing protection against flames and heat, and isn't too shabby at being normal armor as well."
+	icon_state = "firesuit"
+	slowdown = 0.75
+	icon = 'hl13/icons/obj/clothing/suits.dmi'
+	worn_icon = 'hl13/icons/mob/clothing/suit.dmi'
+	armor_type = /datum/armor/halflife_firesuit
+	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NOFIRE, TRAIT_NOFIRE_SPREAD)
+	allowed = list(
+		/obj/item/crowbar,
+		/obj/item/gun,
+		/obj/item/extinguisher,
+		/obj/item/tank/internals,
+		)
+
+/datum/armor/halflife_firesuit
+	melee = 40
+	bullet = 45
+	laser = 85
+	energy = 80
+	bomb = 40
+	fire = 100
+	acid = 100
+	wound = 10

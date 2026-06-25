@@ -34,6 +34,11 @@
 	del_on_death = 1
 	death_message = "is smashed into pieces!"
 	death_sound = 'hl13/sound/creatures/viscerator/gib.ogg'
+
+	light_range = 2.25
+	light_power = 1
+	light_color = "#9bd9dd"
+
 	var/operating_power = 100
 	var/low_power_melee_damage_lower = 5
 	var/low_power_melee_damage_upper = 10
@@ -68,8 +73,9 @@
 	melee_damage_upper = 30
 
 /mob/living/simple_animal/hostile/halflife/viscerator/upgraded
-	health = 90
-	maxHealth = 90
+	health = 95
+	maxHealth = 95
+	armour_penetration = 15
 	melee_damage_lower = 15
 	melee_damage_upper = 22
 
@@ -85,9 +91,12 @@
 	desc = "A small, twin-bladed machine capable of inflicting very deadly lacerations. This one has less armor plating and uses much of its battery reserves to power a pulse shield that can deflect up to three projectiles, no matter how strong they are."
 	health = 30
 	maxHealth = 30
+	armour_penetration = 10
 	low_power_melee_damage_lower = 3
 	low_power_melee_damage_upper = 5
-	operating_power = 15 //30 seconds till low power
+	melee_damage_lower = 15
+	melee_damage_upper = 22
+	operating_power = 8 //16 seconds till low power
 	loot = list()
 	var/shield_hits = 3
 

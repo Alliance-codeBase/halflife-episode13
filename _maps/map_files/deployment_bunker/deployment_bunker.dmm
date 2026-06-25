@@ -123,8 +123,8 @@
 /turf/open/floor/plating/indoor/concrete/bricks,
 /area/halflife/indoors/bunker)
 "hq" = (
-/obj/machinery/ammo_crate,
 /obj/machinery/combine_walllight/directional/south,
+/obj/machinery/ammo_crate/heavy,
 /turf/open/floor/plating/indoor/metal/combine,
 /area/halflife/indoors/combat_deployment/combine_base)
 "hu" = (
@@ -290,10 +290,34 @@
 /obj/machinery/combine_health_station/self_recharging{
 	pixel_y = 30
 	},
-/obj/item/reagent_containers/pill/patch/grubnugget,
-/obj/item/reagent_containers/pill/patch/grubnugget,
-/obj/item/reagent_containers/pill/patch/grubnugget,
-/obj/item/reagent_containers/pill/patch/grubnugget,
+/obj/item/reagent_containers/pill/patch/grubnugget{
+	pixel_x = -8;
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/pill/patch/grubnugget{
+	pixel_x = -8;
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/pill/patch/grubnugget{
+	pixel_x = -9;
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/pill/patch/grubnugget{
+	pixel_x = -9;
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/hypospray/medipen/healthpen{
+	pixel_x = 10;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/hypospray/medipen/healthpen{
+	pixel_x = 13;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/hypospray/medipen/healthpen{
+	pixel_x = 11;
+	pixel_y = 5
+	},
 /turf/open/floor/plating/indoor/metal/combine,
 /area/halflife/indoors/combat_deployment/combine_base)
 "pY" = (
@@ -441,6 +465,10 @@
 /obj/item/stack/razorwire/half_stack,
 /turf/open/floor/plating/indoor/concrete/small,
 /area/halflife/indoors/bunker)
+"yp" = (
+/obj/structure/trap/deployment_spawn_prot/rebel,
+/turf/closed/wall/halflife/concrete/bunker,
+/area/halflife/indoors/combat_deployment/rebel_base)
 "yq" = (
 /obj/structure/chair/comfy/halflife/captain{
 	dir = 1
@@ -815,6 +843,10 @@
 "MF" = (
 /turf/open/floor/plating/indoor/metal/grate,
 /area/halflife/indoors/bunker)
+"Ne" = (
+/obj/structure/bed/medical,
+/turf/open/floor/plating/indoor/metal/combine,
+/area/halflife/indoors/combat_deployment/combine_base)
 "Nf" = (
 /obj/structure/halflife/road_barrier/concrete,
 /turf/open/floor/plating/indoor/concrete/bricks,
@@ -1000,6 +1032,13 @@
 /obj/item/stack/sheet/halflife/bullets,
 /turf/open/floor/plating/indoor/concrete,
 /area/halflife/indoors/combat_deployment/rebel_base)
+"Uk" = (
+/obj/structure/table/halflife/metal/grate,
+/obj/item/reagent_containers/pill/patch/medkit,
+/obj/item/reagent_containers/pill/patch/medkit,
+/obj/item/reagent_containers/pill/patch/medkit,
+/turf/open/floor/plating/indoor/metal/combine,
+/area/halflife/indoors/combat_deployment/combine_base)
 "Um" = (
 /obj/structure/table/halflife/metal/grate,
 /obj/item/stack/sticky_tape,
@@ -4901,7 +4940,7 @@ zK
 zK
 zK
 zK
-Fb
+Uk
 HZ
 hQ
 hQ
@@ -5046,8 +5085,8 @@ ni
 zK
 ul
 Sl
-HZ
-HZ
+Sl
+Sl
 HZ
 HZ
 hQ
@@ -5192,8 +5231,8 @@ HZ
 zK
 hq
 Sl
-HZ
-HZ
+Ne
+Sl
 HZ
 HZ
 HZ
@@ -5236,7 +5275,7 @@ gj
 gj
 gj
 gj
-yE
+yp
 Zn
 Zn
 yD
@@ -5338,7 +5377,7 @@ HZ
 zK
 pP
 Sl
-HZ
+Ne
 HZ
 HZ
 HZ
@@ -5382,7 +5421,7 @@ UM
 VE
 Da
 LW
-yE
+yp
 Zn
 ml
 hi
@@ -5484,7 +5523,7 @@ hQ
 zK
 Tk
 Sl
-HZ
+Ne
 HZ
 HZ
 HZ
@@ -5528,7 +5567,7 @@ yE
 yE
 yE
 yE
-yE
+yp
 Zn
 ml
 hi
@@ -5674,7 +5713,7 @@ vF
 AM
 vB
 Ja
-yE
+yp
 TK
 ml
 ml
@@ -5820,7 +5859,7 @@ oY
 oY
 Bz
 Bz
-yE
+yp
 Zn
 ml
 ml
@@ -5966,7 +6005,7 @@ oY
 oY
 oY
 oY
-yE
+yp
 Zn
 ml
 ml
@@ -6258,7 +6297,7 @@ oY
 oY
 oY
 oY
-yE
+yp
 Zn
 ml
 ml
@@ -6404,7 +6443,7 @@ oY
 oY
 Bz
 Bz
-yE
+yp
 Zn
 ml
 ml
@@ -6550,7 +6589,7 @@ zI
 pB
 vB
 Ja
-yE
+yp
 TK
 ml
 ml
@@ -6696,7 +6735,7 @@ yE
 yE
 yE
 yE
-yE
+yp
 Zn
 ml
 hi
@@ -6796,7 +6835,7 @@ aJ
 HZ
 hQ
 ON
-ON
+NY
 HZ
 HZ
 HZ
@@ -6842,7 +6881,7 @@ gj
 Se
 gj
 Xq
-yE
+yp
 Zn
 ml
 hi
@@ -6988,7 +7027,7 @@ gj
 LW
 gj
 WA
-yE
+yp
 Zn
 Zn
 yD
